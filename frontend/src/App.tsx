@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Routes, Route, Navigate, Link, useLocation, Outlet } from "react-router-dom";
 import { 
   ShieldCheck, LayoutDashboard, Users, 
-  ClipboardList, FolderHeart, Info, FlaskConical, ArrowLeft
+  ClipboardList, FolderHeart, Info, FlaskConical, ArrowLeft, Sun, Moon
 } from "lucide-react";
 import LandingPage from "./pages/LandingPage";
 import DashboardPage from "./pages/DashboardPage";
@@ -12,7 +12,7 @@ import TrialsPage from "./pages/TrialsPage";
 import ReportsPage from "./pages/ReportsPage";
 import RunPage from "./pages/RunPage";
 
-function WorkspaceLayout({ userProfile }: { userProfile: any }) {
+function WorkspaceLayout({ userProfile, theme, setTheme }: { userProfile: any; theme: string; setTheme: (theme: string) => void }) {
   const location = useLocation();
 
   const getLinkClass = (path: string) => {
@@ -25,7 +25,7 @@ function WorkspaceLayout({ userProfile }: { userProfile: any }) {
   };
 
   const getInitials = (name?: string) => {
-    if (!name) return "SC";
+    if (!name) return "RS";
     return name.split(" ").map(n => n[0]).join("").slice(0, 2).toUpperCase();
   };
 
@@ -35,31 +35,37 @@ function WorkspaceLayout({ userProfile }: { userProfile: any }) {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 flex flex-col font-sans">
-      {/* Top Workspace Header */}
-      <header className="h-14 bg-white border-b border-slate-200 sticky top-0 z-40 px-6 flex items-center justify-between shadow-2xs">
+    <div className="min-h-screen bg-bg-base text-text-primary flex flex-col font-sans">
+      <header className="h-14 bg-bg-surface border-b border-border-subtle sticky top-0 z-40 px-6 flex items-center justify-between shadow-2xs">
         <div className="flex items-center gap-2">
           <Link to="/" className="flex items-center gap-2">
             <div className="bg-teal-50 border border-teal-200 text-teal-600 p-1.5 rounded-lg">
               <ShieldCheck className="w-4.5 h-4.5" />
             </div>
             <div>
-              <h1 className="font-extrabold text-xs text-slate-900 tracking-tight">
+              <h1 className="font-extrabold text-xs text-text-primary tracking-tight">
                 AURA Clinical Agent
               </h1>
-              <p className="text-[8px] text-slate-450 font-bold uppercase tracking-wider">Enterprise Match Portal</p>
+              <p className="text-[8px] text-text-secondary font-bold uppercase tracking-wider">Enterprise Match Portal</p>
             </div>
           </Link>
         </div>
 
         <div className="flex items-center gap-4">
-          <div className="flex items-center gap-2.5 bg-slate-50 border border-slate-200 px-3 py-1.5 rounded-lg">
+          <button
+            onClick={() => setTheme(theme === "light" ? "dark" : "light")}
+            className="p-1.5 rounded-lg border border-border-subtle bg-bg-surface hover:bg-bg-elevated text-text-secondary hover:text-text-primary transition shadow-2xs flex items-center justify-center shrink-0 cursor-pointer"
+            aria-label="Toggle theme"
+          >
+            {theme === "dark" ? <Sun className="w-4 h-4 text-amber-500" /> : <Moon className="w-4 h-4" />}
+          </button>
+          <div className="flex items-center gap-2.5 bg-bg-elevated border border-border-subtle px-3 py-1.5 rounded-lg">
             <div className="w-6.5 h-6.5 rounded bg-teal-600 text-white flex items-center justify-center font-bold text-xs">
               {getInitials(userProfile?.name)}
             </div>
             <div className="text-left hidden sm:block">
-              <p className="font-bold text-[10px] text-slate-800 leading-tight">{userProfile ? userProfile.name : "Dr. Sarah Chen"}</p>
-              <p className="text-[8px] text-slate-500 font-semibold">{formatRole(userProfile?.role)}</p>
+              <p className="font-bold text-[10px] text-text-primary leading-tight">{userProfile ? userProfile.name : "Research Staff"}</p>
+              <p className="text-[8px] text-text-secondary font-semibold">{formatRole(userProfile?.role)}</p>
             </div>
           </div>
         </div>
@@ -116,13 +122,12 @@ function WorkspaceLayout({ userProfile }: { userProfile: any }) {
           </div>
         </aside>
 
-        {/* Content Box */}
-        <main className="flex-grow p-6 md:p-8 overflow-y-auto bg-slate-50">
+        <main className="flex-grow p-6 md:p-8 overflow-y-auto bg-bg-base">
           <Outlet />
         </main>
       </div>
 
-      <footer className="bg-white border-t border-slate-200 py-3 px-8 flex justify-between items-center text-[9px] text-slate-400 font-bold uppercase tracking-wider shadow-2xs">
+      <footer className="bg-bg-surface border-t border-border-subtle py-3 px-8 flex justify-between items-center text-[9px] text-text-secondary font-bold uppercase tracking-wider shadow-2xs">
         <span>AURA Clinical Agent v1.0.0</span>
         <span>RAISE Summit Hackathon 2026</span>
       </footer>
@@ -132,6 +137,24 @@ function WorkspaceLayout({ userProfile }: { userProfile: any }) {
 
 export default function App() {
   const [userProfile, setUserProfile] = useState<{ name: string; role: string } | null>(null);
+  const [theme, setTheme] = useState<string>(() => {
+    if (typeof window !== "undefined") {
+      const saved = localStorage.getItem("theme");
+      if (saved === "light" || saved === "dark") return saved;
+      if (window.matchMedia("(prefers-color-scheme: dark)").matches) return "dark";
+    }
+    return "light";
+  });
+
+  useEffect(() => {
+    const root = document.documentElement;
+    if (theme === "dark") {
+      root.classList.add("dark");
+    } else {
+      root.classList.remove("dark");
+    }
+    localStorage.setItem("theme", theme);
+  }, [theme]);
   
   useEffect(() => {
     fetch("/api/me")
@@ -145,8 +168,8 @@ export default function App() {
 
   return (
     <Routes>
-      <Route path="/" element={<LandingPage />} />
-      <Route path="/workspace" element={<WorkspaceLayout userProfile={userProfile} />}>
+      <Route path="/" element={<LandingPage theme={theme} setTheme={setTheme} />} />
+      <Route path="/workspace" element={<WorkspaceLayout userProfile={userProfile} theme={theme} setTheme={setTheme} />}>
         <Route index element={<Navigate to="/workspace/dashboard" replace />} />
         <Route path="dashboard" element={<DashboardPage />} />
         <Route path="evaluate" element={<EvaluatePage />} />

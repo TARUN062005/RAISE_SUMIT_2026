@@ -1,2 +1,2 @@
 def get_current_staff_user() -> dict:
-    return { "name": "Dr. Sarah Chen", "role": "research_coordinator" }
+    return { "name": "Research Staff", "role": "research_coordinator" }

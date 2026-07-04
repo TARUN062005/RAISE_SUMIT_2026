@@ -227,3 +227,15 @@ Endpoints implemented (if applicable): none
 Tools implemented (if applicable): none
 Deviations from prompt and why: none
 Remaining for this phase: none
+
+## Phase 12 — Crash Recovery, Data Seeder, Reasoning UI & Responsive Pass — 2026-07-04T21:03:00Z
+Files created/modified:
+- [orchestrator.py](file:///D:/Raise/backend/app/agent/orchestrator.py) (tolerant extract_first_json_object parser, expanded ReAct loop try/except block, clean_tool_res_for_llm prompt minification, restored validate_citations returns)
+- [trials.py](file:///D:/Raise/backend/app/seed/trials.py) (strict word boundary matching for lab names, collapsed multi-value parsed criteria to a single specific/general row per raw CSV description item)
+- [PatientsPage.tsx](file:///D:/Raise/frontend/src/pages/PatientsPage.tsx) (imported React Fragment, applied key props to mapped lists to eliminate console errors)
+- [RunPage.tsx](file:///D:/Raise/frontend/src/pages/RunPage.tsx) (Cursor/Claude-Code compact list rendering, active loaders, collapsed JSON detail toggles, bounded panel dimensions, scroll locks)
+Collections seeded (if applicable): trial_eligibility: 135 (reduced from 164 after removing 33 AST mismatches and collapsing duplicates)
+Endpoints implemented (if applicable): none
+Tools implemented (if applicable): none
+Deviations from prompt and why: none
+Remaining for this phase: none

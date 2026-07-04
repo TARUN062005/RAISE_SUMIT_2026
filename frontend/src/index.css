@@ -1,36 +1,104 @@
 @import "tailwindcss";
 
+:root {
+  --bg-base: #f8fafc;
+  --bg-surface: #ffffff;
+  --bg-elevated: #f1f5f9;
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-on-accent: #ffffff;
+  --border-subtle: #e2e8f0;
+  --accent: #0d9488;
+  --accent-contrast: #0f766e;
+  --success: #16a34a;
+  --warning: #d97706;
+  --danger: #dc2626;
+  --selection-bg: #0d9488;
+  --selection-text: #ffffff;
+}
+
+.dark {
+  --bg-base: #0b0f19;
+  --bg-surface: #131b2e;
+  --bg-elevated: #1e293b;
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --text-on-accent: #0b0f19;
+  --border-subtle: #1e293b;
+  --accent: #2dd4bf;
+  --accent-contrast: #14b8a6;
+  --success: #4ade80;
+  --warning: #fbbf24;
+  --danger: #f87171;
+  --selection-bg: #2dd4bf;
+  --selection-text: #0b0f19;
+}
+
+@theme {
+  --color-bg-base: var(--bg-base);
+  --color-bg-surface: var(--bg-surface);
+  --color-bg-elevated: var(--bg-elevated);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-on-accent: var(--text-on-accent);
+  --color-border-subtle: var(--border-subtle);
+  --color-accent: var(--accent);
+  --color-accent-contrast: var(--accent-contrast);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-danger: var(--danger);
+
+  --text-xs: 0.8125rem;
+  --text-sm: 0.9375rem;
+  --text-base: 1.0625rem;
+  --text-lg: 1.1875rem;
+  --text-xl: 1.375rem;
+  --text-2xl: 1.625rem;
+  --text-3xl: 2rem;
+}
+
 @layer base {
   body {
     font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-    background-color: #f8fafc; /* Slate 50 off-white background */
-    color: #0f172a; /* Slate 900 */
+    background-color: var(--bg-base);
+    color: var(--text-primary);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    font-size: var(--text-base);
+    line-height: 1.6;
+    transition: background-color 0.2s ease, color 0.2s ease;
   }
   
   code, pre {
     font-family: 'JetBrains Mono', monospace;
   }
+
+  ::selection {
+    background-color: var(--selection-bg);
+    color: var(--selection-text);
+  }
+
+  ::-moz-selection {
+    background-color: var(--selection-bg);
+    color: var(--selection-text);
+  }
 }
 
-/* Scrollbar styling matching professional design system */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #f1f5f9; /* Slate 100 */
+  background: var(--bg-base);
 }
 ::-webkit-scrollbar-thumb {
-  background: #cbd5e1; /* Slate 300 */
+  background: var(--border-subtle);
   border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8; /* Slate 400 */
+  background: var(--text-secondary);
 }
 
-/* Animations */
 @keyframes pulseGlow {
   0%, 100% {
     opacity: 0.6;
