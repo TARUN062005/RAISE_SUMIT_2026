@@ -13,7 +13,6 @@ class VultrClient:
         self.base_url = settings.VULTR_BASE_URL.rstrip('/')
         self.model = settings.VULTR_MODEL
         
-        # Task 5: Fail immediately if VULTR_API_KEY or VULTR_MODEL is missing
         if not self.api_key:
             raise ValueError("Configuration Error: VULTR_API_KEY is not set in backend/.env")
         if not self.model:
