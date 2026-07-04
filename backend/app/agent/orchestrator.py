@@ -63,6 +63,55 @@ def validate_citations(citations: list, scratchpad: dict) -> Tuple[list, list]:
                 removed_citations.append({"collection": "unknown", "id": cit})
     return valid_citations, removed_citations
 
+def clean_tool_res_for_llm(tool_name: str, tool_res: dict) -> dict:
+    if tool_name != "TrialEligibilityTool.get_criteria":
+        return tool_res
+        
+    cleaned = dict(tool_res)
+    data = cleaned.get("data")
+    if not isinstance(data, list):
+        return cleaned
+        
+    seen_descriptions = set()
+    deduped_data = []
+    for item in data:
+        desc = item.get("description", "").strip()
+        desc_key = desc.lower()
+        if desc_key not in seen_descriptions:
+            seen_descriptions.add(desc_key)
+            item_copy = dict(item)
+            if len(desc) > 200:
+                item_copy["description"] = desc[:197] + "..."
+            deduped_data.append(item_copy)
+            
+    if len(deduped_data) > 20:
+        grouped = {}
+        for item in deduped_data:
+            field = item.get("field", "general")
+            grouped.setdefault(field, []).append(item)
+        cleaned["data"] = grouped
+    else:
+        cleaned["data"] = deduped_data
+        
+    return cleaned
+
+def extract_first_json_object(text: str) -> dict:
+    if not isinstance(text, str):
+        raise ValueError("Received invalid non-string response from LLM")
+    text = text.strip()
+    try:
+        return json.loads(text)
+    except Exception:
+        pass
+    start_idx = text.find('{')
+    if start_idx == -1:
+        raise ValueError("No JSON object structure '{' found in response")
+    try:
+        obj, _ = json.JSONDecoder().raw_decode(text[start_idx:])
+        return obj
+    except Exception as e:
+        raise ValueError(f"Tolerant JSON extraction failed: {e}")
+
 async def run_agent(run_id: str, patient_id: str, trial_id: str):
     logger.info("Starting agent run: %s", run_id)
     start_run_time = time.time()
@@ -96,9 +145,9 @@ async def run_agent(run_id: str, patient_id: str, trial_id: str):
             while retry_count < 2:
                 try:
                     response_text = await vultr.chat_completion(messages)
-                    parsed_json = json.loads(response_text)
+                    parsed_json = extract_first_json_object(response_text)
                     break
-                except (json.JSONDecodeError, ValueError) as e:
+                except Exception as e:
                     retry_count += 1
                     if retry_count == 2:
                         error_step = {
@@ -111,8 +160,8 @@ async def run_agent(run_id: str, patient_id: str, trial_id: str):
                             {"$push": {"steps": error_step}, "$set": {"status": "failed", "completed_at": datetime.now().isoformat()}}
                         )
                         return
-                    messages.append({"role": "assistant", "content": response_text})
-                    messages.append({"role": "user", "content": "Error: Invalid JSON response. You MUST respond with a single, valid JSON object matching the ReAct contract."})
+                    messages.append({"role": "assistant", "content": str(response_text)})
+                    messages.append({"role": "user", "content": f"Error: Invalid response. {e}. You MUST respond with a single, valid JSON object matching the ReAct contract."})
             
             thought = parsed_json.get("thought", "")
             action = parsed_json.get("action")
@@ -204,7 +253,8 @@ async def run_agent(run_id: str, patient_id: str, trial_id: str):
                 obs_msgs = []
                 for obs_step, obs_content, tool_res in results:
                     await db["agent_runs"].update_one({"id": run_id}, {"$push": {"steps": obs_step}})
-                    obs_msgs.append({"observation": obs_content, "data": tool_res})
+                    cleaned_tool_res = clean_tool_res_for_llm(obs_step.get("tool_called"), tool_res)
+                    obs_msgs.append({"observation": obs_content, "data": cleaned_tool_res})
                     
                 messages.append({"role": "user", "content": json.dumps(obs_msgs)})
                         

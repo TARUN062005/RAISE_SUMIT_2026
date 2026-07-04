@@ -98,7 +98,29 @@ export default function RunPage() {
   const [steps, setSteps] = useState<Step[]>([]);
   const [report, setReport] = useState<FinalReport | null>(null);
   const [error, setError] = useState("");
-  const stepsEndRef = useRef<HTMLDivElement>(null);
+  
+  const [expandedSteps, setExpandedSteps] = useState<Record<number, boolean>>({});
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [isUserScrolled, setIsUserScrolled] = useState(false);
+
+  const handleScroll = () => {
+    const el = containerRef.current;
+    if (!el) return;
+    const isAtBottom = el.scrollHeight - el.scrollTop - el.clientHeight < 35;
+    setIsUserScrolled(!isAtBottom);
+  };
+
+  const toggleStepDetail = (idx: number) => {
+    setExpandedSteps(prev => ({ ...prev, [idx]: !prev[idx] }));
+  };
+
+  useEffect(() => {
+    if (isUserScrolled) return;
+    const el = containerRef.current;
+    if (el) {
+      el.scrollTop = el.scrollHeight;
+    }
+  }, [steps, isUserScrolled]);
 
   useEffect(() => {
     if (!runId) return;
@@ -167,10 +189,6 @@ export default function RunPage() {
       eventSource.close();
     };
   }, [runId]);
-
-  useEffect(() => {
-    stepsEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [steps]);
 
   const getDecisionStyles = (decision: string) => {
     switch (decision) {
@@ -489,7 +507,7 @@ export default function RunPage() {
         </div>
 
         {/* RIGHT COLUMN (1/3 SPAN): LIVE STREAMING EXECUTION LOG */}
-        <div className="bg-slate-900 border border-slate-950 rounded-xl overflow-hidden shadow-2xs min-h-[500px] flex flex-col">
+        <div className="bg-slate-900 border border-slate-950 rounded-xl overflow-hidden shadow-2xs min-h-[450px] h-[calc(100vh-280px)] lg:h-[calc(100vh-240px)] flex flex-col">
           <div className="bg-slate-950 px-5 py-4 border-b border-slate-800 flex items-center justify-between shrink-0">
             <h3 className="text-xs font-bold text-slate-200 uppercase tracking-wider flex items-center gap-2">
               <Layers className="w-4 h-4 text-teal-400 animate-pulse" /> Agent Reasoning Stream
@@ -499,7 +517,11 @@ export default function RunPage() {
             )}
           </div>
           
-          <div className="p-5 flex-grow overflow-y-auto space-y-4 max-h-[650px] font-mono text-[11px] text-slate-350 leading-relaxed bg-slate-950">
+          <div 
+            ref={containerRef}
+            onScroll={handleScroll}
+            className="p-5 flex-grow overflow-y-auto space-y-4 font-mono text-[11px] text-slate-350 bg-slate-950 animate-scroll"
+          >
             <AnimatePresence initial={false}>
               {steps.map((step, idx) => {
                 const isObservation = step.type === "observation";
@@ -507,64 +529,93 @@ export default function RunPage() {
                 const toolName = step.tool_called;
                 const toolTitle = getToolTitle(toolName);
                 const icon = getToolIcon(toolName);
-                const rationale = toolName ? toolRationales[toolName] : "";
+                const rationale = toolName ? toolRationales[toolName] : "Formulating next clinical evaluation plan";
+                const isExpanded = !!expandedSteps[idx];
+                const isLatestStep = idx === steps.length - 1;
+                const isInProgress = isLatestStep && (status === "running" || status === "initializing");
+                
+                const previewText = isThought 
+                  ? (step.content.split("\n")[0].length > 60 ? step.content.split("\n")[0].slice(0, 57) + "..." : step.content.split("\n")[0])
+                  : rationale;
 
                 return (
                   <motion.div 
                     key={idx}
-                    initial={{ opacity: 0, x: 10 }}
-                    animate={{ opacity: 1, x: 0 }}
+                    initial={{ opacity: 0, y: 5 }}
+                    animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.2 }}
-                    className="border-l border-slate-800 pl-4 py-1 space-y-1.5 select-text"
+                    className="border-b border-slate-800/40 pb-3 last:border-b-0"
                   >
-                    {/* Step Title Header */}
-                    <div className="flex items-center justify-between text-[9px] text-slate-500">
-                      <span className="uppercase tracking-wider font-bold text-teal-400 flex items-center gap-1">
-                        {icon} {isThought ? "Planning Reasoning" : (step.tool_called ? step.tool_called.split(".")[0] : "Observation Agent")}
-                      </span>
-                      <div className="flex items-center gap-2 font-mono">
-                        {step.duration_ms !== undefined && (
-                          <span className="bg-slate-900 border border-slate-800 px-1 py-0.2 rounded text-slate-400">
-                            {step.duration_ms}ms
+                    <div className="flex items-center justify-between gap-3 text-xs">
+                      <div className="flex items-center gap-2 min-w-0">
+                        <span className="text-teal-400 shrink-0">
+                          {isThought ? <Brain className="w-3.5 h-3.5 animate-pulse" /> : icon}
+                        </span>
+                        <div className="flex flex-col min-w-0">
+                          <span className="font-semibold text-slate-200 text-[10px] uppercase tracking-wider min-w-0 truncate">
+                            {isThought ? "Planning Reasoning" : (toolName ? toolName.split(".")[0] : "Observation Agent")}
                           </span>
+                          <span className="text-slate-400 text-[11px] leading-tight truncate">
+                            {previewText}
+                          </span>
+                        </div>
+                      </div>
+                      
+                      {/* Status / Timing / Toggle */}
+                      <div className="flex items-center gap-2 shrink-0 font-mono text-[10px]">
+                        {isInProgress ? (
+                          <div className="flex items-center gap-1.5 text-teal-400 font-bold uppercase tracking-wider">
+                            <span className="flex h-2 w-2 relative">
+                              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-teal-400 opacity-75"></span>
+                              <span className="relative inline-flex rounded-full h-2 w-2 bg-teal-500"></span>
+                            </span>
+                            <span className="animate-pulse">Active</span>
+                          </div>
+                        ) : (
+                          <>
+                            {step.duration_ms !== undefined ? (
+                              <span className="text-teal-400 font-semibold">✓ {step.duration_ms}ms</span>
+                            ) : (
+                              <span className="text-emerald-405 font-semibold">✓</span>
+                            )}
+                            <button
+                              onClick={() => toggleStepDetail(idx)}
+                              className="text-slate-400 hover:text-teal-405 font-semibold transition px-1 py-0.5 rounded border border-slate-800 hover:border-teal-500/50 bg-slate-900/60"
+                            >
+                              {isExpanded ? "Hide" : "Details"}
+                            </button>
+                          </>
                         )}
-                        <span>{new Date(step.timestamp).toLocaleTimeString()}</span>
                       </div>
                     </div>
 
-                    {/* Step Main text */}
-                    {isThought && (
-                      <p className="text-slate-305 font-sans text-xs bg-slate-900/60 p-3 border border-slate-800 rounded-lg leading-relaxed">
-                        {step.content}
-                      </p>
-                    )}
-
-                    {isObservation && (
-                      <div className="space-y-1.5 font-sans">
-                        <div className="bg-slate-900 border border-slate-800 rounded-lg p-3 space-y-1">
-                          <div className="text-xs font-bold text-slate-300">{toolTitle}</div>
-                          {rationale && (
-                            <div className="text-[10px] text-slate-450 italic border-l border-teal-650/40 pl-2">
-                              Rationale: {rationale}
-                            </div>
-                          )}
-                          <div className="text-[10px] text-slate-400 font-mono select-all">
-                            Tool Called: <code className="text-teal-400 font-semibold">{step.tool_called}</code>
+                    {/* Expanded payload block */}
+                    {isExpanded && (
+                      <motion.div 
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: "auto", opacity: 1 }}
+                        className="mt-2 bg-slate-950 border border-slate-850 rounded-lg p-3 space-y-2 font-mono text-[10px] overflow-hidden"
+                      >
+                        {isThought ? (
+                          <div className="space-y-1">
+                            <div className="text-[9px] font-bold text-slate-500 uppercase tracking-widest">Reasoning Thought:</div>
+                            <pre className="text-slate-350 whitespace-pre-wrap font-sans leading-relaxed text-xs max-h-60 overflow-y-auto select-all">{step.content}</pre>
                           </div>
-                        </div>
-
-                        {/* Collapsible Tool IO block */}
-                        <div className="bg-slate-950 border border-slate-900 rounded-lg p-3 space-y-1.5 font-mono text-[10px]">
-                          <div className="text-[9px] font-bold text-slate-500 uppercase tracking-widest">Args Payload:</div>
-                          <pre className="text-slate-400 overflow-x-auto select-all max-h-32">{JSON.stringify(step.tool_input, null, 2)}</pre>
-                          {step.tool_output && (
-                            <>
-                              <div className="text-[9px] font-bold text-slate-500 uppercase tracking-widest border-t border-slate-900 pt-2 mt-2">Returned payload:</div>
-                              <pre className="text-slate-400 overflow-x-auto select-all max-h-48 overflow-y-auto">{JSON.stringify(step.tool_output.data || step.tool_output, null, 2)}</pre>
-                            </>
-                          )}
-                        </div>
-                      </div>
+                        ) : (
+                          <>
+                            <div className="space-y-1">
+                              <div className="text-[9px] font-bold text-slate-500 uppercase tracking-widest">Args Payload:</div>
+                              <pre className="text-slate-405 overflow-x-auto select-all max-h-32 bg-slate-900/50 p-2 rounded border border-slate-900">{JSON.stringify(step.tool_input, null, 2)}</pre>
+                            </div>
+                            {step.tool_output && (
+                              <div className="space-y-1">
+                                <div className="text-[9px] font-bold text-slate-500 uppercase tracking-widest border-t border-slate-900 pt-2">Returned Payload:</div>
+                                <pre className="text-slate-405 overflow-x-auto select-all max-h-48 bg-slate-900/50 p-2 rounded border border-slate-900 overflow-y-auto">{JSON.stringify(step.tool_output.data || step.tool_output, null, 2)}</pre>
+                              </div>
+                            )}
+                          </>
+                        )}
+                      </motion.div>
                     )}
                   </motion.div>
                 );
@@ -579,11 +630,8 @@ export default function RunPage() {
                 </span>
               </div>
             )}
-            <div ref={stepsEndRef} />
           </div>
-        </div>
-
-      </div>
+        </div>      </div>
     </div>
   );
 }

@@ -167,7 +167,13 @@ def parse_criteria(trial_id, full_text):
         # 5. Match Labs
         labs = ["neutrophil", "platelet", "hemoglobin", "bilirubin", "creatinine", "alt", "ast"]
         for lab in labs:
-            if lab in text_lower or (lab == "neutrophil" and re.search(r"\banc\b", text_lower)) or (lab == "hemoglobin" and "haemoglobin" in text_lower):
+            has_lab = re.search(rf"\b{lab}s?\b", text_lower) is not None
+            if lab == "neutrophil" and re.search(r"\banc\b", text_lower):
+                has_lab = True
+            elif lab == "hemoglobin" and re.search(r"\bhaemoglobins?\b", text_lower):
+                has_lab = True
+                
+            if has_lab:
                 op = "<=" if lab in ["bilirubin", "creatinine", "alt", "ast"] else ">="
                 num_match = re.search(r"(\d+(?:\.\d+)?)", text_lower)
                 val = num_match.group(1) if num_match else "1.0"
@@ -191,27 +197,37 @@ def parse_criteria(trial_id, full_text):
 
     for item in inclusion_items:
         parsed_list = parse_item_details(item, "inclusion")
-        for res in parsed_list:
-            rows.append({
-                "trial_id": trial_id,
-                "criterion_type": "inclusion",
-                "field": res["field"],
-                "operator": res["operator"],
-                "value": res["value"],
-                "description": item
-            })
+        if not parsed_list:
+            best_res = {"field": "general", "operator": "contains", "value": item}
+        else:
+            specific_res = [r for r in parsed_list if r["field"] != "general"]
+            best_res = specific_res[0] if specific_res else parsed_list[0]
+            
+        rows.append({
+            "trial_id": trial_id,
+            "criterion_type": "inclusion",
+            "field": best_res["field"],
+            "operator": best_res["operator"],
+            "value": best_res["value"],
+            "description": item
+        })
         
     for item in exclusion_items:
         parsed_list = parse_item_details(item, "exclusion")
-        for res in parsed_list:
-            rows.append({
-                "trial_id": trial_id,
-                "criterion_type": "exclusion",
-                "field": res["field"],
-                "operator": res["operator"],
-                "value": res["value"],
-                "description": item
-            })
+        if not parsed_list:
+            best_res = {"field": "general", "operator": "contains", "value": item}
+        else:
+            specific_res = [r for r in parsed_list if r["field"] != "general"]
+            best_res = specific_res[0] if specific_res else parsed_list[0]
+            
+        rows.append({
+            "trial_id": trial_id,
+            "criterion_type": "exclusion",
+            "field": best_res["field"],
+            "operator": best_res["operator"],
+            "value": best_res["value"],
+            "description": item
+        })
         
     return rows
 

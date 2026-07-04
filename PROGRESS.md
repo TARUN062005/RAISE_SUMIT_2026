@@ -213,3 +213,17 @@ Endpoints implemented (if applicable): none
 Tools implemented (if applicable): none
 Deviations from prompt and why: none
 Remaining for this phase: none
+
+## Phase 2 — Data layer — 2026-07-04T20:54:18.962820
+Files created/modified:
+- [session.py](file:///D:/Raise/backend/app/db/session.py)
+- [schemas.py](file:///D:/Raise/backend/app/models/schemas.py)
+- [patients.py](file:///D:/Raise/backend/app/seed/patients.py)
+- [trials.py](file:///D:/Raise/backend/app/seed/trials.py)
+- [rules.py](file:///D:/Raise/backend/app/seed/rules.py)
+- [run_all.py](file:///D:/Raise/backend/app/seed/run_all.py)
+Collections seeded (if applicable): patients: 36, conditions: 2775, medications: 1573, observations: 49798, encounters: 4386, allergies: 9, organizations: 102, providers: 102, procedures: 14469, careplans: 279, trials: 5, trial_eligibility: 135, trial_interventions: 7, hospital_policies: 5, drug_rules: 30, agent_runs: 9
+Endpoints implemented (if applicable): none
+Tools implemented (if applicable): none
+Deviations from prompt and why: none
+Remaining for this phase: none

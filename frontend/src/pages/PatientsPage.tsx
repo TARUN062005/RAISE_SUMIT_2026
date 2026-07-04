@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, Fragment } from "react";
 import { useNavigate } from "react-router-dom";
 import { Users, FileUser, Play, Loader2, AlertCircle, ChevronDown, ChevronUp } from "lucide-react";
 
@@ -169,9 +169,8 @@ export default function PatientsPage() {
                 {patients.map((patient) => {
                   const isExpanded = expandedPatientId === patient.id;
                   return (
-                    <>
+                    <Fragment key={patient.id}>
                       <tr 
-                        key={patient.id} 
                         className={`hover:bg-slate-50/80 transition-colors group cursor-pointer ${
                           isExpanded ? "bg-slate-50/50" : ""
                         }`}
@@ -229,7 +228,7 @@ export default function PatientsPage() {
                           </td>
                         </tr>
                       )}
-                    </>
+                    </Fragment>
                   );
                 })}
               </tbody>
