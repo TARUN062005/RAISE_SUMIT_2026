@@ -524,10 +524,10 @@ export default function RunPage() {
           >
             <AnimatePresence initial={false}>
               {steps.map((step, idx) => {
-                const isObservation = step.type === "observation";
+                const _isObservation = step.type === "observation";
                 const isThought = step.type === "thought";
                 const toolName = step.tool_called;
-                const toolTitle = getToolTitle(toolName);
+                const _toolTitle = getToolTitle(toolName);
                 const icon = getToolIcon(toolName);
                 const rationale = toolName ? toolRationales[toolName] : "Formulating next clinical evaluation plan";
                 const isExpanded = !!expandedSteps[idx];

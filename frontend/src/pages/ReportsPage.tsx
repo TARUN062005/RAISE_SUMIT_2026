@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { 
-  FolderHeart, Loader2, AlertCircle, Activity, 
-  Trash2, Archive, Copy, Download, Eye, RotateCw
+  FolderHeart, Loader2, AlertCircle, CheckCircle2,
+  Trash2, Archive, Copy, Download, Eye
 } from "lucide-react";
 
 interface AgentRun {
@@ -87,7 +87,7 @@ export default function ReportsPage() {
     navigate(`/workspace/evaluate?patient=${patientId}&trial=${trialId}`);
   };
 
-  const handleExportPDF = (id: string, e: React.MouseEvent) => {
+  const handleExportPDF = (_id: string, e: React.MouseEvent) => {
     e.stopPropagation();
     window.print();
   };

@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 import { 
   ShieldCheck, Compass, AlertTriangle, ArrowRight, CheckCircle2,
-  Lock, Cpu, FileText, Database, Shield, Zap, Check, Sun, Moon,
-  Workflow, AlertOctagon, HelpCircle, Server
+  Cpu, Database, Shield, Zap, Check, Sun, Moon,
+  Workflow, AlertOctagon, Server
 } from "lucide-react";
 
 interface LandingPageProps {
