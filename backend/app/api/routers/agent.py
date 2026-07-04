@@ -1,6 +1,7 @@
 import uuid
 import json
 import asyncio
+from datetime import datetime
 from fastapi import APIRouter, Depends, BackgroundTasks, HTTPException
 from fastapi.responses import StreamingResponse
 from pydantic import BaseModel
@@ -18,6 +19,20 @@ class RunTriggerInput(BaseModel):
 @router.post("/run", response_model=Dict[str, Any])
 async def trigger_run(payload: RunTriggerInput, background_tasks: BackgroundTasks, user: dict = Depends(get_current_staff_user)):
     run_id = str(uuid.uuid4())
+    db = await get_db()
+    
+    # Insert initial state immediately in the main request thread
+    await db["agent_runs"].insert_one({
+        "id": run_id,
+        "patient_id": payload.patient_id,
+        "trial_id": payload.trial_id,
+        "status": "running",
+        "steps": [],
+        "created_at": datetime.now().isoformat(),
+        "completed_at": None,
+        "total_duration_ms": None
+    })
+    
     background_tasks.add_task(run_agent, run_id, payload.patient_id, payload.trial_id)
     return {"run_id": run_id}
 
@@ -66,3 +81,15 @@ async def stream_run(run_id: str, user: dict = Depends(get_current_staff_user)):
             "X-Accel-Buffering": "no"
         }
     )
+
+from typing import List
+
+@router.get("/runs", response_model=List[Dict[str, Any]])
+async def list_runs(user: dict = Depends(get_current_staff_user)):
+    db = await get_db()
+    cursor = db["agent_runs"].find({}).sort("created_at", -1)
+    runs = await cursor.to_list(length=100)
+    for r in runs:
+        if "_id" in r:
+            r["_id"] = str(r["_id"])
+    return runs

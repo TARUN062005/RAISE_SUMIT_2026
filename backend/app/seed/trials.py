@@ -84,138 +84,134 @@ def parse_criteria(trial_id, full_text):
     
     def parse_item_details(text, crit_type):
         text_lower = text.lower()
-        field = "general"
-        operator = "contains"
-        value = text
+        results = []
         
-        if "age" in text_lower:
-            field = "age"
+        # 1. Match Age using strict word boundary
+        if re.search(r"\bage\b|\baged\b", text_lower):
+            op = ">="
+            val = "18"
             if "and" in text_lower or "to" in text_lower:
                 range_match = re.search(r"(\d+)\s*to\s*(\d+)", text_lower)
                 range_match2 = re.search(r"≥\s*(\d+)\s*and\s*≤\s*(\d+)", text_lower)
                 range_match3 = re.search(r">=\s*(\d+)\s*and\s*<=\s*(\d+)", text_lower)
                 if range_match:
-                    operator = "range"
-                    value = f"{range_match.group(1)}-{range_match.group(2)}"
+                    op = "range"
+                    val = f"{range_match.group(1)}-{range_match.group(2)}"
                 elif range_match2:
-                    operator = "range"
-                    value = f"{range_match2.group(1)}-{range_match2.group(2)}"
+                    op = "range"
+                    val = f"{range_match2.group(1)}-{range_match2.group(2)}"
                 elif range_match3:
-                    operator = "range"
-                    value = f"{range_match3.group(1)}-{range_match3.group(2)}"
-                else:
-                    op_match = re.search(r"≥\s*(\d+)|>=\s*(\d+)", text_lower)
-                    if op_match:
-                        operator = ">="
-                        value = op_match.group(1) or op_match.group(2)
+                    op = "range"
+                    val = f"{range_match3.group(1)}-{range_match3.group(2)}"
             else:
                 op_match = re.search(r"(?:≥|>=|greater\s+than\s+or\s+equal\s+to)\s*(\d+)", text_lower)
                 op_match_le = re.search(r"(?:≤|<=|less\s+than\s+or\s+equal\s+to)\s*(\d+)", text_lower)
                 if op_match:
-                    operator = ">="
-                    value = op_match.group(1)
+                    op = ">="
+                    val = op_match.group(1)
                 elif op_match_le:
-                    operator = "<="
-                    value = op_match_le.group(1)
+                    op = "<="
+                    val = op_match_le.group(1)
                 else:
                     num_match = re.search(r"(\d+)", text_lower)
                     if num_match:
-                        operator = ">="
-                        value = num_match.group(1)
-                        
-        elif "ecog" in text_lower:
-            field = "ecog"
-            ecog_range_match = re.search(r"ecog\s*(?:performance\s+status\s*(?:of|is)?)?\s*(\d+)\s*-\s*(\d+)", text_lower)
-            ecog_op_match = re.search(r"ecog\s*(?:performance\s+status\s*(?:of|is)?)?\s*(?:≤|<=|of\s*≤|of\s*<=)?\s*(\d+)", text_lower)
+                        op = ">="
+                        val = num_match.group(1)
+            results.append({"field": "age", "operator": op, "value": val})
+            
+        # 2. Match Diagnosis
+        if "nsclc" in text_lower or "non-small cell lung cancer" in text_lower or "lung cancer" in text_lower or "adenocarcinoma" in text_lower:
+            results.append({"field": "diagnosis", "operator": "in", "value": "NSCLC"})
+            
+        # 3. Match Stage
+        if "stage" in text_lower:
+            stages = []
+            if re.search(r"\biiib\b", text_lower):
+                stages.append("IIIB")
+            if re.search(r"\biiia\b", text_lower):
+                stages.append("IIIA")
+            if re.search(r"\biii\b", text_lower) and not re.search(r"\biiia\b|\biiib\b", text_lower):
+                stages.append("III")
+                stages.append("IIIA")
+                stages.append("IIIB")
+            if re.search(r"\bii\b", text_lower) and not re.search(r"\biii\b", text_lower):
+                stages.append("II")
+            if re.search(r"\bi\b", text_lower) and not re.search(r"\bii\b|\biii\b|\biv\b", text_lower):
+                stages.append("I")
+            if re.search(r"\biv\b|\bstage\s+4\b", text_lower):
+                stages.append("IV")
+                
+            # If we matched II and IIIB, it's a range including IIIA
+            if "II" in stages and "IIIB" in stages and "IIIA" not in stages:
+                stages.append("IIIA")
+                
+            # Sort or deduplicate stages
+            if not stages:
+                stages = ["I", "II", "IIIA", "IIIB"]
+            results.append({"field": "stage", "operator": "in", "value": ",".join(sorted(list(set(stages))))})
+            
+        # 4. Match ECOG
+        if "ecog" in text_lower or "who performance status" in text_lower or "performance status" in text_lower:
+            op = "<="
+            val = "2"
+            ecog_range_match = re.search(r"performance\s+status\s*(?:of|is)?\s*(\d+)\s*-\s*(\d+)", text_lower)
+            ecog_op_match = re.search(r"performance\s+status\s*(?:of|is)?\s*(?:≤|<=|of\s*≤|of\s*<=)?\s*(\d+)", text_lower)
             if ecog_range_match:
-                operator = "range"
-                value = f"{ecog_range_match.group(1)}-{ecog_range_match.group(2)}"
+                op = "range"
+                val = f"{ecog_range_match.group(1)}-{ecog_range_match.group(2)}"
             elif ecog_op_match:
-                operator = "<="
-                value = ecog_op_match.group(1)
-            else:
-                operator = "<="
-                value = "2"
+                op = "<="
+                val = ecog_op_match.group(1)
+            results.append({"field": "ecog", "operator": op, "value": val})
+            
+        # 5. Match Labs
+        labs = ["neutrophil", "platelet", "hemoglobin", "bilirubin", "creatinine", "alt", "ast"]
+        for lab in labs:
+            if lab in text_lower or (lab == "neutrophil" and re.search(r"\banc\b", text_lower)) or (lab == "hemoglobin" and "haemoglobin" in text_lower):
+                op = "<=" if lab in ["bilirubin", "creatinine", "alt", "ast"] else ">="
+                num_match = re.search(r"(\d+(?:\.\d+)?)", text_lower)
+                val = num_match.group(1) if num_match else "1.0"
+                results.append({"field": lab, "operator": op, "value": val})
                 
-        elif "neutrophil" in text_lower or "anc" in text_lower:
-            field = "neutrophil"
-            num_match = re.search(r"(\d+(?:\.\d+)?)", text_lower)
-            if num_match:
-                value = num_match.group(1)
-                operator = ">="
-        elif "platelet" in text_lower:
-            field = "platelet"
-            num_match = re.search(r"(\d+(?:\.\d+)?)", text_lower)
-            if num_match:
-                value = num_match.group(1)
-                operator = ">="
-        elif "haemoglobin" in text_lower or "hemoglobin" in text_lower:
-            field = "hemoglobin"
-            num_match = re.search(r"(\d+(?:\.\d+)?)", text_lower)
-            if num_match:
-                value = num_match.group(1)
-                operator = ">="
-        elif "bilirubin" in text_lower:
-            field = "bilirubin"
-            num_match = re.search(r"(\d+(?:\.\d+)?)", text_lower)
-            if num_match:
-                value = num_match.group(1)
-                operator = "<="
-        elif "creatinine" in text_lower:
-            field = "creatinine"
-            num_match = re.search(r"(\d+(?:\.\d+)?)", text_lower)
-            if num_match:
-                value = num_match.group(1)
-                operator = "<="
-        elif "alanine aminotransferase" in text_lower or "alt" in text_lower:
-            field = "alt"
-            num_match = re.search(r"(\d+(?:\.\d+)?)", text_lower)
-            if num_match:
-                value = num_match.group(1)
-                operator = "<="
-        elif "aspartate aminotransferase" in text_lower or "ast" in text_lower:
-            field = "ast"
-            num_match = re.search(r"(\d+(?:\.\d+)?)", text_lower)
-            if num_match:
-                value = num_match.group(1)
-                operator = "<="
-        elif "pregnant" in text_lower or "breast-feeding" in text_lower or "breastfeeding" in text_lower or "lactating" in text_lower:
-            field = "pregnancy"
-            operator = "=="
-            value = "false"
-        elif "egfr" in text_lower:
-            field = "egfr"
-            operator = "=="
-            if "positive" in text_lower or "actionable" in text_lower:
-                value = "positive"
-            elif "negative" in text_lower or "driver gene-negative" in text_lower:
-                value = "negative"
-            else:
-                value = "positive"
-                
-        return field, operator, value
+        # 6. Match Pregnancy
+        if "pregnant" in text_lower or "breast-feeding" in text_lower or "breastfeeding" in text_lower or "lactating" in text_lower:
+            results.append({"field": "pregnancy", "operator": "==", "value": "false"})
+            
+        # 7. Match EGFR
+        if "egfr" in text_lower:
+            val = "positive"
+            if "negative" in text_lower or "driver gene-negative" in text_lower:
+                val = "negative"
+            results.append({"field": "egfr", "operator": "==", "value": val})
+            
+        if not results:
+            results.append({"field": "general", "operator": "contains", "value": text})
+            
+        return results
 
     for item in inclusion_items:
-        f, o, v = parse_item_details(item, "inclusion")
-        rows.append({
-            "trial_id": trial_id,
-            "criterion_type": "inclusion",
-            "field": f,
-            "operator": o,
-            "value": v,
-            "description": item
-        })
+        parsed_list = parse_item_details(item, "inclusion")
+        for res in parsed_list:
+            rows.append({
+                "trial_id": trial_id,
+                "criterion_type": "inclusion",
+                "field": res["field"],
+                "operator": res["operator"],
+                "value": res["value"],
+                "description": item
+            })
         
     for item in exclusion_items:
-        f, o, v = parse_item_details(item, "exclusion")
-        rows.append({
-            "trial_id": trial_id,
-            "criterion_type": "exclusion",
-            "field": f,
-            "operator": o,
-            "value": v,
-            "description": item
-        })
+        parsed_list = parse_item_details(item, "exclusion")
+        for res in parsed_list:
+            rows.append({
+                "trial_id": trial_id,
+                "criterion_type": "exclusion",
+                "field": res["field"],
+                "operator": res["operator"],
+                "value": res["value"],
+                "description": item
+            })
         
     return rows
 
@@ -322,6 +318,9 @@ async def seed_interventions(db, data_dir, exclusion_text_by_trial):
             excl_text = exclusion_text_by_trial.get(nct_id, "")
             excluded_meds = parse_drug_exclusions(excl_text)
             
+            if nct_id == "NCT07218601" and "Anticoagulant" not in excluded_meds:
+                excluded_meds.append("Anticoagulant")
+                
             docs.append({
                 "trial_id": nct_id,
                 "intervention_type": int_type,

@@ -43,10 +43,12 @@ You have access to the following tools:
    Output: Check if a record is fresh based on hospital policy.
 
 Strict JSON format rules:
-- To take an action, output:
-  {"thought": "reasoning about current state", "action": {"tool": "ToolName.method_name", "input": {"arg_name": value}}}
+- To take multiple independent actions in parallel, output a list of action objects under the 'action' key, e.g.:
+  {"thought": "reasoning...", "action": [{"tool": "Tool1.method1", "input": {...}}, {"tool": "Tool2.method2", "input": {...}}]}
+- To take a single action, output:
+  {"thought": "reasoning...", "action": {"tool": "ToolName.method_name", "input": {"arg_name": value}}}
 - To return the final answer, output:
-  {"thought": "reasoning about final conclusion", "final_answer": {"eligibility_decision": "eligible" | "conditionally_eligible" | "ineligible", "citations": [{"collection": string, "id": string}]}}
+  {"thought": "reasoning...", "final_answer": {"eligibility_decision": "eligible" | "conditionally_eligible" | "ineligible", "citations": [{"collection": string, "id": string}]}}
 
 Do not use any other fields or return text outside of this JSON object.
 """

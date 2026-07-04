@@ -1,6 +1,8 @@
 import json
 import logging
 import time
+import asyncio
+import uuid
 from datetime import datetime
 from typing import Dict, Any, List, Tuple
 from backend.app.db.session import get_db
@@ -43,12 +45,22 @@ def validate_citations(citations: list, scratchpad: dict) -> Tuple[list, list]:
     valid_citations = []
     removed_citations = []
     for cit in citations:
-        col = cit.get("collection")
-        cid = cit.get("id")
-        if col and cid and (col, str(cid)) in valid_pairs:
-            valid_citations.append(cit)
-        else:
-            removed_citations.append(cit)
+        if isinstance(cit, dict):
+            col = cit.get("collection")
+            cid = cit.get("id")
+            if col and cid and (col, str(cid)) in valid_pairs:
+                valid_citations.append(cit)
+            else:
+                removed_citations.append(cit)
+        elif isinstance(cit, str):
+            found = False
+            for col_name, str_id in valid_pairs:
+                if str_id == cit:
+                    valid_citations.append({"collection": col_name, "id": cit})
+                    found = True
+                    break
+            if not found:
+                removed_citations.append({"collection": "unknown", "id": cit})
     return valid_citations, removed_citations
 
 async def run_agent(run_id: str, patient_id: str, trial_id: str):
@@ -56,17 +68,8 @@ async def run_agent(run_id: str, patient_id: str, trial_id: str):
     start_run_time = time.time()
     db = await get_db()
     
-    # Save initial running state
-    await db["agent_runs"].insert_one({
-        "id": run_id,
-        "patient_id": patient_id,
-        "trial_id": trial_id,
-        "status": "running",
-        "steps": [],
-        "created_at": datetime.now().isoformat(),
-        "completed_at": None,
-        "total_duration_ms": None
-    })
+    # Initial state document was already inserted in trigger_run
+    logger.info("Agent run database record initialized: %s", run_id)
     
     try:
         vultr = VultrClient()
@@ -125,63 +128,85 @@ async def run_agent(run_id: str, patient_id: str, trial_id: str):
             messages.append({"role": "assistant", "content": json.dumps(parsed_json)})
             
             # 2. Handle Action
-            if action:
-                tool_name = action.get("tool")
-                tool_input = action.get("input", {})
-                logger.info("Executing action: %s with args: %s", tool_name, tool_input)
-                
-                cached_result = memory.get_cached_result(tool_name, tool_input)
-                
-                if cached_result:
-                    obs_content = f"Cached observation of {tool_name}"
-                    obs_step = {
-                        "type": "observation",
-                        "content": obs_content,
-                        "tool_called": tool_name,
-                        "tool_input": tool_input,
-                        "tool_output": cached_result,
-                        "tool_output_ref": f"cached::{tool_name}",
-                        "duration_ms": 0,
-                        "timestamp": datetime.now().isoformat()
-                    }
-                    await db["agent_runs"].update_one({"id": run_id}, {"$push": {"steps": obs_step}})
-                    messages.append({"role": "user", "content": json.dumps({"observation": obs_content, "data": cached_result})})
-                else:
-                    func = TOOL_MAPPING.get(tool_name)
-                    if not func:
-                        err_obs = {"success": False, "error": f"Tool {tool_name} is not registered."}
-                        obs_step = {
-                            "type": "observation",
-                            "content": f"Error: Tool {tool_name} not found",
-                            "tool_called": tool_name,
-                            "tool_input": tool_input,
-                            "tool_output": err_obs,
-                            "tool_output_ref": "error",
-                            "duration_ms": 0,
-                            "timestamp": datetime.now().isoformat()
-                        }
-                        await db["agent_runs"].update_one({"id": run_id}, {"$push": {"steps": obs_step}})
-                        messages.append({"role": "user", "content": json.dumps({"observation": f"Error: Tool {tool_name} not found"})})
-                    else:
-                        t_start = time.time()
-                        tool_res = await func(**tool_input)
-                        t_duration = round((time.time() - t_start) * 1000, 2)
-                        
-                        memory.cache_result(tool_name, tool_input, tool_res)
-                        
-                        obs_content = f"Completed execution of {tool_name}"
+            actions_list = []
+            if isinstance(action, list):
+                actions_list = action
+            elif isinstance(action, dict):
+                actions_list = [action]
+
+            if actions_list:
+                tasks = []
+                for act in actions_list:
+                    tool_name = act.get("tool")
+                    tool_input = act.get("input", {})
+                    logger.info("Scheduling action: %s with args: %s", tool_name, tool_input)
+                    
+                    cached_result = memory.get_cached_result(tool_name, tool_input)
+                    if cached_result:
+                        obs_content = f"Cached observation of {tool_name}"
                         obs_step = {
                             "type": "observation",
                             "content": obs_content,
                             "tool_called": tool_name,
                             "tool_input": tool_input,
-                            "tool_output": tool_res,
-                            "tool_output_ref": tool_res.get("tool_call_id", "unknown"),
-                            "duration_ms": int(t_duration),
+                            "tool_output": cached_result,
+                            "tool_output_ref": f"cached::{tool_name}",
+                            "duration_ms": 0,
                             "timestamp": datetime.now().isoformat()
                         }
-                        await db["agent_runs"].update_one({"id": run_id}, {"$push": {"steps": obs_step}})
-                        messages.append({"role": "user", "content": json.dumps({"observation": obs_content, "data": tool_res})})
+                        async def dummy_cached_wrapper(o_step, o_content, c_res):
+                            return o_step, o_content, c_res
+                        tasks.append(dummy_cached_wrapper(obs_step, obs_content, cached_result))
+                    else:
+                        func = TOOL_MAPPING.get(tool_name)
+                        if not func:
+                            err_obs = {"success": False, "error": f"Tool {tool_name} is not registered."}
+                            obs_step = {
+                                "type": "observation",
+                                "content": f"Error: Tool {tool_name} not found",
+                                "tool_called": tool_name,
+                                "tool_input": tool_input,
+                                "tool_output": err_obs,
+                                "tool_output_ref": "error",
+                                "duration_ms": 0,
+                                "timestamp": datetime.now().isoformat()
+                            }
+                            async def dummy_err_wrapper(o_step, o_content, e_obs):
+                                return o_step, o_content, e_obs
+                            tasks.append(dummy_err_wrapper(obs_step, f"Error: Tool {tool_name} not found", err_obs))
+                        else:
+                            async def run_tool_wrapper(t_name, t_input, f):
+                                t_start = time.time()
+                                try:
+                                    tool_res = await f(**t_input)
+                                except Exception as err:
+                                    tool_res = {"success": False, "error": str(err), "tool_call_id": str(uuid.uuid4())}
+                                t_duration = round((time.time() - t_start) * 1000, 2)
+                                
+                                memory.cache_result(t_name, t_input, tool_res)
+                                
+                                obs_content = f"Completed execution of {t_name}"
+                                obs_step = {
+                                    "type": "observation",
+                                    "content": obs_content,
+                                    "tool_called": t_name,
+                                    "tool_input": t_input,
+                                    "tool_output": tool_res,
+                                    "tool_output_ref": tool_res.get("tool_call_id", "unknown"),
+                                    "duration_ms": int(t_duration),
+                                    "timestamp": datetime.now().isoformat()
+                                }
+                                return obs_step, obs_content, tool_res
+                                
+                            tasks.append(run_tool_wrapper(tool_name, tool_input, func))
+                            
+                results = await asyncio.gather(*tasks)
+                obs_msgs = []
+                for obs_step, obs_content, tool_res in results:
+                    await db["agent_runs"].update_one({"id": run_id}, {"$push": {"steps": obs_step}})
+                    obs_msgs.append({"observation": obs_content, "data": tool_res})
+                    
+                messages.append({"role": "user", "content": json.dumps(obs_msgs)})
                         
             # 3. Handle Final Answer
             elif final_answer:

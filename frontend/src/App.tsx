@@ -1,20 +1,33 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Routes, Route, Navigate, Link, useLocation } from "react-router-dom";
 import { 
   ShieldCheck, LayoutDashboard, Users, 
-  FlaskConical, ClipboardList, Bell, Search,
-  FolderHeart, Info
+  FlaskConical, ClipboardList, FolderHeart, Info
 } from "lucide-react";
+import LandingPage from "./pages/LandingPage";
+import DashboardPage from "./pages/DashboardPage";
 import EvaluatePage from "./pages/EvaluatePage";
+import PatientsPage from "./pages/PatientsPage";
+import TrialsPage from "./pages/TrialsPage";
+import ReportsPage from "./pages/ReportsPage";
 import RunPage from "./pages/RunPage";
 
 export default function App() {
   const location = useLocation();
-  const [showNotification, setShowNotification] = useState(false);
-  const [searchQuery, setSearchQuery] = useState("");
+  const [userProfile, setUserProfile] = useState<{ name: string; role: string } | null>(null);
   
+  useEffect(() => {
+    fetch("/api/me")
+      .then((res) => {
+        if (!res.ok) throw new Error();
+        return res.json();
+      })
+      .then((data) => setUserProfile(data))
+      .catch(() => console.log("Mock user profile resolution failed. Using defaults."));
+  }, []);
+
   const getLinkClass = (path: string) => {
-    const isActive = location.pathname.startsWith(path);
+    const isActive = location.pathname === path || (path !== "/" && location.pathname.startsWith(path));
     return `flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold transition-all duration-200 group ${
       isActive 
         ? "bg-indigo-600/90 text-white shadow-lg shadow-indigo-600/20" 
@@ -22,12 +35,22 @@ export default function App() {
     }`;
   };
 
+  const getInitials = (name?: string) => {
+    if (!name) return "ST";
+    return name.split(" ").map(n => n[0]).join("").slice(0, 2).toUpperCase();
+  };
+
+  const formatRole = (role?: string) => {
+    if (!role) return "Staff User";
+    return role.split("_").map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(" ");
+  };
+
   return (
     <div className="min-h-screen bg-[#080b11] text-slate-100 flex flex-col font-sans">
       <header className="h-20 bg-[#0f1422]/90 backdrop-blur-md border-b border-slate-800/80 sticky top-0 z-40 px-6 flex items-center justify-between">
         <div className="flex items-center gap-3">
           <Link to="/" className="flex items-center gap-3">
-            <div className="bg-indigo-600/20 border border-indigo-500/40 text-indigo-400 p-2 rounded-xl shadow-inner animate-pulse">
+            <div className="bg-indigo-600/20 border border-indigo-500/40 text-indigo-400 p-2 rounded-xl shadow-inner">
               <ShieldCheck className="w-6 h-6" />
             </div>
             <div>
@@ -40,34 +63,13 @@ export default function App() {
         </div>
 
         <div className="flex items-center gap-6">
-          <div className="relative hidden md:block w-72">
-            <span className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-              <Search className="h-4 w-4 text-slate-500" />
-            </span>
-            <input
-              type="text"
-              placeholder="Search patients, protocols..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full bg-[#161c2e] border border-slate-800 rounded-xl py-2 pl-10 pr-4 text-xs text-slate-300 placeholder-slate-500 focus:outline-none focus:border-indigo-500/60 focus:ring-1 focus:ring-indigo-500/40 transition-all duration-200"
-            />
-          </div>
-
-          <button 
-            onClick={() => setShowNotification(!showNotification)}
-            className="relative p-2 bg-[#161c2e] border border-slate-800/80 rounded-xl text-slate-400 hover:text-slate-200 hover:border-slate-700 transition"
-          >
-            <Bell className="w-5 h-5" />
-            <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-rose-500 rounded-full" />
-          </button>
-
           <div className="flex items-center gap-3 bg-[#131929] border border-slate-800/80 px-4 py-2 rounded-xl">
             <div className="w-8 h-8 rounded-lg bg-gradient-to-tr from-indigo-500 to-indigo-600 text-white flex items-center justify-center font-bold text-sm">
-              SC
+              {getInitials(userProfile?.name)}
             </div>
             <div className="text-left hidden sm:block">
-              <p className="font-bold text-xs text-slate-200">Dr. Sarah Chen</p>
-              <p className="text-[10px] text-slate-400 font-medium">Research Coordinator</p>
+              <p className="font-bold text-xs text-slate-200">{userProfile ? userProfile.name : "Staff Member"}</p>
+              <p className="text-[10px] text-slate-400 font-medium">{formatRole(userProfile?.role)}</p>
             </div>
           </div>
         </div>
@@ -78,26 +80,26 @@ export default function App() {
           <div className="space-y-6">
             <div className="text-[10px] text-slate-500 font-bold uppercase tracking-widest pl-2">Navigation</div>
             <nav className="space-y-2">
-              <Link to="/evaluate" className={getLinkClass("/evaluate")}>
-                <FlaskConical className="w-5 h-5 group-hover:scale-110 transition-transform" />
-                <span>Eligibility Agent</span>
-              </Link>
-              <div className="text-slate-400 flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold opacity-50 cursor-not-allowed">
+              <Link to="/dashboard" className={getLinkClass("/dashboard")}>
                 <LayoutDashboard className="w-5 h-5" />
                 <span>Dashboard</span>
-              </div>
-              <div className="text-slate-400 flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold opacity-50 cursor-not-allowed">
+              </Link>
+              <Link to="/evaluate" className={getLinkClass("/evaluate")}>
+                <FlaskConical className="w-5 h-5" />
+                <span>Eligibility Agent</span>
+              </Link>
+              <Link to="/patients" className={getLinkClass("/patients")}>
                 <Users className="w-5 h-5" />
                 <span>Patients</span>
-              </div>
-              <div className="text-slate-400 flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold opacity-50 cursor-not-allowed">
+              </Link>
+              <Link to="/trials" className={getLinkClass("/trials")}>
                 <ClipboardList className="w-5 h-5" />
                 <span>Trials</span>
-              </div>
-              <div className="text-slate-400 flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold opacity-50 cursor-not-allowed">
+              </Link>
+              <Link to="/reports" className={getLinkClass("/reports")}>
                 <FolderHeart className="w-5 h-5" />
                 <span>Reports</span>
-              </div>
+              </Link>
             </nav>
           </div>
 
@@ -114,10 +116,14 @@ export default function App() {
 
         <main className="flex-grow p-6 md:p-8 overflow-y-auto">
           <Routes>
-            <Route path="/" element={<Navigate to="/evaluate" replace />} />
+            <Route path="/" element={<LandingPage />} />
+            <Route path="/dashboard" element={<DashboardPage />} />
             <Route path="/evaluate" element={<EvaluatePage />} />
+            <Route path="/patients" element={<PatientsPage />} />
+            <Route path="/trials" element={<TrialsPage />} />
+            <Route path="/reports" element={<ReportsPage />} />
             <Route path="/run/:runId" element={<RunPage />} />
-            <Route path="*" element={<Navigate to="/evaluate" replace />} />
+            <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </main>
       </div>

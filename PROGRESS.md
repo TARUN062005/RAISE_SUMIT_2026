@@ -108,3 +108,82 @@ Endpoints implemented (if applicable): none
 Tools implemented (if applicable): none
 Deviations from prompt and why: none
 Remaining for this phase: none
+
+## Phase 2 — Data layer — 2026-07-04T20:04:38.034614
+Files created/modified:
+
+
+## Phase 2 — Data layer — 2026-07-04T18:58:39.496637
+Files created/modified:
+- [session.py](file:///D:/Raise/backend/app/db/session.py)
+- [schemas.py](file:///D:/Raise/backend/app/models/schemas.py)
+- [patients.py](file:///D:/Raise/backend/app/seed/patients.py)
+- [trials.py](file:///D:/Raise/backend/app/seed/trials.py)
+- [rules.py](file:///D:/Raise/backend/app/seed/rules.py)
+- [run_all.py](file:///D:/Raise/backend/app/seed/run_all.py)
+Collections seeded (if applicable): patients: 35, conditions: 2773, medications: 1570, observations: 49793, encounters: 4386, allergies: 9, organizations: 102, providers: 102, procedures: 14469, careplans: 279, trials: 5, trial_eligibility: 135, trial_interventions: 7, hospital_policies: 5, drug_rules: 30, agent_runs: 0
+Endpoints implemented (if applicable): none
+Tools implemented (if applicable): none
+Deviations from prompt and why: none
+Remaining for this phase: none
+
+## Phase 2 — Data layer — 2026-07-04T20:04:38.034614
+Files created/modified:
+- [session.py](file:///D:/Raise/backend/app/db/session.py)
+- [schemas.py](file:///D:/Raise/backend/app/models/schemas.py)
+- [patients.py](file:///D:/Raise/backend/app/seed/patients.py)
+- [trials.py](file:///D:/Raise/backend/app/seed/trials.py)
+- [rules.py](file:///D:/Raise/backend/app/seed/rules.py)
+- [run_all.py](file:///D:/Raise/backend/app/seed/run_all.py)
+Collections seeded (if applicable): patients: 36, conditions: 2775, medications: 1573, observations: 49798, encounters: 4386, allergies: 9, organizations: 102, providers: 102, procedures: 14469, careplans: 279, trials: 5, trial_eligibility: 180, trial_interventions: 7, hospital_policies: 5, drug_rules: 30, agent_runs: 7
+Endpoints implemented (if applicable): none
+Tools implemented (if applicable): none
+Deviations from prompt and why: none
+Remaining for this phase: none
+
+## Hardening & Polish Phase — 2026-07-04T15:00:00Z
+Files created/modified:
+- [report_tool.py](file:///D:/Raise/backend/app/agent/tools/report_tool.py) (exclusive scratchpad evaluation, calculate_age integration, decision summaries, tool reference assertions)
+- [orchestrator.py](file:///D:/Raise/backend/app/agent/orchestrator.py) (concurrent asyncio.gather parallel action execution)
+- [planner.py](file:///D:/Raise/backend/app/agent/planner.py) (ReAct system prompt concurrent execution instructions)
+- [main.py](file:///D:/Raise/backend/app/main.py) (GET /api/me mock-auth user profile endpoint)
+- [agent.py](file:///D:/Raise/backend/app/api/routers/agent.py) (GET /api/agent/runs history log endpoint)
+- [App.tsx](file:///D:/Raise/frontend/src/App.tsx) (navigation router, user profile header query, deleted Bell button)
+- [LandingPage.tsx](file:///D:/Raise/frontend/src/pages/LandingPage.tsx) (root CTA landing page)
+- [PatientsPage.tsx](file:///D:/Raise/frontend/src/pages/PatientsPage.tsx) (live EHR patients index)
+- [TrialsPage.tsx](file:///D:/Raise/frontend/src/pages/TrialsPage.tsx) (live FDA trials index)
+- [ReportsPage.tsx](file:///D:/Raise/frontend/src/pages/ReportsPage.tsx) (live evaluations history index)
+- [DashboardPage.tsx](file:///D:/Raise/frontend/src/pages/DashboardPage.tsx) (live analytics overview metrics)
+Collections seeded (if applicable): patients: 36, conditions: 2775, medications: 1573, observations: 49798, trial_eligibility: 180 (golden patient John Williams, corrected trials criteria schema)
+Endpoints implemented (if applicable): GET /api/me, GET /api/agent/runs
+Tools implemented (if applicable): none (updated existing tools for concurrency and assertions)
+Deviations from prompt and why: none
+Remaining for this phase: none
+
+## Phase 2 — Data layer — 2026-07-04T20:15:03.451666
+Files created/modified:
+- [session.py](file:///D:/Raise/backend/app/db/session.py)
+- [schemas.py](file:///D:/Raise/backend/app/models/schemas.py)
+- [patients.py](file:///D:/Raise/backend/app/seed/patients.py)
+- [trials.py](file:///D:/Raise/backend/app/seed/trials.py)
+- [rules.py](file:///D:/Raise/backend/app/seed/rules.py)
+- [run_all.py](file:///D:/Raise/backend/app/seed/run_all.py)
+Collections seeded (if applicable): patients: 36, conditions: 2775, medications: 1573, observations: 49798, encounters: 4386, allergies: 9, organizations: 102, providers: 102, procedures: 14469, careplans: 279, trials: 5, trial_eligibility: 164, trial_interventions: 7, hospital_policies: 5, drug_rules: 30, agent_runs: 8
+Endpoints implemented (if applicable): none
+Tools implemented (if applicable): none
+Deviations from prompt and why: none
+Remaining for this phase: none
+
+## Phase 2 — Data layer — 2026-07-04T20:21:02.769275
+Files created/modified:
+- [session.py](file:///D:/Raise/backend/app/db/session.py)
+- [schemas.py](file:///D:/Raise/backend/app/models/schemas.py)
+- [patients.py](file:///D:/Raise/backend/app/seed/patients.py)
+- [trials.py](file:///D:/Raise/backend/app/seed/trials.py)
+- [rules.py](file:///D:/Raise/backend/app/seed/rules.py)
+- [run_all.py](file:///D:/Raise/backend/app/seed/run_all.py)
+Collections seeded (if applicable): patients: 36, conditions: 2775, medications: 1573, observations: 49798, encounters: 4386, allergies: 9, organizations: 102, providers: 102, procedures: 14469, careplans: 279, trials: 5, trial_eligibility: 164, trial_interventions: 7, hospital_policies: 5, drug_rules: 30, agent_runs: 8
+Endpoints implemented (if applicable): none
+Tools implemented (if applicable): none
+Deviations from prompt and why: none
+Remaining for this phase: none

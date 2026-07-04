@@ -20,6 +20,12 @@ interface Step {
 
 interface FinalReport {
   eligibility_decision: "eligible" | "conditionally_eligible" | "ineligible";
+  decision_summary?: {
+    status: "eligible" | "conditionally_eligible" | "ineligible";
+    headline_reasons: string[];
+    required_actions: string[];
+    readiness_pct: number;
+  };
   satisfied_criteria: Array<{ criterion: string; evidence_citation: string }>;
   unsatisfied_criteria: Array<{ criterion: string; reason: string }>;
   outstanding_requirements: Array<{ description: string; related_record_type: string }>;
@@ -282,6 +288,58 @@ export default function RunPage() {
                 transition={{ duration: 0.4 }}
                 className="space-y-6"
               >
+                {/* Decision Summary Block (Section 5) */}
+                {report.decision_summary && (
+                  <div className="bg-[#0f1422] border border-slate-800/80 rounded-2xl p-6 shadow-xl space-y-4">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-850 pb-4">
+                      <div>
+                        <h4 className="text-xs font-bold text-slate-200 uppercase tracking-wider">Evaluation Readiness Profile</h4>
+                        <p className="text-[10px] text-slate-500 mt-0.5">Summary of critical clinical action points</p>
+                      </div>
+                      <div className="flex items-center gap-3">
+                        <div className="text-right">
+                          <span className="text-[9px] text-slate-500 font-bold uppercase tracking-wider">Readiness Index</span>
+                          <div className="text-sm font-black text-indigo-400">{report.decision_summary.readiness_pct}%</div>
+                        </div>
+                        <div className="w-16 bg-slate-800 rounded-full h-2 overflow-hidden border border-slate-850">
+                          <div 
+                            className="bg-indigo-500 h-full rounded-full" 
+                            style={{ width: `${report.decision_summary.readiness_pct}%` }} 
+                          />
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs">
+                      <div className="space-y-2">
+                        <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest block">Headline Findings</span>
+                        <ul className="space-y-1.5 text-slate-355">
+                          {report.decision_summary.headline_reasons.map((reason, idx) => (
+                            <li key={idx} className="flex items-start gap-2 bg-[#141929] px-3 py-2 rounded-lg border border-slate-850">
+                              <span className="w-1.5 h-1.5 rounded-full bg-indigo-500 shrink-0 mt-1.5" />
+                              <span className="leading-relaxed text-slate-300">{reason}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                      <div className="space-y-2">
+                        <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest block">Required Clinical Actions</span>
+                        <ul className="space-y-1.5 text-slate-355">
+                          {report.decision_summary.required_actions.map((action, idx) => (
+                            <li key={idx} className="flex items-start gap-2 bg-[#181124] px-3 py-2 rounded-lg border border-purple-950/40 text-purple-200">
+                              <span className="w-1.5 h-1.5 rounded-full bg-purple-500 shrink-0 mt-1.5" />
+                              <span className="leading-relaxed">{action}</span>
+                            </li>
+                          ))}
+                          {report.decision_summary.required_actions.length === 0 && (
+                            <li className="text-slate-500 italic py-2 text-center w-full">No outstanding protocol actions required.</li>
+                          )}
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
                 {/* Decision Banner */}
                 {(() => {
                   const styles = getDecisionStyles(report.eligibility_decision);
@@ -465,7 +523,7 @@ export default function RunPage() {
                     {/* Step Title Header */}
                     <div className="flex items-center justify-between text-[10px] text-slate-500">
                       <span className="uppercase tracking-wider font-extrabold text-indigo-400 flex items-center gap-1.5">
-                        {icon} {isThought ? "Planning Reasoning" : "Observation Agent"}
+                        {icon} {isThought ? "Planning Reasoning" : (step.tool_called ? step.tool_called.split(".")[0] : "Observation Agent")}
                       </span>
                       <div className="flex items-center gap-2 font-semibold">
                         {step.duration_ms !== undefined && (

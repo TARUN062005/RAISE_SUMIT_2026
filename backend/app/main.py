@@ -1,6 +1,6 @@
 import sys
 import logging
-from fastapi import FastAPI
+from fastapi import FastAPI, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from backend.app.api.routers.patients import router as patients_router
 from backend.app.api.routers.trials import router as trials_router
@@ -80,6 +80,12 @@ async def startup_event():
 app.include_router(patients_router, prefix="/api")
 app.include_router(trials_router, prefix="/api")
 app.include_router(agent_router, prefix="/api")
+
+from backend.app.api.deps import get_current_staff_user
+
+@app.get("/api/me")
+async def get_me(user: dict = Depends(get_current_staff_user)):
+    return user
 
 @app.get("/health")
 async def health_check():
