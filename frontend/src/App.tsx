@@ -11,6 +11,7 @@ import PatientsPage from "./pages/PatientsPage";
 import TrialsPage from "./pages/TrialsPage";
 import ReportsPage from "./pages/ReportsPage";
 import RunPage from "./pages/RunPage";
+import { apiFetch } from "./lib/api";
 
 function WorkspaceLayout({ userProfile, theme, setTheme }: { userProfile: any; theme: string; setTheme: (theme: string) => void }) {
   const location = useLocation();
@@ -157,7 +158,7 @@ export default function App() {
   }, [theme]);
   
   useEffect(() => {
-    fetch("/api/me")
+    apiFetch("/api/me")
       .then((res) => {
         if (!res.ok) throw new Error();
         return res.json();

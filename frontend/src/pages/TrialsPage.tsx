@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { ClipboardList, Play, Loader2, AlertCircle, Search, ArrowUpDown } from "lucide-react";
+import { apiFetch } from "../lib/api";
 
 interface Trial {
   id: string;
@@ -31,7 +32,7 @@ export default function TrialsPage() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("/api/trials")
+    apiFetch("/api/trials")
       .then((res) => {
         if (!res.ok) throw new Error("Failed to load trial protocols");
         return res.json();

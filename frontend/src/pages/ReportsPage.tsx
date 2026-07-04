@@ -4,6 +4,7 @@ import {
   FolderHeart, Loader2, AlertCircle, CheckCircle2,
   Trash2, Archive, Copy, Download, Eye
 } from "lucide-react";
+import { apiFetch } from "../lib/api";
 
 interface AgentRun {
   id: string;
@@ -29,7 +30,7 @@ export default function ReportsPage() {
   };
 
   useEffect(() => {
-    fetch("/api/agent/runs")
+    apiFetch("/api/agent/runs")
       .then((res) => {
         if (!res.ok) throw new Error("Failed to load clinical agent runs");
         return res.json();

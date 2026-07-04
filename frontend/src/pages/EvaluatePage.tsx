@@ -7,6 +7,7 @@ import {
   RefreshCw, Play, Clock, Activity,
   BriefcaseMedical
 } from "lucide-react";
+import { apiFetch } from "../lib/api";
 
 interface Patient {
   id: string;
@@ -38,7 +39,7 @@ export default function EvaluatePage() {
   } = useQuery<Patient[]>({
     queryKey: ["patients"],
     queryFn: async () => {
-      const res = await fetch("/api/patients");
+      const res = await apiFetch("/api/patients");
       if (!res.ok) throw new Error("Failed to load patients list");
       return res.json();
     },
@@ -52,7 +53,7 @@ export default function EvaluatePage() {
   } = useQuery<Trial[]>({
     queryKey: ["trials"],
     queryFn: async () => {
-      const res = await fetch("/api/trials");
+      const res = await apiFetch("/api/trials");
       if (!res.ok) throw new Error("Failed to load trials list");
       return res.json();
     },
@@ -74,7 +75,7 @@ export default function EvaluatePage() {
     setSubmitError("");
 
     try {
-      const res = await fetch("/api/agent/run", {
+      const res = await apiFetch("/api/agent/run", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

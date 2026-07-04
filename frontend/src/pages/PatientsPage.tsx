@@ -1,6 +1,7 @@
 import { useState, useEffect, Fragment } from "react";
 import { useNavigate } from "react-router-dom";
 import { Users, FileUser, Play, Loader2, AlertCircle, ChevronDown, ChevronUp } from "lucide-react";
+import { apiFetch } from "../lib/api";
 
 interface Patient {
   id: string;
@@ -87,7 +88,7 @@ export default function PatientsPage() {
   };
 
   useEffect(() => {
-    fetch("/api/patients")
+    apiFetch("/api/patients")
       .then((res) => {
         if (!res.ok) throw new Error("Failed to load patient records");
         return res.json();

@@ -4,6 +4,7 @@ import {
   Users, ClipboardList, FolderHeart, 
   Play, Activity, ArrowRight, CheckCircle2, XCircle, AlertCircle, Loader2, CheckSquare
 } from "lucide-react";
+import { apiFetch } from "../lib/api";
 
 interface DashboardStats {
   patientsCount: number;
@@ -27,9 +28,9 @@ export default function DashboardPage() {
     const fetchStats = async () => {
       try {
         const [patientsRes, trialsRes, runsRes] = await Promise.all([
-          fetch("/api/patients"),
-          fetch("/api/trials"),
-          fetch("/api/agent/runs").then(r => r.ok ? r.json() : [])
+          apiFetch("/api/patients"),
+          apiFetch("/api/trials"),
+          apiFetch("/api/agent/runs").then(r => r.ok ? r.json() : [])
         ]);
         
         if (!patientsRes.ok || !trialsRes.ok) {
