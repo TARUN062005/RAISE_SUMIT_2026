@@ -74,24 +74,6 @@ function getToolIcon(toolName?: string) {
   }
 }
 
-function getToolTitle(toolName?: string) {
-  if (!toolName) return "Clinical Reasoning Decision";
-  const parts = toolName.split(".");
-  const method = parts[parts.length - 1];
-  switch (method) {
-    case "get_record": return "Retrieve Demographics";
-    case "get_conditions": return "Scan Diagnostic Profile";
-    case "get_medications": return "Extract Medication History";
-    case "get_observations": return "Query Vitals & Lab Panels";
-    case "get_allergies": return "Verify Hypersensitivities";
-    case "get_trial": return "Load Protocol Registry";
-    case "get_criteria": return "Resolve Protocol Criteria";
-    case "check_exclusions": return "Evaluate Concomitant Drugs";
-    case "check": return "Audit Record Freshness";
-    default: return toolName;
-  }
-}
-
 export default function RunPage() {
   const { runId } = useParams<{ runId: string }>();
   const [status, setStatus] = useState("initializing");
@@ -524,10 +506,8 @@ export default function RunPage() {
           >
             <AnimatePresence initial={false}>
               {steps.map((step, idx) => {
-                const _isObservation = step.type === "observation";
                 const isThought = step.type === "thought";
                 const toolName = step.tool_called;
-                const _toolTitle = getToolTitle(toolName);
                 const icon = getToolIcon(toolName);
                 const rationale = toolName ? toolRationales[toolName] : "Formulating next clinical evaluation plan";
                 const isExpanded = !!expandedSteps[idx];
