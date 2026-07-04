@@ -16,7 +16,7 @@ class VultrClient:
     def _resolve_model(self) -> str:
         headers = {"Authorization": f"Bearer {self.api_key}"}
         try:
-            response = httpx.get(f"{self.base_url}/chat/models", headers=headers, timeout=10.0)
+            response = httpx.get(f"{self.base_url}/models", headers=headers, timeout=10.0)
             response.raise_for_status()
             data = response.json()
             models = data.get("data", [])
