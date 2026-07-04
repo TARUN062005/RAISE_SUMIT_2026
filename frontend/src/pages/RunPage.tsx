@@ -49,28 +49,28 @@ const toolRationales: Record<string, string> = {
 };
 
 function getToolIcon(toolName?: string) {
-  if (!toolName) return <Brain className="w-4 h-4 text-indigo-400" />;
+  if (!toolName) return <Brain className="w-4 h-4 text-teal-650" />;
   switch (toolName) {
     case "PatientRecordTool.get_record":
-      return <User className="w-4 h-4 text-sky-400" />;
+      return <User className="w-4 h-4 text-slate-500" />;
     case "PatientRecordTool.get_conditions":
-      return <Activity className="w-4 h-4 text-emerald-400" />;
+      return <Activity className="w-4 h-4 text-slate-500" />;
     case "PatientRecordTool.get_medications":
-      return <Pill className="w-4 h-4 text-violet-400" />;
+      return <Pill className="w-4 h-4 text-slate-500" />;
     case "PatientRecordTool.get_observations":
-      return <BarChart3 className="w-4 h-4 text-amber-400" />;
+      return <BarChart3 className="w-4 h-4 text-slate-500" />;
     case "PatientRecordTool.get_allergies":
-      return <ShieldAlert className="w-4 h-4 text-rose-400" />;
+      return <ShieldAlert className="w-4 h-4 text-slate-500" />;
     case "TrialEligibilityTool.get_trial":
-      return <FlaskConical className="w-4 h-4 text-indigo-400" />;
+      return <FlaskConical className="w-4 h-4 text-slate-500" />;
     case "TrialEligibilityTool.get_criteria":
-      return <ClipboardList className="w-4 h-4 text-purple-400" />;
+      return <ClipboardList className="w-4 h-4 text-slate-500" />;
     case "DrugInteractionTool.check_exclusions":
-      return <AlertTriangle className="w-4 h-4 text-yellow-400" />;
+      return <AlertTriangle className="w-4 h-4 text-slate-500" />;
     case "FreshnessTool.check":
-      return <Clock className="w-4 h-4 text-pink-400" />;
+      return <Clock className="w-4 h-4 text-slate-500" />;
     default:
-      return <Brain className="w-4 h-4 text-indigo-400" />;
+      return <Brain className="w-4 h-4 text-teal-650" />;
   }
 }
 
@@ -176,48 +176,45 @@ export default function RunPage() {
     switch (decision) {
       case "eligible":
         return {
-          bg: "bg-emerald-950/20 border-emerald-900/60 shadow-emerald-950/5",
-          text: "text-emerald-300",
-          badge: "bg-emerald-500/20 text-emerald-300 border-emerald-500/30",
-          icon: <CheckCircle2 className="w-8 h-8 text-emerald-400" />
+          bg: "bg-emerald-50 border-emerald-250 text-emerald-805",
+          badge: "bg-emerald-100 text-emerald-800 border-emerald-300",
+          icon: <CheckCircle2 className="w-8 h-8 text-emerald-600" />
         };
       case "conditionally_eligible":
         return {
-          bg: "bg-amber-950/20 border-amber-900/60 shadow-amber-950/5",
-          text: "text-amber-300",
-          badge: "bg-amber-500/20 text-amber-300 border-amber-500/30",
-          icon: <AlertTriangle className="w-8 h-8 text-amber-400" />
+          bg: "bg-amber-50 border-amber-250 text-amber-805",
+          badge: "bg-amber-100 text-amber-800 border-amber-300",
+          icon: <AlertTriangle className="w-8 h-8 text-amber-600" />
         };
       default:
         return {
-          bg: "bg-rose-950/20 border-rose-900/60 shadow-rose-950/5",
-          text: "text-rose-300",
-          badge: "bg-rose-500/20 text-rose-300 border-rose-500/30",
-          icon: <XCircle className="w-8 h-8 text-rose-400" />
+          bg: "bg-rose-50 border-rose-250 text-rose-850",
+          badge: "bg-rose-100 text-rose-800 border-rose-300",
+          icon: <XCircle className="w-8 h-8 text-rose-600" />
         };
     }
   };
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-6 max-w-7xl mx-auto w-full">
       {/* Top Breadcrumb and Meta */}
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-slate-850 pb-4">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-slate-200 pb-4">
         <Link 
-          to="/evaluate" 
-          className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-slate-400 hover:text-indigo-400 transition"
+          to="/workspace/evaluate" 
+          className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-slate-500 hover:text-teal-650 transition"
         >
           <ArrowLeft className="w-4 h-4" /> Back to Workspace
         </Link>
         <div className="flex items-center gap-3">
-          <span className="text-xs text-slate-450">Run ID: <code className="bg-slate-900 px-2.5 py-1 rounded-xl text-indigo-400 font-mono text-[10px] border border-slate-800">{runId}</code></span>
-          <span className={`px-3 py-1 rounded-full text-[10px] font-bold border uppercase tracking-widest ${
+          <span className="text-xs text-slate-500">Run ID: <code className="bg-slate-100 px-2 py-0.5 rounded font-mono text-[9px] border border-slate-200 text-slate-600">{runId}</code></span>
+          <span className={`px-2.5 py-0.5 rounded-full text-[9px] font-bold border uppercase tracking-wider ${
             status === "running" || status === "initializing"
-              ? "bg-indigo-500/10 text-indigo-300 border-indigo-500/30 animate-pulse"
+              ? "bg-teal-50 text-teal-700 border-teal-200/50 animate-pulse"
               : status === "completed" || status === "eligible"
-              ? "bg-emerald-500/10 text-emerald-300 border-emerald-500/30"
+              ? "bg-emerald-50 text-emerald-700 border-emerald-200/50"
               : status === "conditionally_eligible"
-              ? "bg-amber-500/10 text-amber-300 border-amber-500/30"
-              : "bg-rose-500/10 text-rose-300 border-rose-500/30"
+              ? "bg-amber-50 text-amber-700 border-amber-200/50"
+              : "bg-rose-50 text-rose-700 border-rose-200/50"
           }`}>
             {status}
           </span>
@@ -225,21 +222,21 @@ export default function RunPage() {
       </div>
 
       {/* CORE WORKSPACE GRID */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         
         {/* LEFT COLUMN (2/3 SPAN): REPORT & METRICS */}
-        <div className="lg:col-span-2 space-y-8">
+        <div className="lg:col-span-2 space-y-6">
           
           {/* Active Status header */}
-          <div className="bg-[#0f1422] border border-slate-800/80 rounded-2xl p-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 shadow-xl">
-            <div className="space-y-1">
-              <div className="text-[10px] text-slate-500 font-bold uppercase tracking-wider">Evaluation Process</div>
-              <h3 className="text-lg font-bold text-slate-200">ReAct Reasoning Execution</h3>
-              <p className="text-xs text-slate-400">Agent autonomously matches criteria variables and audits diagnostics.</p>
+          <div className="bg-white border border-slate-200 rounded-xl p-5 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 shadow-2xs">
+            <div className="space-y-0.5">
+              <div className="text-[9px] text-slate-400 font-bold uppercase tracking-wider">Evaluation Process</div>
+              <h3 className="text-base font-extrabold text-slate-900">ReAct Reasoning Execution</h3>
+              <p className="text-xs text-slate-500">Agent autonomously matches criteria variables and audits diagnostics.</p>
             </div>
             {(status === "running" || status === "initializing") && (
-              <div className="flex items-center gap-3 bg-indigo-950/20 border border-indigo-900/60 px-4 py-2 rounded-xl text-indigo-300 text-xs font-semibold">
-                <RefreshCw className="w-4 h-4 animate-spin text-indigo-400" />
+              <div className="flex items-center gap-2 bg-teal-50 border border-teal-150 px-3 py-1.5 rounded-lg text-teal-700 text-xs font-bold">
+                <RefreshCw className="w-3.5 h-3.5 animate-spin text-teal-600" />
                 <span>Running Inference Loop...</span>
               </div>
             )}
@@ -248,32 +245,32 @@ export default function RunPage() {
           {/* Metrics summary cards */}
           {report && (
             <motion.div 
-              initial={{ opacity: 0, y: 10 }}
+              initial={{ opacity: 0, y: 5 }}
               animate={{ opacity: 1, y: 0 }}
               className="grid grid-cols-2 sm:grid-cols-4 gap-4"
             >
-              <div className="bg-[#0f1422] border border-slate-850 rounded-2xl p-4 text-center shadow-lg">
-                <div className="text-3xl font-black text-white">{report.evidence.verified_records}</div>
-                <div className="text-[9px] text-slate-400 uppercase font-bold tracking-wider mt-1.5">EHR Records Audited</div>
+              <div className="bg-white border border-slate-200 rounded-xl p-4 text-center shadow-2xs">
+                <div className="text-2xl font-extrabold text-slate-900">{report.evidence.verified_records}</div>
+                <div className="text-[9px] text-slate-455 uppercase font-bold tracking-wider mt-1">EHR Records Audited</div>
               </div>
-              <div className="bg-[#0f1422] border border-slate-850 rounded-2xl p-4 text-center shadow-lg">
-                <div className="text-3xl font-black text-white">{report.evidence.total_criteria}</div>
-                <div className="text-[9px] text-slate-400 uppercase font-bold tracking-wider mt-1.5">Criteria Scanned</div>
+              <div className="bg-white border border-slate-200 rounded-xl p-4 text-center shadow-2xs">
+                <div className="text-2xl font-extrabold text-slate-900">{report.evidence.total_criteria}</div>
+                <div className="text-[9px] text-slate-455 uppercase font-bold tracking-wider mt-1">Criteria Scanned</div>
               </div>
-              <div className="bg-[#0f1422] border border-slate-850 rounded-2xl p-4 text-center shadow-lg">
-                <div className="text-3xl font-black text-white">{report.evidence.satisfied_count}</div>
-                <div className="text-[9px] text-slate-400 uppercase font-bold tracking-wider mt-1.5">Satisfied criteria</div>
+              <div className="bg-white border border-slate-200 rounded-xl p-4 text-center shadow-2xs">
+                <div className="text-2xl font-extrabold text-slate-900">{report.evidence.satisfied_count}</div>
+                <div className="text-[9px] text-slate-455 uppercase font-bold tracking-wider mt-1">Satisfied criteria</div>
               </div>
-              <div className="bg-[#0f1422] border border-slate-850 rounded-2xl p-4 text-center shadow-lg">
-                <div className="text-3xl font-black text-indigo-400">{report.evidence.coverage_pct}%</div>
-                <div className="text-[9px] text-indigo-350 uppercase font-bold tracking-wider mt-1.5">Evidence Coverage</div>
+              <div className="bg-white border border-slate-200 rounded-xl p-4 text-center shadow-2xs">
+                <div className="text-2xl font-extrabold text-teal-600">{report.evidence.coverage_pct}%</div>
+                <div className="text-[9px] text-teal-650 uppercase font-bold tracking-wider mt-1">Evidence Coverage</div>
               </div>
             </motion.div>
           )}
 
           {/* Fallback error display */}
           {error && (
-            <div className="p-4 bg-rose-950/30 border border-rose-900/60 rounded-xl text-xs text-rose-350 flex items-center gap-2">
+            <div className="p-4 bg-red-50 border border-red-200 rounded-lg text-xs text-red-750 flex items-center gap-2">
               <AlertCircle className="w-5 h-5 flex-shrink-0" />
               <span>{error}</span>
             </div>
@@ -283,56 +280,56 @@ export default function RunPage() {
           <AnimatePresence>
             {report && (
               <motion.div 
-                initial={{ opacity: 0, y: 15 }}
+                initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4 }}
+                transition={{ duration: 0.3 }}
                 className="space-y-6"
               >
-                {/* Decision Summary Block (Section 5) */}
+                {/* Decision Summary Block */}
                 {report.decision_summary && (
-                  <div className="bg-[#0f1422] border border-slate-800/80 rounded-2xl p-6 shadow-xl space-y-4">
-                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-850 pb-4">
+                  <div className="bg-white border border-slate-200 rounded-xl p-5 shadow-2xs space-y-4">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 pb-4">
                       <div>
-                        <h4 className="text-xs font-bold text-slate-200 uppercase tracking-wider">Evaluation Readiness Profile</h4>
+                        <h4 className="text-xs font-bold text-slate-950 uppercase tracking-wider">Evaluation Readiness Profile</h4>
                         <p className="text-[10px] text-slate-500 mt-0.5">Summary of critical clinical action points</p>
                       </div>
                       <div className="flex items-center gap-3">
                         <div className="text-right">
-                          <span className="text-[9px] text-slate-500 font-bold uppercase tracking-wider">Readiness Index</span>
-                          <div className="text-sm font-black text-indigo-400">{report.decision_summary.readiness_pct}%</div>
+                          <span className="text-[9px] text-slate-455 font-bold uppercase tracking-wider">Readiness Index</span>
+                          <div className="text-sm font-extrabold text-teal-600">{report.decision_summary.readiness_pct}%</div>
                         </div>
-                        <div className="w-16 bg-slate-800 rounded-full h-2 overflow-hidden border border-slate-850">
+                        <div className="w-20 bg-slate-100 rounded-full h-2 overflow-hidden border border-slate-200">
                           <div 
-                            className="bg-indigo-500 h-full rounded-full" 
+                            className="bg-teal-600 h-full rounded-full" 
                             style={{ width: `${report.decision_summary.readiness_pct}%` }} 
                           />
                         </div>
                       </div>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
                       <div className="space-y-2">
-                        <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest block">Headline Findings</span>
-                        <ul className="space-y-1.5 text-slate-355">
+                        <span className="text-[10px] font-bold text-slate-455 uppercase tracking-widest block">Headline Findings</span>
+                        <ul className="space-y-1.5">
                           {report.decision_summary.headline_reasons.map((reason, idx) => (
-                            <li key={idx} className="flex items-start gap-2 bg-[#141929] px-3 py-2 rounded-lg border border-slate-850">
-                              <span className="w-1.5 h-1.5 rounded-full bg-indigo-500 shrink-0 mt-1.5" />
-                              <span className="leading-relaxed text-slate-300">{reason}</span>
+                            <li key={idx} className="flex items-start gap-2 bg-slate-50 px-3 py-2 rounded-lg border border-slate-200 text-slate-700">
+                              <span className="w-1.5 h-1.5 rounded-full bg-teal-500 shrink-0 mt-1.5" />
+                              <span className="leading-relaxed font-medium">{reason}</span>
                             </li>
                           ))}
                         </ul>
                       </div>
                       <div className="space-y-2">
-                        <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest block">Required Clinical Actions</span>
-                        <ul className="space-y-1.5 text-slate-355">
+                        <span className="text-[10px] font-bold text-slate-455 uppercase tracking-widest block">Required Clinical Actions</span>
+                        <ul className="space-y-1.5">
                           {report.decision_summary.required_actions.map((action, idx) => (
-                            <li key={idx} className="flex items-start gap-2 bg-[#181124] px-3 py-2 rounded-lg border border-purple-950/40 text-purple-200">
-                              <span className="w-1.5 h-1.5 rounded-full bg-purple-500 shrink-0 mt-1.5" />
-                              <span className="leading-relaxed">{action}</span>
+                            <li key={idx} className="flex items-start gap-2 bg-amber-50 px-3 py-2 rounded-lg border border-amber-200 text-amber-800">
+                              <span className="w-1.5 h-1.5 rounded-full bg-amber-550 shrink-0 mt-1.5" />
+                              <span className="leading-relaxed font-semibold">{action}</span>
                             </li>
                           ))}
                           {report.decision_summary.required_actions.length === 0 && (
-                            <li className="text-slate-500 italic py-2 text-center w-full">No outstanding protocol actions required.</li>
+                            <li className="text-slate-400 italic py-2 text-center w-full">No outstanding protocol actions required.</li>
                           )}
                         </ul>
                       </div>
@@ -344,19 +341,19 @@ export default function RunPage() {
                 {(() => {
                   const styles = getDecisionStyles(report.eligibility_decision);
                   return (
-                    <div className={`border rounded-2xl p-6 md:p-8 shadow-xl ${styles.bg} flex flex-col md:flex-row items-start gap-5`}>
-                      <div className="p-3 bg-[#0d1220] border border-slate-800 rounded-2xl shadow-inner shrink-0">
+                    <div className={`border rounded-xl p-5 shadow-2xs ${styles.bg} flex flex-col md:flex-row items-start gap-4`}>
+                      <div className="p-2 bg-white border border-slate-200 rounded-lg shrink-0">
                         {styles.icon}
                       </div>
-                      <div className="space-y-3 flex-grow">
+                      <div className="space-y-1.5 flex-grow">
                         <div className="flex items-center gap-3">
-                          <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Protocol Eligibility Outcome</span>
-                          <span className={`px-2.5 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-wider border ${styles.badge}`}>
+                          <span className="text-[9px] font-bold text-slate-500 uppercase tracking-widest">Protocol Eligibility Outcome</span>
+                          <span className={`px-2 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-wider border ${styles.badge}`}>
                             {report.eligibility_decision.replace("_", " ")}
                           </span>
                         </div>
-                        <h4 className="text-lg font-bold text-slate-200">Recommendation Summary</h4>
-                        <p className="text-xs text-slate-350 leading-relaxed font-medium">
+                        <h4 className="text-sm font-extrabold">Recommendation Summary</h4>
+                        <p className="text-xs leading-relaxed font-medium">
                           {report.recommendation}
                         </p>
                       </div>
@@ -367,39 +364,39 @@ export default function RunPage() {
                 {/* Checklist criteria grids */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   {/* Satisfied Criteria Checklist */}
-                  <div className="bg-[#0f1422] border border-slate-800/80 rounded-2xl p-6 space-y-4 shadow-xl">
-                    <h4 className="text-xs font-bold text-slate-200 uppercase tracking-wider flex items-center gap-2 border-b border-slate-850 pb-3">
-                      <CheckCircle className="w-4 h-4 text-emerald-400" /> Satisfied Inclusion/Exclusion
+                  <div className="bg-white border border-slate-200 rounded-xl p-5 space-y-4 shadow-2xs">
+                    <h4 className="text-xs font-bold text-slate-800 uppercase tracking-wider flex items-center gap-2 border-b border-slate-100 pb-3">
+                      <CheckCircle className="w-4 h-4 text-emerald-600" /> Satisfied Inclusion/Exclusion
                     </h4>
-                    <div className="space-y-3 max-h-72 overflow-y-auto pr-1">
+                    <div className="space-y-2.5 max-h-72 overflow-y-auto pr-1">
                       {report.satisfied_criteria.map((item, idx) => (
-                        <div key={idx} className="bg-[#141929] border border-slate-850 rounded-xl p-3 text-xs space-y-2">
-                          <p className="font-semibold text-slate-300 leading-normal">{item.criterion}</p>
-                          <div className="text-[9px] text-slate-400 font-mono bg-slate-900 border border-slate-850 px-2 py-1 rounded inline-block select-all">
+                        <div key={idx} className="bg-slate-50 border border-slate-200 rounded-lg p-3 text-xs space-y-1.5">
+                          <p className="font-semibold text-slate-700 leading-normal">{item.criterion}</p>
+                          <div className="text-[9px] text-slate-550 font-mono bg-white border border-slate-200 px-2 py-1 rounded inline-block select-all">
                             Citation: {item.evidence_citation}
                           </div>
                         </div>
                       ))}
                       {report.satisfied_criteria.length === 0 && (
-                        <p className="text-xs text-slate-500 italic text-center py-4">No satisfied criteria verified.</p>
+                        <p className="text-xs text-slate-400 italic text-center py-4">No satisfied criteria verified.</p>
                       )}
                     </div>
                   </div>
 
                   {/* Unsatisfied Exclusions Checklist */}
-                  <div className="bg-[#0f1422] border border-slate-800/80 rounded-2xl p-6 space-y-4 shadow-xl">
-                    <h4 className="text-xs font-bold text-slate-200 uppercase tracking-wider flex items-center gap-2 border-b border-slate-850 pb-3">
-                      <XCircle className="w-4 h-4 text-rose-400" /> Unsatisfied & Exclusions
+                  <div className="bg-white border border-slate-200 rounded-xl p-5 space-y-4 shadow-2xs">
+                    <h4 className="text-xs font-bold text-slate-800 uppercase tracking-wider flex items-center gap-2 border-b border-slate-100 pb-3">
+                      <XCircle className="w-4 h-4 text-rose-600" /> Unsatisfied & Exclusions
                     </h4>
-                    <div className="space-y-3 max-h-72 overflow-y-auto pr-1">
+                    <div className="space-y-2.5 max-h-72 overflow-y-auto pr-1">
                       {report.unsatisfied_criteria.map((item, idx) => (
-                        <div key={idx} className="bg-rose-950/10 border border-rose-950/40 rounded-xl p-3 text-xs space-y-1.5">
-                          <p className="font-semibold text-rose-300 leading-normal">{item.criterion}</p>
-                          <p className="text-rose-400 font-medium text-[11px]">{item.reason}</p>
+                        <div key={idx} className="bg-rose-50 border border-rose-200 rounded-lg p-3 text-xs space-y-1">
+                          <p className="font-semibold text-rose-700 leading-normal">{item.criterion}</p>
+                          <p className="text-rose-800 font-semibold text-[11px]">{item.reason}</p>
                         </div>
                       ))}
                       {report.unsatisfied_criteria.length === 0 && (
-                        <p className="text-xs text-slate-500 italic text-center py-4">No exclusions or unsatisfied variables detected.</p>
+                        <p className="text-xs text-slate-400 italic text-center py-4">No exclusions or unsatisfied variables detected.</p>
                       )}
                     </div>
                   </div>
@@ -408,44 +405,44 @@ export default function RunPage() {
                 {/* Outstanding Tasks & Policy checks */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   {/* Outstanding Tasks */}
-                  <div className="bg-[#0f1422] border border-slate-800/80 rounded-2xl p-6 space-y-4 shadow-xl">
-                    <h4 className="text-xs font-bold text-slate-200 uppercase tracking-wider flex items-center gap-2 border-b border-slate-850 pb-3">
-                      <AlertTriangle className="w-4 h-4 text-amber-400" /> Outstanding Clinical Requirements
+                  <div className="bg-white border border-slate-200 rounded-xl p-5 space-y-4 shadow-2xs">
+                    <h4 className="text-xs font-bold text-slate-800 uppercase tracking-wider flex items-center gap-2 border-b border-slate-100 pb-3">
+                      <AlertTriangle className="w-4 h-4 text-amber-600" /> Outstanding Clinical Requirements
                     </h4>
-                    <div className="space-y-3">
+                    <div className="space-y-2.5">
                       {report.outstanding_requirements.map((item, idx) => (
-                        <div key={idx} className="bg-amber-950/10 border border-amber-950/40 rounded-xl p-3 text-xs flex justify-between items-center">
-                          <div className="space-y-1">
-                            <p className="font-semibold text-amber-300 leading-normal">{item.description}</p>
-                            <p className="text-[9px] text-amber-400 font-bold uppercase tracking-wider">Record Class: {item.related_record_type}</p>
+                        <div key={idx} className="bg-amber-50 border border-amber-200 rounded-lg p-3 text-xs flex justify-between items-center gap-3">
+                          <div className="space-y-0.5">
+                            <p className="font-semibold text-amber-800 leading-normal">{item.description}</p>
+                            <p className="text-[8px] text-amber-700 font-bold uppercase tracking-wider">Record Class: {item.related_record_type}</p>
                           </div>
-                          <span className="px-2 py-0.5 bg-amber-500/10 border border-amber-500/30 text-amber-300 rounded font-bold text-[8px] uppercase tracking-wider shrink-0">
+                          <span className="px-1.5 py-0.5 bg-amber-100 border border-amber-300 text-amber-800 rounded font-bold text-[8px] uppercase tracking-wider shrink-0">
                             Required
                           </span>
                         </div>
                       ))}
                       {report.outstanding_requirements.length === 0 && (
-                        <p className="text-xs text-slate-500 italic text-center py-4">No outstanding tests required.</p>
+                        <p className="text-xs text-slate-400 italic text-center py-4">No outstanding tests required.</p>
                       )}
                     </div>
                   </div>
 
                   {/* Policy & Freshness Audit */}
-                  <div className="bg-[#0f1422] border border-slate-800/80 rounded-2xl p-6 space-y-4 shadow-xl">
-                    <h4 className="text-xs font-bold text-slate-200 uppercase tracking-wider flex items-center gap-2 border-b border-slate-850 pb-3">
-                      <Clock className="w-4 h-4 text-sky-400" /> Freshness & Policy Audits
+                  <div className="bg-white border border-slate-200 rounded-xl p-5 space-y-4 shadow-2xs">
+                    <h4 className="text-xs font-bold text-slate-800 uppercase tracking-wider flex items-center gap-2 border-b border-slate-100 pb-3">
+                      <Clock className="w-4 h-4 text-slate-655" /> Freshness & Policy Audits
                     </h4>
-                    <div className="space-y-3">
+                    <div className="space-y-2.5">
                       {report.policy_checks.map((item, idx) => {
                         const isSuccess = item.result.toLowerCase().includes("valid") || item.result.toLowerCase().includes("fresh");
                         return (
-                          <div key={idx} className="bg-[#141929] border border-slate-850 rounded-xl p-3 text-xs flex items-center justify-between gap-4">
-                            <div className="space-y-1">
-                              <p className="font-bold text-slate-300 leading-normal">{item.policy_name}</p>
-                              <p className="text-slate-400 text-[10px]">Record Checked: {item.record_checked}</p>
+                          <div key={idx} className="bg-slate-50 border border-slate-200 rounded-lg p-3 text-xs flex items-center justify-between gap-4">
+                            <div className="space-y-0.5">
+                              <p className="font-bold text-slate-850 leading-normal">{item.policy_name}</p>
+                              <p className="text-slate-500 text-[10px]">Record Checked: {item.record_checked}</p>
                             </div>
                             <span className={`px-2 py-0.5 rounded border font-bold text-[8px] uppercase tracking-wider shrink-0 ${
-                              isSuccess ? "bg-emerald-500/10 text-emerald-300 border-emerald-500/30" : "bg-rose-500/10 text-rose-300 border-rose-500/30"
+                              isSuccess ? "bg-emerald-50 text-emerald-700 border-emerald-200/50" : "bg-rose-50 text-rose-700 border-rose-200/50"
                             }`}>
                               {item.result.split(".")[0]}
                             </span>
@@ -453,33 +450,33 @@ export default function RunPage() {
                         );
                       })}
                       {report.policy_checks.length === 0 && (
-                        <p className="text-xs text-slate-500 italic text-center py-4">No quality policy checks logged.</p>
+                        <p className="text-xs text-slate-400 italic text-center py-4">No quality policy checks logged.</p>
                       )}
                     </div>
                   </div>
                 </div>
 
                 {/* Drug interactions log */}
-                <div className="bg-[#0f1422] border border-slate-800/80 rounded-2xl p-6 space-y-4 shadow-xl">
-                  <h4 className="text-xs font-bold text-slate-200 uppercase tracking-wider flex items-center gap-2 border-b border-slate-850 pb-3">
-                    <ShieldAlert className="w-4 h-4 text-violet-400" /> Concomitant Drug Conflict Log
+                <div className="bg-white border border-slate-200 rounded-xl p-5 space-y-4 shadow-2xs">
+                  <h4 className="text-xs font-bold text-slate-800 uppercase tracking-wider flex items-center gap-2 border-b border-slate-100 pb-3">
+                    <ShieldAlert className="w-4 h-4 text-slate-655" /> Concomitant Drug Conflict Log
                   </h4>
-                  <div className="space-y-3">
+                  <div className="space-y-2.5">
                     {report.drug_exclusions.conflicts.map((conflict, idx) => (
-                      <div key={idx} className="bg-rose-950/10 border border-rose-900/40 rounded-xl p-4 text-xs flex items-start gap-4">
-                        <div className="p-2 bg-[#0c101d] rounded-xl border border-rose-900/60 mt-0.5 shrink-0">
-                          <ShieldAlert className="w-4 h-4 text-rose-400" />
+                      <div key={idx} className="bg-rose-50 border border-rose-200 rounded-lg p-4 text-xs flex items-start gap-3">
+                        <div className="p-1.5 bg-white rounded border border-rose-350 shrink-0">
+                          <ShieldAlert className="w-4 h-4 text-rose-600" />
                         </div>
-                        <div className="space-y-1">
-                          <p className="font-bold text-rose-300">Active Exclusion Drug: {conflict.medication}</p>
-                          <p className="text-rose-400 text-[11px] font-semibold">Exclusion Category: {conflict.category} | Severity: {conflict.severity}</p>
-                          <p className="text-slate-450 mt-1 text-[11px] leading-relaxed">Rule Basis: {conflict.description}</p>
+                        <div className="space-y-0.5">
+                          <p className="font-bold text-rose-800">Active Exclusion Drug: {conflict.medication}</p>
+                          <p className="text-rose-705 text-[10px] font-semibold">Exclusion Category: {conflict.category} | Severity: {conflict.severity}</p>
+                          <p className="text-slate-550 mt-1 text-[11px] leading-relaxed">Rule Basis: {conflict.description}</p>
                         </div>
                       </div>
                     ))}
                     {report.drug_exclusions.conflicts.length === 0 && (
-                      <div className="bg-emerald-950/10 border border-emerald-900/40 rounded-xl p-4 text-xs text-emerald-350 flex items-center gap-2">
-                        <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0" />
+                      <div className="bg-emerald-50 border border-emerald-200 rounded-lg p-4 text-xs text-emerald-800 flex items-center gap-2">
+                        <CheckCircle2 className="w-5 h-5 text-emerald-600 shrink-0" />
                         <span>Zero drug interaction or concomitant medication conflicts detected.</span>
                       </div>
                     )}
@@ -492,17 +489,17 @@ export default function RunPage() {
         </div>
 
         {/* RIGHT COLUMN (1/3 SPAN): LIVE STREAMING EXECUTION LOG */}
-        <div className="bg-[#0f1422] border border-slate-800/80 rounded-2xl overflow-hidden shadow-xl min-h-[500px] flex flex-col">
-          <div className="bg-[#121828]/50 px-6 py-4 border-b border-slate-850 flex items-center justify-between shrink-0">
-            <h3 className="text-xs font-extrabold text-slate-200 uppercase tracking-wider flex items-center gap-2">
-              <Layers className="w-4 h-4 text-indigo-400 animate-pulse" /> Agent Reasoning Stream
+        <div className="bg-slate-900 border border-slate-950 rounded-xl overflow-hidden shadow-2xs min-h-[500px] flex flex-col">
+          <div className="bg-slate-950 px-5 py-4 border-b border-slate-800 flex items-center justify-between shrink-0">
+            <h3 className="text-xs font-bold text-slate-200 uppercase tracking-wider flex items-center gap-2">
+              <Layers className="w-4 h-4 text-teal-400 animate-pulse" /> Agent Reasoning Stream
             </h3>
             {(status === "running" || status === "initializing") && (
-              <RefreshCw className="w-3.5 h-3.5 text-indigo-400 animate-spin" />
+              <RefreshCw className="w-3.5 h-3.5 text-teal-400 animate-spin" />
             )}
           </div>
           
-          <div className="p-6 flex-grow overflow-y-auto space-y-4 max-h-[600px] font-mono text-[11px] text-slate-300 leading-relaxed">
+          <div className="p-5 flex-grow overflow-y-auto space-y-4 max-h-[650px] font-mono text-[11px] text-slate-350 leading-relaxed bg-slate-950">
             <AnimatePresence initial={false}>
               {steps.map((step, idx) => {
                 const isObservation = step.type === "observation";
@@ -515,19 +512,19 @@ export default function RunPage() {
                 return (
                   <motion.div 
                     key={idx}
-                    initial={{ opacity: 0, x: 20 }}
+                    initial={{ opacity: 0, x: 10 }}
                     animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.3 }}
-                    className="border-l-2 border-slate-800 pl-4 py-2 space-y-2 select-text"
+                    transition={{ duration: 0.2 }}
+                    className="border-l border-slate-800 pl-4 py-1 space-y-1.5 select-text"
                   >
                     {/* Step Title Header */}
-                    <div className="flex items-center justify-between text-[10px] text-slate-500">
-                      <span className="uppercase tracking-wider font-extrabold text-indigo-400 flex items-center gap-1.5">
+                    <div className="flex items-center justify-between text-[9px] text-slate-500">
+                      <span className="uppercase tracking-wider font-bold text-teal-400 flex items-center gap-1">
                         {icon} {isThought ? "Planning Reasoning" : (step.tool_called ? step.tool_called.split(".")[0] : "Observation Agent")}
                       </span>
-                      <div className="flex items-center gap-2 font-semibold">
+                      <div className="flex items-center gap-2 font-mono">
                         {step.duration_ms !== undefined && (
-                          <span className="bg-slate-900 border border-slate-850 px-1.5 py-0.5 rounded text-slate-400">
+                          <span className="bg-slate-900 border border-slate-800 px-1 py-0.2 rounded text-slate-400">
                             {step.duration_ms}ms
                           </span>
                         )}
@@ -537,27 +534,27 @@ export default function RunPage() {
 
                     {/* Step Main text */}
                     {isThought && (
-                      <p className="text-slate-200 font-sans text-xs bg-slate-900/40 p-3 border border-slate-850 rounded-xl leading-relaxed">
+                      <p className="text-slate-305 font-sans text-xs bg-slate-900/60 p-3 border border-slate-800 rounded-lg leading-relaxed">
                         {step.content}
                       </p>
                     )}
 
                     {isObservation && (
-                      <div className="space-y-2 font-sans">
-                        <div className="bg-[#141929] border border-slate-850 rounded-xl p-3 space-y-2">
-                          <div className="text-xs font-bold text-slate-350">{toolTitle}</div>
+                      <div className="space-y-1.5 font-sans">
+                        <div className="bg-slate-900 border border-slate-800 rounded-lg p-3 space-y-1">
+                          <div className="text-xs font-bold text-slate-300">{toolTitle}</div>
                           {rationale && (
-                            <div className="text-[10px] text-slate-450 italic border-l border-indigo-500/40 pl-2">
+                            <div className="text-[10px] text-slate-450 italic border-l border-teal-650/40 pl-2">
                               Rationale: {rationale}
                             </div>
                           )}
                           <div className="text-[10px] text-slate-400 font-mono select-all">
-                            Tool Called: <code className="text-indigo-300 font-semibold">{step.tool_called}</code>
+                            Tool Called: <code className="text-teal-400 font-semibold">{step.tool_called}</code>
                           </div>
                         </div>
 
                         {/* Collapsible Tool IO block */}
-                        <div className="bg-slate-950/80 border border-slate-900 rounded-xl p-3 space-y-2 font-mono text-[10px]">
+                        <div className="bg-slate-950 border border-slate-900 rounded-lg p-3 space-y-1.5 font-mono text-[10px]">
                           <div className="text-[9px] font-bold text-slate-500 uppercase tracking-widest">Args Payload:</div>
                           <pre className="text-slate-400 overflow-x-auto select-all max-h-32">{JSON.stringify(step.tool_input, null, 2)}</pre>
                           {step.tool_output && (

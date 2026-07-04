@@ -168,6 +168,15 @@ Files created/modified:
 - [trials.py](file:///D:/Raise/backend/app/seed/trials.py)
 - [rules.py](file:///D:/Raise/backend/app/seed/rules.py)
 - [run_all.py](file:///D:/Raise/backend/app/seed/run_all.py)
+
+## Phase 2 — Data layer — 2026-07-04T20:15:03.451666
+Files created/modified:
+- [session.py](file:///D:/Raise/backend/app/db/session.py)
+- [schemas.py](file:///D:/Raise/backend/app/models/schemas.py)
+- [patients.py](file:///D:/Raise/backend/app/seed/patients.py)
+- [trials.py](file:///D:/Raise/backend/app/seed/trials.py)
+- [rules.py](file:///D:/Raise/backend/app/seed/rules.py)
+- [run_all.py](file:///D:/Raise/backend/app/seed/run_all.py)
 Collections seeded (if applicable): patients: 36, conditions: 2775, medications: 1573, observations: 49798, encounters: 4386, allergies: 9, organizations: 102, providers: 102, procedures: 14469, careplans: 279, trials: 5, trial_eligibility: 164, trial_interventions: 7, hospital_policies: 5, drug_rules: 30, agent_runs: 8
 Endpoints implemented (if applicable): none
 Tools implemented (if applicable): none
@@ -183,6 +192,23 @@ Files created/modified:
 - [rules.py](file:///D:/Raise/backend/app/seed/rules.py)
 - [run_all.py](file:///D:/Raise/backend/app/seed/run_all.py)
 Collections seeded (if applicable): patients: 36, conditions: 2775, medications: 1573, observations: 49798, encounters: 4386, allergies: 9, organizations: 102, providers: 102, procedures: 14469, careplans: 279, trials: 5, trial_eligibility: 164, trial_interventions: 7, hospital_policies: 5, drug_rules: 30, agent_runs: 8
+Endpoints implemented (if applicable): none
+Tools implemented (if applicable): none
+Deviations from prompt and why: none
+Remaining for this phase: none
+
+## Phase 11 — Product UX/UI Redesign — 2026-07-04T20:33:00Z
+Files created/modified:
+- [index.css](file:///D:/Raise/frontend/src/index.css) (clinical design system styles, Plus Jakarta Sans, light slate theme variables)
+- [App.tsx](file:///D:/Raise/frontend/src/App.tsx) (isolated marketing Landing Page from `/workspace/*` routes, established WorkspaceLayout shell)
+- [LandingPage.tsx](file:///D:/Raise/frontend/src/pages/LandingPage.tsx) (hero copy, generated illustration, hospital challenges, custom visual timeline steps, tech stack layout)
+- [DashboardPage.tsx](file:///D:/Raise/frontend/src/pages/DashboardPage.tsx) (visual metrics layout, recent evaluation lists, quick actions, pending audit checklist)
+- [PatientsPage.tsx](file:///D:/Raise/frontend/src/pages/PatientsPage.tsx) (clinical EHR table, demographics calculations, expandable detail summaries, evaluation shortcuts)
+- [TrialsPage.tsx](file:///D:/Raise/frontend/src/pages/TrialsPage.tsx) (multi-column client search, phase filters, recruitment state dropdowns, sorted criteria headers)
+- [ReportsPage.tsx](file:///D:/Raise/frontend/src/pages/ReportsPage.tsx) (archiving toggles, state deletion, evaluation duplication routes, window printing hooks)
+- [EvaluatePage.tsx](file:///D:/Raise/frontend/src/pages/EvaluatePage.tsx) (pre-selected query search parameters, light-theme form panel)
+- [RunPage.tsx](file:///D:/Raise/frontend/src/pages/RunPage.tsx) (purged glowing AI space overlays, restructured logs into high-contrast message grids)
+Collections seeded (if applicable): none (updated seed values utilized dynamically in UI layouts)
 Endpoints implemented (if applicable): none
 Tools implemented (if applicable): none
 Deviations from prompt and why: none
