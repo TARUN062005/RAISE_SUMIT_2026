@@ -6,6 +6,7 @@ import {
   Activity, ShieldAlert, ArrowLeft, RefreshCw, Layers, Brain, User, Pill,
   BarChart3, ClipboardList, CheckCircle2, AlertCircle, FlaskConical
 } from "lucide-react";
+import { apiFetch, apiPath } from "../lib/api";
 
 interface Step {
   type: string;
@@ -107,7 +108,7 @@ export default function RunPage() {
   useEffect(() => {
     if (!runId) return;
 
-    const eventSource = new EventSource(`/api/agent/run/${runId}/stream`);
+    const eventSource = new EventSource(apiPath(`/api/agent/run/${runId}/stream`));
 
     eventSource.onopen = () => {
       setStatus("running");
@@ -147,7 +148,7 @@ export default function RunPage() {
 
     eventSource.onerror = (err) => {
       console.error("SSE Connection Error:", err);
-      fetch(`/api/agent/run/${runId}`)
+      apiFetch(`/api/agent/run/${runId}`)
         .then((res) => {
           if (res.ok) return res.json();
           throw new Error("Failed to load run history");
