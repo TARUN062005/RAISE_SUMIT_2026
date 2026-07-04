@@ -60,16 +60,13 @@ async def startup_event():
     except Exception as e:
         logger.error("Failed to count collections: %s", e)
 
-    # 3. Vultr model load verification
-    if not settings.VULTR_API_KEY:
-        logger.warning("Vultr model loaded: FAILED (VULTR_API_KEY is not set)")
-    else:
-        try:
-            from backend.app.agent.vultr_client import VultrClient
-            vultr = VultrClient()
-            logger.info("Vultr model loaded: %s", vultr.model)
-        except Exception as e:
-            logger.warning("Vultr model loaded: FAILED (%s)", e)
+    # 3. Vultr health check
+    try:
+        from backend.app.agent.vultr_client import VultrClient
+        await VultrClient.run_startup_health_check()
+    except Exception as e:
+        logger.critical("Vultr startup health check failed: %s", e)
+        sys.exit(1)
 
     # 4. Routes registered logging
     registered_routes = []
@@ -86,4 +83,20 @@ app.include_router(agent_router, prefix="/api")
 
 @app.get("/health")
 async def health_check():
-    return {"status": "ok"}
+    mongo_status = "unhealthy"
+    try:
+        await client.admin.command('ping')
+        mongo_status = "healthy"
+    except Exception:
+        pass
+        
+    vultr_status = "unconfigured"
+    if settings.VULTR_API_KEY and settings.VULTR_MODEL:
+        vultr_status = "configured"
+        
+    return {
+        "status": "ok" if mongo_status == "healthy" else "degraded",
+        "mongodb": mongo_status,
+        "vultr_inference": vultr_status,
+        "vultr_model": settings.VULTR_MODEL
+    }
