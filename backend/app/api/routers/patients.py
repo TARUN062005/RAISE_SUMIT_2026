@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException
 from typing import List, Dict, Any
-from backend.app.db.session import get_db
-from backend.app.api.deps import get_current_staff_user
+from app.db.session import get_db
+from app.api.deps import get_current_staff_user
 
 router = APIRouter(prefix="/patients", tags=["patients"])
 

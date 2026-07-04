@@ -2,11 +2,11 @@ import os
 import asyncio
 from datetime import datetime
 from motor.motor_asyncio import AsyncIOMotorClient
-from backend.app.core.config import settings
+from app.core.config import settings
 
-from backend.app.seed.patients import seed_all_patients
-from backend.app.seed.trials import seed_all_trials
-from backend.app.seed.rules import seed_policies, seed_drug_rules
+from app.seed.patients import seed_all_patients
+from app.seed.trials import seed_all_trials
+from app.seed.rules import seed_policies, seed_drug_rules
 
 DATA_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "..", "data"))
 

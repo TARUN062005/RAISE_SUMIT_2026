@@ -3,9 +3,9 @@ import time
 import uuid
 from typing import List, Dict, Any, Optional
 from pydantic import BaseModel
-from backend.app.db.session import get_db
-from backend.app.agent.tools.patient_tool import PatientRecordTool
-from backend.app.agent.tools.trial_tool import TrialEligibilityTool
+from app.db.session import get_db
+from app.agent.tools.patient_tool import PatientRecordTool
+from app.agent.tools.trial_tool import TrialEligibilityTool
 
 logger = logging.getLogger(__name__)
 

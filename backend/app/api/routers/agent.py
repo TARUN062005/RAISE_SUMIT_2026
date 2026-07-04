@@ -6,9 +6,9 @@ from fastapi import APIRouter, Depends, BackgroundTasks, HTTPException
 from fastapi.responses import StreamingResponse
 from pydantic import BaseModel
 from typing import Dict, Any
-from backend.app.db.session import get_db
-from backend.app.api.deps import get_current_staff_user
-from backend.app.agent.orchestrator import run_agent
+from app.db.session import get_db
+from app.api.deps import get_current_staff_user
+from app.agent.orchestrator import run_agent
 
 router = APIRouter(prefix="/agent", tags=["agent"])
 

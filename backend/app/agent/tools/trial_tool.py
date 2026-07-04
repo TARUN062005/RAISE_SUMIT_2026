@@ -3,7 +3,7 @@ import time
 import uuid
 from typing import List, Dict, Any, Optional
 from pydantic import BaseModel
-from backend.app.db.session import get_db
+from app.db.session import get_db
 
 logger = logging.getLogger(__name__)
 

@@ -2,19 +2,18 @@ import sys
 import logging
 from fastapi import FastAPI, Depends
 from fastapi.middleware.cors import CORSMiddleware
-from backend.app.api.routers.patients import router as patients_router
-from backend.app.api.routers.trials import router as trials_router
-from backend.app.api.routers.agent import router as agent_router
-from backend.app.db.session import client, db
-from backend.app.core.config import settings
+from app.api.routers.patients import router as patients_router
+from app.api.routers.trials import router as trials_router
+from app.api.routers.agent import router as agent_router
+from app.db.session import client, db
+from app.core.config import settings
 
-# Set up structured logging
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s [%(levelname)s] %(name)s: %(message)s",
     handlers=[logging.StreamHandler(sys.stdout)]
 )
-logger = logging.getLogger("backend")
+logger = logging.getLogger("app")
 
 app = FastAPI(title="Hospital Enterprise Clinical Trial Agent API")
 
@@ -35,7 +34,6 @@ def safe_print(text: str):
 
 @app.on_event("startup")
 async def startup_event():
-    # 1. Connected to MongoDB or fail
     try:
         await client.admin.command('ping')
         safe_print("✓ Connected to MongoDB")
@@ -45,7 +43,6 @@ async def startup_event():
         logger.critical("MongoDB connection failed: %s", e)
         sys.exit(1)
 
-    # 2. Collections loaded verification
     try:
         collections = [
             "patients", "conditions", "medications", "observations", "encounters",
@@ -60,15 +57,13 @@ async def startup_event():
     except Exception as e:
         logger.error("Failed to count collections: %s", e)
 
-    # 3. Vultr health check
     try:
-        from backend.app.agent.vultr_client import VultrClient
+        from app.agent.vultr_client import VultrClient
         await VultrClient.run_startup_health_check()
     except Exception as e:
         logger.critical("Vultr startup health check failed: %s", e)
         sys.exit(1)
 
-    # 4. Routes registered logging
     registered_routes = []
     for r in app.routes:
         if hasattr(r, "path"):
@@ -81,7 +76,7 @@ app.include_router(patients_router, prefix="/api")
 app.include_router(trials_router, prefix="/api")
 app.include_router(agent_router, prefix="/api")
 
-from backend.app.api.deps import get_current_staff_user
+from app.api.deps import get_current_staff_user
 
 @app.get("/api/me")
 async def get_me(user: dict = Depends(get_current_staff_user)):
@@ -95,11 +90,11 @@ async def health_check():
         mongo_status = "healthy"
     except Exception:
         pass
-        
+
     vultr_status = "unconfigured"
     if settings.VULTR_API_KEY and settings.VULTR_MODEL:
         vultr_status = "configured"
-        
+
     return {
         "status": "ok" if mongo_status == "healthy" else "degraded",
         "mongodb": mongo_status,

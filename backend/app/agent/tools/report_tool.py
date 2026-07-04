@@ -3,8 +3,8 @@ import time
 import uuid
 from datetime import datetime
 from typing import Dict, Any, List, Optional
-from backend.app.db.session import get_db
-from backend.app.core.utils import calculate_age
+from app.db.session import get_db
+from app.core.utils import calculate_age
 
 logger = logging.getLogger(__name__)
 
