@@ -1,0 +1,10 @@
+START,STOP,PATIENT,ENCOUNTER,CODE,SYSTEM,DESCRIPTION,TYPE,CATEGORY,REACTION1,DESCRIPTION1,SEVERITY1,REACTION2,DESCRIPTION2,SEVERITY2
+1985-01-12,,3d9ac882-9b4c-939f-59ef-f261f5a4fa5e,3d9ac882-9b4c-939f-1a31-281527c336e1,609328004,Unknown,Allergic disposition (finding),allergy,environment,,,,,,
+1996-02-06,,347ee99c-8402-5199-5eb2-cbdc2e31846a,347ee99c-8402-5199-5445-3880bc65ac6e,609328004,Unknown,Allergic disposition (finding),allergy,environment,,,,,,
+1996-02-06,,347ee99c-8402-5199-5eb2-cbdc2e31846a,347ee99c-8402-5199-5445-3880bc65ac6e,29046,Unknown,Lisinopril,intolerance,medication,,,,,,
+1996-02-06,,347ee99c-8402-5199-5eb2-cbdc2e31846a,347ee99c-8402-5199-5445-3880bc65ac6e,5640,Unknown,Ibuprofen,allergy,medication,,,,,,
+1996-02-06,,347ee99c-8402-5199-5eb2-cbdc2e31846a,347ee99c-8402-5199-5445-3880bc65ac6e,1191,Unknown,Aspirin,allergy,medication,,,,,,
+1982-02-10,,df585662-6d72-e33d-a82b-72048913f8f2,df585662-6d72-e33d-fc6e-debf7d8ee99b,609328004,Unknown,Allergic disposition (finding),allergy,environment,,,,,,
+1982-02-10,,df585662-6d72-e33d-a82b-72048913f8f2,df585662-6d72-e33d-fc6e-debf7d8ee99b,84489001,Unknown,Mold (organism),allergy,environment,,,,,,
+1982-02-10,,df585662-6d72-e33d-a82b-72048913f8f2,df585662-6d72-e33d-fc6e-debf7d8ee99b,7984,Unknown,Penicillin V,allergy,medication,,,,,,
+1982-02-10,,df585662-6d72-e33d-a82b-72048913f8f2,df585662-6d72-e33d-fc6e-debf7d8ee99b,735029006,Unknown,Shellfish (substance),allergy,food,39579001,Anaphylaxis (disorder),SEVERE,271807003,Eruption of skin (disorder),MODERATE

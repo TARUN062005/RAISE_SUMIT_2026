@@ -1,0 +1,48 @@
+[
+  {
+    "policyId": "POL001",
+    "title": "ECG Validity Policy",
+    "requiredDocument": "ECG Report",
+    "validityDays": 365,
+    "actionIfMissing": "Request ECG before eligibility decision",
+    "actionIfExpired": "Repeat ECG before enrollment"
+  },
+  {
+    "policyId": "POL002",
+    "title": "CBC Validity Policy",
+    "requiredDocument": "Complete Blood Count",
+    "validityDays": 30,
+    "actionIfMissing": "Order CBC",
+    "actionIfExpired": "Repeat CBC"
+  },
+  {
+    "policyId": "POL003",
+    "title": "Liver Function Test Policy",
+    "requiredDocument": "LFT",
+    "validityDays": 30,
+    "requiredTests": [
+      "AST",
+      "ALT",
+      "Total Bilirubin"
+    ],
+    "actionIfMissing": "Order liver function tests"
+  },
+  {
+    "policyId": "POL004",
+    "title": "Clinical Trial Enrollment Policy",
+    "rules": [
+      "All inclusion criteria must be satisfied.",
+      "No exclusion criterion may be present.",
+      "Outstanding required documents prevent enrollment."
+    ]
+  },
+  {
+    "policyId": "POL005",
+    "title": "Medical Record Completeness Policy",
+    "rules": [
+      "Flag missing laboratory or imaging records.",
+      "Flag expired records based on policy validity windows.",
+      "Generate outstanding task list for coordinator."
+    ]
+  }
+]

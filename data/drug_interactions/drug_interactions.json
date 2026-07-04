@@ -1,0 +1,182 @@
+[
+  {
+    "drug": "Warfarin",
+    "category": "Anticoagulant",
+    "trialExclusion": true,
+    "reason": "Bleeding risk"
+  },
+  {
+    "drug": "Heparin",
+    "category": "Anticoagulant",
+    "trialExclusion": true,
+    "reason": "Bleeding risk"
+  },
+  {
+    "drug": "Enoxaparin",
+    "category": "Anticoagulant",
+    "trialExclusion": true,
+    "reason": "Bleeding risk"
+  },
+  {
+    "drug": "Apixaban",
+    "category": "Anticoagulant",
+    "trialExclusion": true,
+    "reason": "Bleeding risk"
+  },
+  {
+    "drug": "Rivaroxaban",
+    "category": "Anticoagulant",
+    "trialExclusion": true,
+    "reason": "Bleeding risk"
+  },
+  {
+    "drug": "Dabigatran",
+    "category": "Anticoagulant",
+    "trialExclusion": true,
+    "reason": "Bleeding risk"
+  },
+  {
+    "drug": "Clopidogrel",
+    "category": "Antiplatelet",
+    "trialExclusion": false,
+    "reason": "Protocol dependent"
+  },
+  {
+    "drug": "Aspirin",
+    "category": "Antiplatelet",
+    "trialExclusion": false,
+    "reason": "Protocol dependent"
+  },
+  {
+    "drug": "Prednisone",
+    "category": "Corticosteroid",
+    "trialExclusion": false,
+    "reason": "Dose dependent"
+  },
+  {
+    "drug": "Dexamethasone",
+    "category": "Corticosteroid",
+    "trialExclusion": false,
+    "reason": "Protocol dependent"
+  },
+  {
+    "drug": "Methotrexate",
+    "category": "Immunosuppressant",
+    "trialExclusion": true,
+    "reason": "Immunosuppression"
+  },
+  {
+    "drug": "Azathioprine",
+    "category": "Immunosuppressant",
+    "trialExclusion": true,
+    "reason": "Immunosuppression"
+  },
+  {
+    "drug": "Tacrolimus",
+    "category": "Immunosuppressant",
+    "trialExclusion": true,
+    "reason": "Immunosuppression"
+  },
+  {
+    "drug": "Cyclosporine",
+    "category": "Immunosuppressant",
+    "trialExclusion": true,
+    "reason": "Immunosuppression"
+  },
+  {
+    "drug": "Sirolimus",
+    "category": "Immunosuppressant",
+    "trialExclusion": true,
+    "reason": "Immunosuppression"
+  },
+  {
+    "drug": "Carbamazepine",
+    "category": "CYP3A4 inducer",
+    "trialExclusion": true,
+    "reason": "Drug interaction"
+  },
+  {
+    "drug": "Phenytoin",
+    "category": "CYP3A4 inducer",
+    "trialExclusion": true,
+    "reason": "Drug interaction"
+  },
+  {
+    "drug": "Phenobarbital",
+    "category": "CYP3A4 inducer",
+    "trialExclusion": true,
+    "reason": "Drug interaction"
+  },
+  {
+    "drug": "Rifampin",
+    "category": "CYP3A4 inducer",
+    "trialExclusion": true,
+    "reason": "Drug interaction"
+  },
+  {
+    "drug": "Ketoconazole",
+    "category": "CYP3A4 inhibitor",
+    "trialExclusion": false,
+    "reason": "Protocol dependent"
+  },
+  {
+    "drug": "Itraconazole",
+    "category": "CYP3A4 inhibitor",
+    "trialExclusion": false,
+    "reason": "Protocol dependent"
+  },
+  {
+    "drug": "Clarithromycin",
+    "category": "CYP3A4 inhibitor",
+    "trialExclusion": false,
+    "reason": "Protocol dependent"
+  },
+  {
+    "drug": "Erythromycin",
+    "category": "CYP3A4 inhibitor",
+    "trialExclusion": false,
+    "reason": "Protocol dependent"
+  },
+  {
+    "drug": "Amiodarone",
+    "category": "QT prolongation",
+    "trialExclusion": true,
+    "reason": "QT prolongation risk"
+  },
+  {
+    "drug": "Sotalol",
+    "category": "QT prolongation",
+    "trialExclusion": true,
+    "reason": "QT prolongation risk"
+  },
+  {
+    "drug": "Hydroxychloroquine",
+    "category": "QT prolongation",
+    "trialExclusion": true,
+    "reason": "QT prolongation risk"
+  },
+  {
+    "drug": "Cisplatin",
+    "category": "Chemotherapy",
+    "trialExclusion": false,
+    "reason": "Protocol dependent"
+  },
+  {
+    "drug": "Gemcitabine",
+    "category": "Chemotherapy",
+    "trialExclusion": false,
+    "reason": "May be study drug"
+  },
+  {
+    "drug": "Osimertinib",
+    "category": "Targeted therapy",
+    "trialExclusion": false,
+    "reason": "Study specific"
+  },
+  {
+    "drug": "Atezolizumab",
+    "category": "Immunotherapy",
+    "trialExclusion": false,
+    "reason": "Study specific"
+  }
+]

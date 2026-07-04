@@ -1,0 +1,280 @@
+Id,START,STOP,PATIENT,ENCOUNTER,CODE,DESCRIPTION,REASONCODE,REASONDESCRIPTION
+2679b55e-29f6-8dec-4842-2ae5086d0df0,2023-11-17,2024-04-12,2679b55e-29f6-8dec-cc13-bb9535170982,2679b55e-29f6-8dec-3244-e98dda6a3f59,53950000,Respiratory therapy (procedure),,
+aed2e6e3-51b8-1adc-0225-da3c53b9a7ec,2016-08-02,2016-11-14,aed2e6e3-51b8-1adc-e330-3dd29220052e,aed2e6e3-51b8-1adc-a780-f7e3cc5b28e3,385691007,Fracture care (regime/therapy),58150001,Fracture of clavicle (disorder)
+1e75a46d-1c09-75a7-2e1a-70e3c50c62ac,1959-09-06,1959-09-25,1e75a46d-1c09-75a7-1ced-5aaa0edbe418,1e75a46d-1c09-75a7-e1b2-fb76a32b7df6,53950000,Respiratory therapy (procedure),,
+1e75a46d-1c09-75a7-1b73-2cb37eb8e816,1962-06-03,1962-06-21,1e75a46d-1c09-75a7-1ced-5aaa0edbe418,1e75a46d-1c09-75a7-3bd2-0e63dbbfe244,53950000,Respiratory therapy (procedure),,
+1e75a46d-1c09-75a7-1519-d90a39873347,1970-06-11,1971-06-27,1e75a46d-1c09-75a7-1ced-5aaa0edbe418,1e75a46d-1c09-75a7-f9b1-c9f984a6fa26,53950000,Respiratory therapy (procedure),,
+1e75a46d-1c09-75a7-22b8-69533c2a9248,1971-09-12,1971-11-01,1e75a46d-1c09-75a7-1ced-5aaa0edbe418,1e75a46d-1c09-75a7-44ca-03da24cb6135,773513001,Physiotherapy care plan (record artifact),239720000,Tear of meniscus of knee (disorder)
+08dad039-883e-fef2-a906-fff46c71c7ac,1999-10-27,1999-11-27,08dad039-883e-fef2-a7de-1307322306e2,08dad039-883e-fef2-4092-029310d44d53,773513001,Physiotherapy care plan (record artifact),70704007,Sprain of wrist (disorder)
+08dad039-883e-fef2-c502-5a4e174ceae0,2010-10-11,2010-10-26,08dad039-883e-fef2-a7de-1307322306e2,08dad039-883e-fef2-8140-378d5ac395be,225358003,Wound care (regime/therapy),284551006,Laceration of foot (disorder)
+0a13c1bb-bedc-ab1c-84e4-df1005795848,1986-05-03,1986-08-23,0a13c1bb-bedc-ab1c-08e1-81196dc4dac5,0a13c1bb-bedc-ab1c-8f25-a0ee0b68f07d,385691007,Fracture care (regime/therapy),33737001,Fracture of rib (disorder)
+08dad039-883e-fef2-646d-87e276464205,2011-07-04,2014-02-14,08dad039-883e-fef2-a7de-1307322306e2,08dad039-883e-fef2-a69e-68f6affe14ef,386522008,Overactivity/inattention behavior management (regime/therapy),,
+a63422b4-bc79-f049-09c0-7bf65217a8af,2010-08-09,2011-03-28,a63422b4-bc79-f049-4369-0571c8414249,a63422b4-bc79-f049-70b3-8b21b2ee9300,53950000,Respiratory therapy (procedure),,
+a63422b4-bc79-f049-0cb5-14fb93403ab8,2010-09-03,2010-09-25,a63422b4-bc79-f049-4369-0571c8414249,a63422b4-bc79-f049-4013-529f9bd0331c,225358003,Wound care (regime/therapy),283385000,Laceration of thigh (disorder)
+a63422b4-bc79-f049-410c-2a6dd67bba1c,2011-11-05,2011-11-21,a63422b4-bc79-f049-4369-0571c8414249,a63422b4-bc79-f049-3450-77f971a870a9,773513001,Physiotherapy care plan (record artifact),44465007,Sprain of ankle (disorder)
+08dad039-883e-fef2-b109-5d7e1b6eeff4,2025-02-28,,08dad039-883e-fef2-a7de-1307322306e2,08dad039-883e-fef2-c189-e33d7a9caa66,443402002,Lifestyle education regarding hypertension (procedure),59621000,Essential hypertension (disorder)
+08dad039-883e-fef2-dba5-95912e52ca67,2025-02-28,,08dad039-883e-fef2-a7de-1307322306e2,08dad039-883e-fef2-c189-e33d7a9caa66,735985000,Diabetes self management plan (record artifact),714628002,Prediabetes (finding)
+0a13c1bb-bedc-ab1c-78e9-2985cad680cf,2007-12-23,2008-01-09,0a13c1bb-bedc-ab1c-08e1-81196dc4dac5,0a13c1bb-bedc-ab1c-73d3-a9ae831bb284,773513001,Physiotherapy care plan (record artifact),44465007,Sprain of ankle (disorder)
+d5a20d74-d8ec-32b1-3285-f9e5ab27e46f,2012-04-03,2012-05-15,d5a20d74-d8ec-32b1-d318-b9faed210d1e,d5a20d74-d8ec-32b1-6bfe-eae836a2b352,385691007,Fracture care (regime/therapy),16114001,Fracture of ankle (disorder)
+d5a20d74-d8ec-32b1-6d1d-f83206c08cce,2013-04-01,2013-05-19,d5a20d74-d8ec-32b1-d318-b9faed210d1e,d5a20d74-d8ec-32b1-0bbb-18ea909917ad,385691007,Fracture care (regime/therapy),58150001,Fracture of clavicle (disorder)
+a63422b4-bc79-f049-49e2-87f026f3c45c,2021-01-18,2021-05-24,a63422b4-bc79-f049-4369-0571c8414249,a63422b4-bc79-f049-99e2-f687e9243bbd,53950000,Respiratory therapy (procedure),,
+a63422b4-bc79-f049-5bdd-02c1225f7121,2021-02-27,2021-03-20,a63422b4-bc79-f049-4369-0571c8414249,a63422b4-bc79-f049-8e9c-4af597720f39,225358003,Wound care (regime/therapy),370247008,Facial laceration (disorder)
+3c7b34f2-7d92-dba7-af5a-6290ccd18fa2,1983-09-19,1984-09-03,3c7b34f2-7d92-dba7-a534-30d6ef461b70,3c7b34f2-7d92-dba7-4e1a-47db3cb2ae63,53950000,Respiratory therapy (procedure),,
+3c7b34f2-7d92-dba7-075f-64e325f9e7fa,1987-08-21,1987-09-21,3c7b34f2-7d92-dba7-a534-30d6ef461b70,3c7b34f2-7d92-dba7-e433-3ec465f4d51c,53950000,Respiratory therapy (procedure),,
+a63422b4-bc79-f049-8d36-0eb8cdb24f87,2024-03-25,2024-10-28,a63422b4-bc79-f049-4369-0571c8414249,a63422b4-bc79-f049-92fa-1dede9e33fff,134435003,Routine antenatal care (regime/therapy),,
+d5a20d74-d8ec-32b1-0598-cfdba5d19699,2024-05-08,2024-07-03,d5a20d74-d8ec-32b1-d318-b9faed210d1e,d5a20d74-d8ec-32b1-7d54-9a24c019c007,276239002,Therapy (regime/therapy),,
+0a13c1bb-bedc-ab1c-be14-4abe05f37f04,2018-05-09,2018-07-15,0a13c1bb-bedc-ab1c-08e1-81196dc4dac5,0a13c1bb-bedc-ab1c-efbc-f953475aa75a,47387005,Head injury rehabilitation (regime/therapy),62564004,Concussion with loss of consciousness (disorder)
+3c7b34f2-7d92-dba7-9ec6-e6b8cecb5ffb,1996-08-06,1996-11-11,3c7b34f2-7d92-dba7-a534-30d6ef461b70,3c7b34f2-7d92-dba7-f9b5-257c6984f592,53950000,Respiratory therapy (procedure),,
+3c7b34f2-7d92-dba7-ef6b-c6047894540f,2003-11-24,,3c7b34f2-7d92-dba7-a534-30d6ef461b70,3c7b34f2-7d92-dba7-446a-ae9050bdbd36,735985000,Diabetes self management plan (record artifact),714628002,Prediabetes (finding)
+3c7b34f2-7d92-dba7-3c5a-b1496a9ac7d5,2013-12-22,2014-01-11,3c7b34f2-7d92-dba7-a534-30d6ef461b70,3c7b34f2-7d92-dba7-ff8d-f54b44b94dc0,225358003,Wound care (regime/therapy),283385000,Laceration of thigh (disorder)
+3c7b34f2-7d92-dba7-c919-7298ca2bff45,2019-07-15,2020-09-28,3c7b34f2-7d92-dba7-a534-30d6ef461b70,3c7b34f2-7d92-dba7-53ba-f009cfd26d0b,53950000,Respiratory therapy (procedure),,
+3d9ac882-9b4c-939f-8f7e-2217820f56d1,1985-01-12,,3d9ac882-9b4c-939f-59ef-f261f5a4fa5e,3d9ac882-9b4c-939f-1a31-281527c336e1,384758001,Self-care interventions (procedure),,
+3d9ac882-9b4c-939f-b385-3ad9b6c02fa7,1986-08-15,1986-09-14,3d9ac882-9b4c-939f-59ef-f261f5a4fa5e,3d9ac882-9b4c-939f-55b5-0defa9fcb4de,773513001,Physiotherapy care plan (record artifact),44465007,Sprain of ankle (disorder)
+0a13c1bb-bedc-ab1c-c505-94f43b2a34f8,2024-08-29,2024-10-25,0a13c1bb-bedc-ab1c-08e1-81196dc4dac5,0a13c1bb-bedc-ab1c-8b0b-b39bc04a6f26,47387005,Head injury rehabilitation (regime/therapy),62106007,Concussion with no loss of consciousness (disorder)
+3c7b34f2-7d92-dba7-877c-44b05fe7f8bf,2025-03-27,2025-05-14,3c7b34f2-7d92-dba7-a534-30d6ef461b70,3c7b34f2-7d92-dba7-0ccc-9a22d1a39f2e,408869004,Musculoskeletal care (regime/therapy),,
+0a13c1bb-bedc-ab1c-6e1c-d54a125e22f9,2026-04-16,,0a13c1bb-bedc-ab1c-08e1-81196dc4dac5,0a13c1bb-bedc-ab1c-604f-548560995069,735985000,Diabetes self management plan (record artifact),714628002,Prediabetes (finding)
+3d9ac882-9b4c-939f-4f91-9082870585af,1990-11-03,1990-11-19,3d9ac882-9b4c-939f-59ef-f261f5a4fa5e,3d9ac882-9b4c-939f-2c6e-702f8d6bfe43,53950000,Respiratory therapy (procedure),,
+3d9ac882-9b4c-939f-227f-cd514043741e,1996-04-09,1996-05-18,3d9ac882-9b4c-939f-59ef-f261f5a4fa5e,3d9ac882-9b4c-939f-cb23-8832f789f63c,385691007,Fracture care (regime/therapy),359817006,Closed fracture of hip (disorder)
+3d9ac882-9b4c-939f-4b0b-21645ec1d7b8,1998-03-05,1998-06-04,3d9ac882-9b4c-939f-59ef-f261f5a4fa5e,3d9ac882-9b4c-939f-95b2-c65412938d51,385691007,Fracture care (regime/therapy),65966004,Fracture of forearm (disorder)
+3d9ac882-9b4c-939f-8059-437b4ab33097,2002-03-19,2002-10-15,3d9ac882-9b4c-939f-59ef-f261f5a4fa5e,3d9ac882-9b4c-939f-900b-bca35bf8e063,134435003,Routine antenatal care (regime/therapy),,
+3d9ac882-9b4c-939f-f309-baeeb671c826,2002-04-25,2002-08-16,3d9ac882-9b4c-939f-59ef-f261f5a4fa5e,3d9ac882-9b4c-939f-6e5a-9c381a55d15d,385691007,Fracture care (regime/therapy),16114001,Fracture of ankle (disorder)
+3d9ac882-9b4c-939f-081d-1f14a497ad66,2006-06-13,2008-12-02,3d9ac882-9b4c-939f-59ef-f261f5a4fa5e,3d9ac882-9b4c-939f-bd89-0b4d7d3f7798,53950000,Respiratory therapy (procedure),,
+3d9ac882-9b4c-939f-4a9d-5f95eafa0822,2006-10-17,2007-05-01,3d9ac882-9b4c-939f-59ef-f261f5a4fa5e,3d9ac882-9b4c-939f-f054-e2fbc4c31603,134435003,Routine antenatal care (regime/therapy),,
+3d9ac882-9b4c-939f-0fbd-1fe5e079213f,2008-12-16,2009-07-21,3d9ac882-9b4c-939f-59ef-f261f5a4fa5e,3d9ac882-9b4c-939f-0a2f-e460aeb263c1,134435003,Routine antenatal care (regime/therapy),,
+3d9ac882-9b4c-939f-e79a-d7fd790f0bb2,2014-02-06,2014-03-21,3d9ac882-9b4c-939f-59ef-f261f5a4fa5e,3d9ac882-9b4c-939f-6237-5706520c1440,276239002,Therapy (regime/therapy),,
+3d9ac882-9b4c-939f-80c3-906eff979523,2014-03-25,2014-10-28,3d9ac882-9b4c-939f-59ef-f261f5a4fa5e,3d9ac882-9b4c-939f-49b2-b828e720bdcb,134435003,Routine antenatal care (regime/therapy),,
+ff07de8f-3190-a8b3-dd9b-4d6293b8a47f,2019-08-11,2020-01-24,ff07de8f-3190-a8b3-c698-3fc7a1b63152,ff07de8f-3190-a8b3-a14c-ffdf1fc5db83,53950000,Respiratory therapy (procedure),,
+3d9ac882-9b4c-939f-7ed0-5b8f60870ce3,2015-07-07,2016-02-16,3d9ac882-9b4c-939f-59ef-f261f5a4fa5e,3d9ac882-9b4c-939f-f9a4-7adf9231a22a,134435003,Routine antenatal care (regime/therapy),,
+ff07de8f-3190-a8b3-5c54-cbffbe4e497d,2021-02-20,2021-02-20,ff07de8f-3190-a8b3-c698-3fc7a1b63152,ff07de8f-3190-a8b3-a20a-0d5ce2451b27,736376001,Infectious disease care plan (record artifact),,
+ff07de8f-3190-a8b3-0473-116bc7b19de3,2021-02-20,2021-03-27,ff07de8f-3190-a8b3-c698-3fc7a1b63152,ff07de8f-3190-a8b3-a20a-0d5ce2451b27,736376001,Infectious disease care plan (record artifact),,
+3d9ac882-9b4c-939f-528b-cd8e207c7bc2,2016-04-16,2016-05-05,3d9ac882-9b4c-939f-59ef-f261f5a4fa5e,3d9ac882-9b4c-939f-6eae-bcaccf42e8be,737471002,Minor surgery care management (procedure),,
+ff07de8f-3190-a8b3-1708-04f97a3a17fd,2024-01-06,2024-02-02,ff07de8f-3190-a8b3-c698-3fc7a1b63152,ff07de8f-3190-a8b3-1c34-67b1be2602cf,53950000,Respiratory therapy (procedure),,
+3d9ac882-9b4c-939f-8da3-e81ee5dac0c3,2017-03-07,,3d9ac882-9b4c-939f-59ef-f261f5a4fa5e,3d9ac882-9b4c-939f-01f5-0261bc314f16,443402002,Lifestyle education regarding hypertension (procedure),59621000,Essential hypertension (disorder)
+3d9ac882-9b4c-939f-d116-40c1232e6fca,2017-12-17,2018-03-13,3d9ac882-9b4c-939f-59ef-f261f5a4fa5e,3d9ac882-9b4c-939f-0af9-45af3e074806,53950000,Respiratory therapy (procedure),,
+3d9ac882-9b4c-939f-b168-cf67c3a1b186,2019-12-17,2020-03-24,3d9ac882-9b4c-939f-59ef-f261f5a4fa5e,3d9ac882-9b4c-939f-d795-e0381e45f8a4,53950000,Respiratory therapy (procedure),,
+3d9ac882-9b4c-939f-c3ab-ccb7108e1dc9,2021-01-11,2021-01-11,3d9ac882-9b4c-939f-59ef-f261f5a4fa5e,3d9ac882-9b4c-939f-ea1a-a38fe6b12217,736376001,Infectious disease care plan (record artifact),,
+3d9ac882-9b4c-939f-6187-baf3971fe117,2021-01-11,2021-02-09,3d9ac882-9b4c-939f-59ef-f261f5a4fa5e,3d9ac882-9b4c-939f-ea1a-a38fe6b12217,736376001,Infectious disease care plan (record artifact),,
+3d9ac882-9b4c-939f-613e-aa7eb1f9bf25,2025-10-27,2026-04-28,3d9ac882-9b4c-939f-59ef-f261f5a4fa5e,3d9ac882-9b4c-939f-ddda-5d49657d918e,53950000,Respiratory therapy (procedure),,
+4bdeace1-111b-75dd-0cc2-b73bd8fef2c8,2014-03-23,2014-07-02,4bdeace1-111b-75dd-01fa-14dfab4b4ec5,4bdeace1-111b-75dd-6cb4-24fa301387bc,53950000,Respiratory therapy (procedure),,
+4bdeace1-111b-75dd-6cc6-1b355e4c90a1,2019-08-07,2020-07-15,4bdeace1-111b-75dd-01fa-14dfab4b4ec5,4bdeace1-111b-75dd-a87c-9281fa060d89,53950000,Respiratory therapy (procedure),,
+bc96014b-5d82-06ab-2f48-918d00db4996,1980-11-25,1981-02-04,bc96014b-5d82-06ab-2c57-32ec2fb5440c,bc96014b-5d82-06ab-5d76-3d08ec251c78,385691007,Fracture care (regime/therapy),58150001,Fracture of clavicle (disorder)
+bc96014b-5d82-06ab-daca-4de8601cc774,1984-03-22,1984-03-29,bc96014b-5d82-06ab-2c57-32ec2fb5440c,bc96014b-5d82-06ab-83a9-2f0aade45083,53950000,Respiratory therapy (procedure),,
+4bdeace1-111b-75dd-f9cc-29dfcf57fc36,2024-08-25,2025-08-13,4bdeace1-111b-75dd-01fa-14dfab4b4ec5,4bdeace1-111b-75dd-0a93-84de3809ace3,53950000,Respiratory therapy (procedure),,
+3f059457-894b-5b30-2e2a-1685832e29a3,1967-04-23,1984-01-08,3f059457-894b-5b30-be8f-71f277945f31,3f059457-894b-5b30-d105-e4ed586bdd75,711282006,Skin condition care (regime/therapy),24079001,Atopic dermatitis (disorder)
+3f059457-894b-5b30-c670-c43164d877e7,1968-01-28,1968-02-11,3f059457-894b-5b30-be8f-71f277945f31,3f059457-894b-5b30-a21a-329dbc5def95,53950000,Respiratory therapy (procedure),,
+3f059457-894b-5b30-2645-8056de854827,1973-05-26,1973-06-29,3f059457-894b-5b30-be8f-71f277945f31,3f059457-894b-5b30-8287-c52f2b0d0842,773513001,Physiotherapy care plan (record artifact),70704007,Sprain of wrist (disorder)
+bc96014b-5d82-06ab-90ad-00d867702735,1994-05-18,1994-07-27,bc96014b-5d82-06ab-2c57-32ec2fb5440c,bc96014b-5d82-06ab-af0d-a3cba7e4e4f9,47387005,Head injury rehabilitation (regime/therapy),62106007,Concussion with no loss of consciousness (disorder)
+3f059457-894b-5b30-f951-8b3ff9259b24,1976-05-07,1976-05-31,3f059457-894b-5b30-be8f-71f277945f31,3f059457-894b-5b30-84bd-cc5604c9377d,773513001,Physiotherapy care plan (record artifact),70704007,Sprain of wrist (disorder)
+3f059457-894b-5b30-5c60-2359d771c9bd,1977-06-04,1977-06-18,3f059457-894b-5b30-be8f-71f277945f31,3f059457-894b-5b30-4c36-2b659f3a64ba,225358003,Wound care (regime/therapy),283371005,Laceration of forearm (disorder)
+bc96014b-5d82-06ab-f330-611c4ae36989,1995-08-13,1996-10-21,bc96014b-5d82-06ab-2c57-32ec2fb5440c,bc96014b-5d82-06ab-d9c8-983293f758f8,134435003,Routine antenatal care (regime/therapy),,
+bc96014b-5d82-06ab-c952-dce579e32b15,1995-08-31,1995-09-08,bc96014b-5d82-06ab-2c57-32ec2fb5440c,bc96014b-5d82-06ab-f968-6d071861c06e,53950000,Respiratory therapy (procedure),,
+347ee99c-8402-5199-4d9b-4f424db8511e,1974-10-24,1974-11-07,347ee99c-8402-5199-5eb2-cbdc2e31846a,347ee99c-8402-5199-883e-7dcdcb3f89b1,53950000,Respiratory therapy (procedure),,
+347ee99c-8402-5199-05e4-4f24fb531edd,1978-12-15,1979-01-17,347ee99c-8402-5199-5eb2-cbdc2e31846a,347ee99c-8402-5199-a6a2-adb7b5f82cdb,408869004,Musculoskeletal care (regime/therapy),,
+bc96014b-5d82-06ab-89e0-1e5536614f92,1998-01-28,1998-02-10,bc96014b-5d82-06ab-2c57-32ec2fb5440c,bc96014b-5d82-06ab-ad15-8686cf316bf7,53950000,Respiratory therapy (procedure),,
+3f059457-894b-5b30-c536-721012c18792,1987-09-01,1987-10-01,3f059457-894b-5b30-be8f-71f277945f31,3f059457-894b-5b30-71be-78da20260580,773513001,Physiotherapy care plan (record artifact),44465007,Sprain of ankle (disorder)
+347ee99c-8402-5199-11fc-b24f74566bd2,1992-11-06,1993-07-09,347ee99c-8402-5199-5eb2-cbdc2e31846a,347ee99c-8402-5199-7a3e-36ebf47b7e03,134435003,Routine antenatal care (regime/therapy),,
+347ee99c-8402-5199-d5ae-519d0b84192a,1993-06-25,,347ee99c-8402-5199-5eb2-cbdc2e31846a,347ee99c-8402-5199-bc03-bccff68364be,735985000,Diabetes self management plan (record artifact),714628002,Prediabetes (finding)
+bc96014b-5d82-06ab-1477-afd065eda00b,2001-11-18,2002-06-16,bc96014b-5d82-06ab-2c57-32ec2fb5440c,bc96014b-5d82-06ab-7a7c-3eb65be2c927,134435003,Routine antenatal care (regime/therapy),,
+3f059457-894b-5b30-f717-6ace83c7b216,1999-08-18,2000-03-15,3f059457-894b-5b30-be8f-71f277945f31,3f059457-894b-5b30-6335-37930367feaa,134435003,Routine antenatal care (regime/therapy),,
+347ee99c-8402-5199-e6bf-9320d47aa6cb,1996-01-16,1996-11-14,347ee99c-8402-5199-5eb2-cbdc2e31846a,347ee99c-8402-5199-3556-6c8c235d0aa7,711282006,Skin condition care (regime/therapy),40275004,Contact dermatitis (disorder)
+347ee99c-8402-5199-3e00-138756adf116,1996-02-06,,347ee99c-8402-5199-5eb2-cbdc2e31846a,347ee99c-8402-5199-5445-3880bc65ac6e,384758001,Self-care interventions (procedure),,
+347ee99c-8402-5199-6323-e857227ff717,1996-02-06,2000-02-27,347ee99c-8402-5199-5eb2-cbdc2e31846a,347ee99c-8402-5199-88b5-209312dd2a78,170836005,Allergic disorder monitoring (regime/therapy),,
+3f059457-894b-5b30-485d-c56c4e8ebedd,2000-10-18,2001-05-30,3f059457-894b-5b30-be8f-71f277945f31,3f059457-894b-5b30-851c-cc17c6dc82c5,134435003,Routine antenatal care (regime/therapy),,
+347ee99c-8402-5199-e05e-2ea36dc6429b,2003-08-22,2006-03-24,347ee99c-8402-5199-5eb2-cbdc2e31846a,347ee99c-8402-5199-77e6-31c9119b626a,53950000,Respiratory therapy (procedure),,
+347ee99c-8402-5199-c452-0185bc7ed5a6,2005-10-01,2006-01-09,347ee99c-8402-5199-5eb2-cbdc2e31846a,347ee99c-8402-5199-fa7b-35aec8683e3a,385691007,Fracture care (regime/therapy),65966004,Fracture of forearm (disorder)
+bc96014b-5d82-06ab-d0d1-d0a63d1b9d55,2005-06-12,2006-01-22,bc96014b-5d82-06ab-2c57-32ec2fb5440c,bc96014b-5d82-06ab-d975-2f89d66b75ac,134435003,Routine antenatal care (regime/therapy),,
+347ee99c-8402-5199-2e30-aa60f17e17dc,2006-08-23,2009-03-27,347ee99c-8402-5199-5eb2-cbdc2e31846a,347ee99c-8402-5199-277e-92a2dce911f5,53950000,Respiratory therapy (procedure),,
+347ee99c-8402-5199-9b75-fdc45d7b4c6d,2007-06-25,2007-07-12,347ee99c-8402-5199-5eb2-cbdc2e31846a,347ee99c-8402-5199-80a3-729ac76f723c,737471002,Minor surgery care management (procedure),,
+347ee99c-8402-5199-3a7d-963a2c48931b,2010-07-21,2010-07-28,347ee99c-8402-5199-5eb2-cbdc2e31846a,347ee99c-8402-5199-83c3-19fd3c36033d,53950000,Respiratory therapy (procedure),,
+3f059457-894b-5b30-a2db-d9fef195e43f,2008-05-14,,3f059457-894b-5b30-be8f-71f277945f31,3f059457-894b-5b30-d091-e0baa5199521,735985000,Diabetes self management plan (record artifact),714628002,Prediabetes (finding)
+a34c6d87-f666-992a-6abd-5d2dd66fb833,1978-10-14,1978-11-03,a34c6d87-f666-992a-dccc-b56734113356,a34c6d87-f666-992a-7c3d-4dc8073d91a4,225358003,Wound care (regime/therapy),283371005,Laceration of forearm (disorder)
+bc96014b-5d82-06ab-1f26-bd684efc3d9c,2009-07-19,2010-02-21,bc96014b-5d82-06ab-2c57-32ec2fb5440c,bc96014b-5d82-06ab-88eb-ed61b16420f5,134435003,Routine antenatal care (regime/therapy),,
+a34c6d87-f666-992a-2ac5-639967fb2f2c,1982-03-20,1984-03-25,a34c6d87-f666-992a-dccc-b56734113356,a34c6d87-f666-992a-c3bd-e804328d57b1,53950000,Respiratory therapy (procedure),,
+347ee99c-8402-5199-e18a-a508fbc03121,2023-06-17,2025-11-13,347ee99c-8402-5199-5eb2-cbdc2e31846a,347ee99c-8402-5199-9ffa-7ca74ba53fa7,736252007,Cancer care plan (record artifact),363406005,Malignant neoplasm of colon (disorder)
+347ee99c-8402-5199-c583-a2debaeffc78,2023-06-25,2023-07-16,347ee99c-8402-5199-5eb2-cbdc2e31846a,347ee99c-8402-5199-d4dc-142f6efff1b7,737567002,Major surgery care management (procedure),363406005,Malignant neoplasm of colon (disorder)
+a34c6d87-f666-992a-20fa-2d96c2893b91,1986-09-13,1987-03-29,a34c6d87-f666-992a-dccc-b56734113356,a34c6d87-f666-992a-7d83-260aab2c82bb,53950000,Respiratory therapy (procedure),,
+3f059457-894b-5b30-b04b-31b29d462cff,2008-11-21,2009-01-30,3f059457-894b-5b30-be8f-71f277945f31,3f059457-894b-5b30-4d6b-b0d42a25e32e,47387005,Head injury rehabilitation (regime/therapy),62106007,Concussion with no loss of consciousness (disorder)
+bc96014b-5d82-06ab-4e7e-eb3ac661cea4,2011-10-19,2011-11-11,bc96014b-5d82-06ab-2c57-32ec2fb5440c,bc96014b-5d82-06ab-214c-375ad170970e,773513001,Physiotherapy care plan (record artifact),70704007,Sprain of wrist (disorder)
+bc96014b-5d82-06ab-445e-7d7aacc5306f,2012-04-18,2012-05-08,bc96014b-5d82-06ab-2c57-32ec2fb5440c,bc96014b-5d82-06ab-b94d-0d88464d30d3,737471002,Minor surgery care management (procedure),,
+763a490b-e3e5-c002-9a24-d167304d0ee6,1964-01-08,1964-02-16,763a490b-e3e5-c002-d766-b57cff2d5825,763a490b-e3e5-c002-e59d-5a61d0120abf,773513001,Physiotherapy care plan (record artifact),44465007,Sprain of ankle (disorder)
+a34c6d87-f666-992a-5dc8-cd178892c1a6,1987-05-31,1987-12-13,a34c6d87-f666-992a-dccc-b56734113356,a34c6d87-f666-992a-6919-f3867a515286,134435003,Routine antenatal care (regime/therapy),,
+a34c6d87-f666-992a-37ee-e17cb60572a7,1990-07-12,1990-08-04,a34c6d87-f666-992a-dccc-b56734113356,a34c6d87-f666-992a-bb6c-dd27ae4f2b16,225358003,Wound care (regime/therapy),283371005,Laceration of forearm (disorder)
+a34c6d87-f666-992a-a3f5-df2694a2f5ab,1992-06-21,1993-04-04,a34c6d87-f666-992a-dccc-b56734113356,a34c6d87-f666-992a-a2db-a1eb861cea07,53950000,Respiratory therapy (procedure),,
+a34c6d87-f666-992a-23a7-5cceb5fe763c,1995-01-07,1995-01-21,a34c6d87-f666-992a-dccc-b56734113356,a34c6d87-f666-992a-5707-7cca8ae818ca,737471002,Minor surgery care management (procedure),,
+3f059457-894b-5b30-7a48-8af687f9a7fe,2014-03-12,,3f059457-894b-5b30-be8f-71f277945f31,3f059457-894b-5b30-9dec-8d91afd64c65,736285004,Hyperlipidemia clinical management plan (record artifact),55822004,Hyperlipidemia (disorder)
+3f059457-894b-5b30-463b-b4638ba3ebfd,2014-03-31,,3f059457-894b-5b30-be8f-71f277945f31,3f059457-894b-5b30-0c57-286fb4f0c8df,276239002,Therapy (regime/therapy),,
+a34c6d87-f666-992a-6afb-b68f87d5c861,1999-12-09,,a34c6d87-f666-992a-dccc-b56734113356,a34c6d87-f666-992a-9733-afc4a14883a2,408869004,Musculoskeletal care (regime/therapy),239872002,Osteoarthritis of hip (disorder)
+b3cff250-f8ed-e5c9-4575-3fed58d3d428,1961-04-26,1961-05-25,b3cff250-f8ed-e5c9-a0cf-95f92af14ee9,b3cff250-f8ed-e5c9-535f-0e1d101f9e99,133901003,Burn care (regime/therapy),403190006,Epidermal burn of skin (disorder)
+763a490b-e3e5-c002-03a0-511869de26c1,1978-01-30,1978-03-05,763a490b-e3e5-c002-d766-b57cff2d5825,763a490b-e3e5-c002-49d0-c062c2c9a1b8,773513001,Physiotherapy care plan (record artifact),44465007,Sprain of ankle (disorder)
+a34c6d87-f666-992a-b5e6-93c2e85946f8,2006-07-27,2007-02-11,a34c6d87-f666-992a-dccc-b56734113356,a34c6d87-f666-992a-a27b-18f60d7306c2,53950000,Respiratory therapy (procedure),,
+df585662-6d72-e33d-9c72-eb137fcc4e79,1982-01-23,,df585662-6d72-e33d-a82b-72048913f8f2,df585662-6d72-e33d-56f2-f0d653f1dbaa,384758001,Self-care interventions (procedure),,
+763a490b-e3e5-c002-20ff-60bcffae39f1,1979-06-29,1980-01-25,763a490b-e3e5-c002-d766-b57cff2d5825,763a490b-e3e5-c002-49c2-cadf582ba1bd,134435003,Routine antenatal care (regime/therapy),,
+a34c6d87-f666-992a-5c90-3960201f789f,2011-01-30,,a34c6d87-f666-992a-dccc-b56734113356,a34c6d87-f666-992a-d003-9115100c91a9,735985000,Diabetes self management plan (record artifact),714628002,Prediabetes (finding)
+df585662-6d72-e33d-6311-8162593fcd63,1984-05-22,1984-09-04,df585662-6d72-e33d-a82b-72048913f8f2,df585662-6d72-e33d-19d8-19d25a9d7687,385691007,Fracture care (regime/therapy),58150001,Fracture of clavicle (disorder)
+a34c6d87-f666-992a-f24b-224895300c0f,2011-03-18,2011-06-01,a34c6d87-f666-992a-dccc-b56734113356,a34c6d87-f666-992a-896a-9bc36f331290,47387005,Head injury rehabilitation (regime/therapy),62564004,Concussion with loss of consciousness (disorder)
+763a490b-e3e5-c002-bc45-3405c7f2ff07,1981-02-20,1981-09-25,763a490b-e3e5-c002-d766-b57cff2d5825,763a490b-e3e5-c002-8f46-b29edba5129a,134435003,Routine antenatal care (regime/therapy),,
+df585662-6d72-e33d-ca38-ddc1e831a9e1,1986-11-21,1986-12-15,df585662-6d72-e33d-a82b-72048913f8f2,df585662-6d72-e33d-2095-f463c2e4d343,225358003,Wound care (regime/therapy),284551006,Laceration of foot (disorder)
+df585662-6d72-e33d-7e1d-60099865954b,1988-10-16,1988-11-06,df585662-6d72-e33d-a82b-72048913f8f2,df585662-6d72-e33d-4850-f10b58f2d75d,773513001,Physiotherapy care plan (record artifact),70704007,Sprain of wrist (disorder)
+8aaabeae-5375-bf13-4395-d9016b6e6c33,1978-06-18,1978-08-27,8aaabeae-5375-bf13-f2ad-38a412996083,8aaabeae-5375-bf13-749e-91c100aec323,53950000,Respiratory therapy (procedure),,
+df585662-6d72-e33d-466c-1d6135404c9e,1993-08-20,1997-09-01,df585662-6d72-e33d-a82b-72048913f8f2,df585662-6d72-e33d-7ec2-01db47ce7d1e,170836005,Allergic disorder monitoring (regime/therapy),,
+8aaabeae-5375-bf13-e7b0-283b155eaf67,1981-03-29,1981-09-13,8aaabeae-5375-bf13-f2ad-38a412996083,8aaabeae-5375-bf13-6023-240ce0965c68,53950000,Respiratory therapy (procedure),,
+b3cff250-f8ed-e5c9-1bfe-f1a2e1267613,1975-11-11,1976-01-21,b3cff250-f8ed-e5c9-a0cf-95f92af14ee9,b3cff250-f8ed-e5c9-7563-2e7ec0a77569,773513001,Physiotherapy care plan (record artifact),,
+763a490b-e3e5-c002-4a23-2307a45f8fd5,1988-04-01,,763a490b-e3e5-c002-d766-b57cff2d5825,763a490b-e3e5-c002-9947-7590fc5c4259,735985000,Diabetes self management plan (record artifact),714628002,Prediabetes (finding)
+b3cff250-f8ed-e5c9-8d2f-0fc34624080a,1978-02-01,1978-05-21,b3cff250-f8ed-e5c9-a0cf-95f92af14ee9,b3cff250-f8ed-e5c9-7dac-3988e72a4749,225358003,Wound care (regime/therapy),,
+2cc0d9ac-5dde-1205-ec54-33e81e9e88bf,1995-04-01,1996-03-31,2cc0d9ac-5dde-1205-17fd-10a528d743f8,2cc0d9ac-5dde-1205-0400-5527f6ca22aa,53950000,Respiratory therapy (procedure),,
+763a490b-e3e5-c002-f164-30ce96cd40e1,1993-03-26,1993-10-29,763a490b-e3e5-c002-d766-b57cff2d5825,763a490b-e3e5-c002-b46d-803c58032d82,134435003,Routine antenatal care (regime/therapy),,
+df585662-6d72-e33d-fe5e-371036448fa1,1996-11-29,1997-06-27,df585662-6d72-e33d-a82b-72048913f8f2,df585662-6d72-e33d-c75b-8a2a57de0ed1,134435003,Routine antenatal care (regime/therapy),,
+2cc0d9ac-5dde-1205-7d14-6c0877008e8e,2002-10-24,2002-12-16,2cc0d9ac-5dde-1205-17fd-10a528d743f8,2cc0d9ac-5dde-1205-2404-dccb0d1f8df1,385691007,Fracture care (regime/therapy),263102004,Fracture subluxation of wrist (disorder)
+8aaabeae-5375-bf13-6247-ddb18c72f257,1995-11-19,1996-06-23,8aaabeae-5375-bf13-f2ad-38a412996083,8aaabeae-5375-bf13-9f63-581137688c00,134435003,Routine antenatal care (regime/therapy),,
+763a490b-e3e5-c002-90a5-1b76eec293e3,1997-05-23,1998-01-02,763a490b-e3e5-c002-d766-b57cff2d5825,763a490b-e3e5-c002-2437-633f123628b7,134435003,Routine antenatal care (regime/therapy),,
+df585662-6d72-e33d-715d-15f4a48f7f16,1999-06-25,2000-02-04,df585662-6d72-e33d-a82b-72048913f8f2,df585662-6d72-e33d-64d1-9577b1cfc06f,134435003,Routine antenatal care (regime/therapy),,
+4111b7f9-d4bd-bc83-b784-9c30837b35f0,1999-01-20,1999-05-22,4111b7f9-d4bd-bc83-06aa-0b5889279166,4111b7f9-d4bd-bc83-52fc-5d794da67621,53950000,Respiratory therapy (procedure),,
+b3cff250-f8ed-e5c9-1862-cb0ff8bba009,1982-07-21,1983-03-02,b3cff250-f8ed-e5c9-a0cf-95f92af14ee9,b3cff250-f8ed-e5c9-5b9a-03b5a1f5d662,134435003,Routine antenatal care (regime/therapy),,
+763a490b-e3e5-c002-3748-dc47396dc558,1999-10-09,1999-11-29,763a490b-e3e5-c002-d766-b57cff2d5825,763a490b-e3e5-c002-05a1-ddce5b58c6bf,47387005,Head injury rehabilitation (regime/therapy),62106007,Concussion with no loss of consciousness (disorder)
+df585662-6d72-e33d-3a8b-b1e5947976a6,2000-09-15,2001-04-27,df585662-6d72-e33d-a82b-72048913f8f2,df585662-6d72-e33d-0f93-d58ca6827dd5,134435003,Routine antenatal care (regime/therapy),,
+8aaabeae-5375-bf13-e47c-d4fd60c54c7d,2002-07-21,2003-02-23,8aaabeae-5375-bf13-f2ad-38a412996083,8aaabeae-5375-bf13-5dd4-de4c69d3151f,134435003,Routine antenatal care (regime/therapy),,
+a34c6d87-f666-992a-e040-4d6d01ac270e,2023-07-02,2024-04-21,a34c6d87-f666-992a-dccc-b56734113356,a34c6d87-f666-992a-7044-63713b88d066,53950000,Respiratory therapy (procedure),,
+4111b7f9-d4bd-bc83-50ad-7739983595fc,2011-12-21,2012-03-12,4111b7f9-d4bd-bc83-06aa-0b5889279166,4111b7f9-d4bd-bc83-1aaf-a692da685944,385691007,Fracture care (regime/therapy),65966004,Fracture of forearm (disorder)
+4111b7f9-d4bd-bc83-efc0-5adda6dad1e9,2012-07-28,2014-02-15,4111b7f9-d4bd-bc83-06aa-0b5889279166,4111b7f9-d4bd-bc83-554b-8afb1a828ca1,53950000,Respiratory therapy (procedure),,
+4111b7f9-d4bd-bc83-5d48-befb75694512,2014-02-03,2014-03-24,4111b7f9-d4bd-bc83-06aa-0b5889279166,4111b7f9-d4bd-bc83-7acb-f78e106b762a,276239002,Therapy (regime/therapy),,
+8aaabeae-5375-bf13-7ca4-f6ae759ba11e,2004-10-03,2005-12-04,8aaabeae-5375-bf13-f2ad-38a412996083,8aaabeae-5375-bf13-c85f-70adb3aa16bd,53950000,Respiratory therapy (procedure),,
+df585662-6d72-e33d-7940-b2e91b89082c,2003-06-20,2004-01-23,df585662-6d72-e33d-a82b-72048913f8f2,df585662-6d72-e33d-6096-a90456859a66,134435003,Routine antenatal care (regime/therapy),,
+8aaabeae-5375-bf13-d854-20ce0b6373f7,2006-07-09,2007-02-11,8aaabeae-5375-bf13-f2ad-38a412996083,8aaabeae-5375-bf13-fc22-7555897d0376,134435003,Routine antenatal care (regime/therapy),,
+a34c6d87-f666-992a-e5e5-9747a920da0e,2025-05-27,2025-08-19,a34c6d87-f666-992a-dccc-b56734113356,a34c6d87-f666-992a-adac-92f98b8bca35,385691007,Fracture care (regime/therapy),263102004,Fracture subluxation of wrist (disorder)
+b3cff250-f8ed-e5c9-0db3-fb81a01f3236,1989-02-08,1989-09-06,b3cff250-f8ed-e5c9-a0cf-95f92af14ee9,b3cff250-f8ed-e5c9-60d2-cd82dfe8593a,134435003,Routine antenatal care (regime/therapy),,
+2cc0d9ac-5dde-1205-3475-a3edc113fc14,2016-07-17,2017-01-29,2cc0d9ac-5dde-1205-17fd-10a528d743f8,2cc0d9ac-5dde-1205-7ee5-eb2bdb0bf7ed,134435003,Routine antenatal care (regime/therapy),,
+df585662-6d72-e33d-7c8f-8031b8d9d2ce,2005-11-11,2006-06-16,df585662-6d72-e33d-a82b-72048913f8f2,df585662-6d72-e33d-3394-d5c0340bd066,134435003,Routine antenatal care (regime/therapy),,
+763a490b-e3e5-c002-c96f-eff74ba3e8dd,2007-02-23,2009-02-13,763a490b-e3e5-c002-d766-b57cff2d5825,763a490b-e3e5-c002-7243-f46251bb9208,53950000,Respiratory therapy (procedure),,
+b0f5ce6c-14b8-fd54-2b42-3b9656b7e77c,2011-09-14,2011-09-23,b0f5ce6c-14b8-fd54-612e-cfe51b8a0692,b0f5ce6c-14b8-fd54-e76d-b8e7b00ff447,53950000,Respiratory therapy (procedure),,
+2cc0d9ac-5dde-1205-4ab0-cc715ab17fdb,2017-03-30,2017-04-16,2cc0d9ac-5dde-1205-17fd-10a528d743f8,2cc0d9ac-5dde-1205-c69a-406c9fb77843,737471002,Minor surgery care management (procedure),,
+2cc0d9ac-5dde-1205-17c3-880b36bce694,2017-10-22,2019-06-30,2cc0d9ac-5dde-1205-17fd-10a528d743f8,2cc0d9ac-5dde-1205-e3f4-f9c44dd5ca82,53950000,Respiratory therapy (procedure),,
+b3cff250-f8ed-e5c9-dc3b-7e94197eb769,1992-06-15,1992-07-05,b3cff250-f8ed-e5c9-a0cf-95f92af14ee9,b3cff250-f8ed-e5c9-94d1-bb8b5c146ca6,225358003,Wound care (regime/therapy),283385000,Laceration of thigh (disorder)
+8aaabeae-5375-bf13-70d5-cb489120d70e,2009-02-15,2009-09-27,8aaabeae-5375-bf13-f2ad-38a412996083,8aaabeae-5375-bf13-5c66-8f67283704e7,134435003,Routine antenatal care (regime/therapy),,
+763a490b-e3e5-c002-5c7c-1dcb78100cc0,2009-02-13,,763a490b-e3e5-c002-d766-b57cff2d5825,763a490b-e3e5-c002-2f00-b3d1def810b4,443402002,Lifestyle education regarding hypertension (procedure),59621000,Essential hypertension (disorder)
+df585662-6d72-e33d-9126-e35fcca1bb41,2008-10-24,,df585662-6d72-e33d-a82b-72048913f8f2,df585662-6d72-e33d-4695-f038e5869bf9,736283006,Chronic obstructive pulmonary disease clinical management plan (record artifact),87433001,Pulmonary emphysema (disorder)
+4111b7f9-d4bd-bc83-423e-33e269d02e5a,2021-09-07,2022-04-02,4111b7f9-d4bd-bc83-06aa-0b5889279166,4111b7f9-d4bd-bc83-ef79-0fa36f0235a8,53950000,Respiratory therapy (procedure),,
+763a490b-e3e5-c002-45d7-17d69271a188,2009-10-30,2010-05-21,763a490b-e3e5-c002-d766-b57cff2d5825,763a490b-e3e5-c002-d42e-31bff5e8f055,134435003,Routine antenatal care (regime/therapy),,
+b3cff250-f8ed-e5c9-c4d4-1d74a1eb4de1,1993-12-01,1994-07-06,b3cff250-f8ed-e5c9-a0cf-95f92af14ee9,b3cff250-f8ed-e5c9-c354-3975a56948d6,134435003,Routine antenatal care (regime/therapy),,
+b0f5ce6c-14b8-fd54-dee8-0c5e13949cc1,2016-09-11,2016-10-06,b0f5ce6c-14b8-fd54-612e-cfe51b8a0692,b0f5ce6c-14b8-fd54-fa52-c3fa777d8d56,225358003,Wound care (regime/therapy),284549007,Laceration of hand (disorder)
+763a490b-e3e5-c002-ee56-caf74c1fa038,2010-03-14,2010-04-02,763a490b-e3e5-c002-d766-b57cff2d5825,763a490b-e3e5-c002-81c3-66639b4100ad,225358003,Wound care (regime/therapy),370247008,Facial laceration (disorder)
+8aaabeae-5375-bf13-d464-f7194f3d5c24,2010-02-14,2010-08-30,8aaabeae-5375-bf13-f2ad-38a412996083,8aaabeae-5375-bf13-4f18-eca1a6060f46,134435003,Routine antenatal care (regime/therapy),,
+4111b7f9-d4bd-bc83-6f03-1232ba5cb10f,2025-08-16,2025-10-21,4111b7f9-d4bd-bc83-06aa-0b5889279166,4111b7f9-d4bd-bc83-1f79-cf6b037f59b7,773513001,Physiotherapy care plan (record artifact),444470001,Injury of anterior cruciate ligament (disorder)
+763a490b-e3e5-c002-cdd5-11e05a81e011,2014-04-04,,763a490b-e3e5-c002-d766-b57cff2d5825,763a490b-e3e5-c002-a901-4ad79acaeba8,276239002,Therapy (regime/therapy),,
+763a490b-e3e5-c002-8a00-ec76470fce6b,2016-05-29,2016-07-30,763a490b-e3e5-c002-d766-b57cff2d5825,763a490b-e3e5-c002-4c29-c5ab1aeca911,47387005,Head injury rehabilitation (regime/therapy),62106007,Concussion with no loss of consciousness (disorder)
+b3cff250-f8ed-e5c9-8481-322c673a8bf6,1999-07-21,2000-03-01,b3cff250-f8ed-e5c9-a0cf-95f92af14ee9,b3cff250-f8ed-e5c9-7f6e-49ec16449424,134435003,Routine antenatal care (regime/therapy),,
+8aaabeae-5375-bf13-7eef-4220225aab55,2020-11-29,2022-10-16,8aaabeae-5375-bf13-f2ad-38a412996083,8aaabeae-5375-bf13-d214-366bab8ead95,53950000,Respiratory therapy (procedure),,
+763a490b-e3e5-c002-ff49-48124e4a5708,2018-06-11,2018-07-08,763a490b-e3e5-c002-d766-b57cff2d5825,763a490b-e3e5-c002-32a2-44dece8b6ca1,773513001,Physiotherapy care plan (record artifact),70704007,Sprain of wrist (disorder)
+0bedc318-a8b5-0edb-b962-531d2dca6156,2019-02-09,2019-02-24,0bedc318-a8b5-0edb-e746-e7994116f5fc,0bedc318-a8b5-0edb-5806-425e195c396d,225358003,Wound care (regime/therapy),283385000,Laceration of thigh (disorder)
+763a490b-e3e5-c002-7373-c9757fdfd223,2021-01-12,2021-01-24,763a490b-e3e5-c002-d766-b57cff2d5825,763a490b-e3e5-c002-88ef-2ca14245edd1,736376001,Infectious disease care plan (record artifact),,
+0bedc318-a8b5-0edb-6fac-9d02fc7aef8b,2020-12-01,2020-12-01,0bedc318-a8b5-0edb-e746-e7994116f5fc,0bedc318-a8b5-0edb-1c29-f4b3e5b660fc,736376001,Infectious disease care plan (record artifact),,
+0bedc318-a8b5-0edb-1e2f-42f6fc8fcb2a,2020-12-01,2020-12-27,0bedc318-a8b5-0edb-e746-e7994116f5fc,0bedc318-a8b5-0edb-1c29-f4b3e5b660fc,736376001,Infectious disease care plan (record artifact),,
+0bedc318-a8b5-0edb-ec1e-69d935f96ad1,2026-06-22,,0bedc318-a8b5-0edb-e746-e7994116f5fc,0bedc318-a8b5-0edb-57f3-d1ee55d3904f,408869004,Musculoskeletal care (regime/therapy),,
+b3cff250-f8ed-e5c9-c5ef-9c2d78a32718,2006-12-06,2007-07-25,b3cff250-f8ed-e5c9-a0cf-95f92af14ee9,b3cff250-f8ed-e5c9-c438-1dd9b6820be3,53950000,Respiratory therapy (procedure),,
+b3cff250-f8ed-e5c9-c903-55592cc83471,2008-03-05,2009-07-01,b3cff250-f8ed-e5c9-a0cf-95f92af14ee9,b3cff250-f8ed-e5c9-b43a-808f57687ee9,53950000,Respiratory therapy (procedure),,
+b3cff250-f8ed-e5c9-d3f1-5ce8e28e525c,2009-07-01,,b3cff250-f8ed-e5c9-a0cf-95f92af14ee9,b3cff250-f8ed-e5c9-83a8-59b2d17a0b04,735985000,Diabetes self management plan (record artifact),714628002,Prediabetes (finding)
+b3cff250-f8ed-e5c9-598e-9179c2c63ee7,2010-07-07,,b3cff250-f8ed-e5c9-a0cf-95f92af14ee9,b3cff250-f8ed-e5c9-ebc2-4ae59fc31f17,443402002,Lifestyle education regarding hypertension (procedure),59621000,Essential hypertension (disorder)
+763a490b-e3e5-c002-f8d5-5754a71541c5,2024-04-17,2024-05-07,763a490b-e3e5-c002-d766-b57cff2d5825,763a490b-e3e5-c002-4564-cd1ea9527225,225358003,Wound care (regime/therapy),283385000,Laceration of thigh (disorder)
+0e00f540-b3e8-75f1-0ed0-5047a5744930,1966-08-04,1967-04-30,0e00f540-b3e8-75f1-d51c-2dc1380789d1,0e00f540-b3e8-75f1-fd3e-dd60b34593af,53950000,Respiratory therapy (procedure),,
+b3cff250-f8ed-e5c9-7018-c0b1d9125de5,2016-02-10,2016-08-10,b3cff250-f8ed-e5c9-a0cf-95f92af14ee9,b3cff250-f8ed-e5c9-0a78-ae518c9f759a,53950000,Respiratory therapy (procedure),,
+0e00f540-b3e8-75f1-adc3-cf199d6867e3,1976-08-22,1980-10-12,0e00f540-b3e8-75f1-d51c-2dc1380789d1,0e00f540-b3e8-75f1-d18f-0ec57ebf268b,134435003,Routine antenatal care (regime/therapy),,
+0e00f540-b3e8-75f1-e21e-d51f2703443a,1977-04-08,1977-04-16,0e00f540-b3e8-75f1-d51c-2dc1380789d1,0e00f540-b3e8-75f1-2e8b-6939d5023182,53950000,Respiratory therapy (procedure),,
+b3cff250-f8ed-e5c9-b7ac-83f9b8a63bd4,2021-09-15,2021-09-15,b3cff250-f8ed-e5c9-a0cf-95f92af14ee9,b3cff250-f8ed-e5c9-b080-1ca81fa24d5b,736376001,Infectious disease care plan (record artifact),,
+b3cff250-f8ed-e5c9-82ac-ba5f75fcc1fe,2021-09-15,2021-10-11,b3cff250-f8ed-e5c9-a0cf-95f92af14ee9,b3cff250-f8ed-e5c9-b080-1ca81fa24d5b,736376001,Infectious disease care plan (record artifact),,
+0e00f540-b3e8-75f1-bcf7-34747239652e,1985-02-24,1985-10-06,0e00f540-b3e8-75f1-d51c-2dc1380789d1,0e00f540-b3e8-75f1-5bcb-678ca9d38c2e,134435003,Routine antenatal care (regime/therapy),,
+0e00f540-b3e8-75f1-e6e0-3c78b2eb1536,1987-05-10,1988-07-03,0e00f540-b3e8-75f1-d51c-2dc1380789d1,0e00f540-b3e8-75f1-83b1-53a7eaa986ea,53950000,Respiratory therapy (procedure),,
+5b7c1ad0-3ae8-2808-232e-527deb5a1586,1970-04-27,1970-07-26,5b7c1ad0-3ae8-2808-1def-7dc451c35498,5b7c1ad0-3ae8-2808-ccf5-d4af59bb0879,773513001,Physiotherapy care plan (record artifact),444448004,Injury of medial collateral ligament of knee (disorder)
+0e00f540-b3e8-75f1-7e35-ecb995b7d886,1987-09-27,1988-05-01,0e00f540-b3e8-75f1-d51c-2dc1380789d1,0e00f540-b3e8-75f1-b93e-6a5c734c93b1,134435003,Routine antenatal care (regime/therapy),,
+0e00f540-b3e8-75f1-6b34-bdb690e3bff4,1989-09-28,1991-07-07,0e00f540-b3e8-75f1-d51c-2dc1380789d1,0e00f540-b3e8-75f1-2f40-9b139e04defd,53950000,Respiratory therapy (procedure),,
+0e00f540-b3e8-75f1-d69c-0138a753b2bf,1990-01-07,1991-02-24,0e00f540-b3e8-75f1-d51c-2dc1380789d1,0e00f540-b3e8-75f1-633c-13169c163117,134435003,Routine antenatal care (regime/therapy),,
+5b7c1ad0-3ae8-2808-8963-aa8fbafee89f,1976-07-12,1976-08-27,5b7c1ad0-3ae8-2808-1def-7dc451c35498,5b7c1ad0-3ae8-2808-f4c2-c9214020323f,385691007,Fracture care (regime/therapy),33737001,Fracture of rib (disorder)
+0e00f540-b3e8-75f1-e081-9ad276954397,1991-07-14,1992-02-16,0e00f540-b3e8-75f1-d51c-2dc1380789d1,0e00f540-b3e8-75f1-657d-269336213b64,134435003,Routine antenatal care (regime/therapy),,
+5b7c1ad0-3ae8-2808-636f-ddd91b8c66d9,1992-04-07,,5b7c1ad0-3ae8-2808-1def-7dc451c35498,5b7c1ad0-3ae8-2808-fb45-cb8db867c895,134435003,Routine antenatal care (regime/therapy),,
+0e00f540-b3e8-75f1-78ca-8dfbb9ee79b0,1997-08-10,1998-03-29,0e00f540-b3e8-75f1-d51c-2dc1380789d1,0e00f540-b3e8-75f1-bd95-d6395d88c158,134435003,Routine antenatal care (regime/therapy),,
+5b7c1ad0-3ae8-2808-1bfa-14da7b0121a4,1992-07-21,1992-08-05,5b7c1ad0-3ae8-2808-1def-7dc451c35498,5b7c1ad0-3ae8-2808-3a77-95e35ed70e70,737471002,Minor surgery care management (procedure),,
+0e00f540-b3e8-75f1-b57c-a9acfc22a8b2,1999-05-23,,0e00f540-b3e8-75f1-d51c-2dc1380789d1,0e00f540-b3e8-75f1-4728-b77127e54cc5,736285004,Hyperlipidemia clinical management plan (record artifact),55822004,Hyperlipidemia (disorder)
+5b7c1ad0-3ae8-2808-27f4-36477a1c5210,2009-05-12,,5b7c1ad0-3ae8-2808-1def-7dc451c35498,5b7c1ad0-3ae8-2808-fea8-e5bc83e46654,735985000,Diabetes self management plan (record artifact),714628002,Prediabetes (finding)
+0e00f540-b3e8-75f1-7c09-c23d39ec00d6,2008-04-27,,0e00f540-b3e8-75f1-d51c-2dc1380789d1,0e00f540-b3e8-75f1-5a03-9a82d1ed779a,735985000,Diabetes self management plan (record artifact),714628002,Prediabetes (finding)
+5b7c1ad0-3ae8-2808-18a2-b4ca3c637ca4,2017-05-23,,5b7c1ad0-3ae8-2808-1def-7dc451c35498,5b7c1ad0-3ae8-2808-ecaf-ce0894072f2e,736285004,Hyperlipidemia clinical management plan (record artifact),55822004,Hyperlipidemia (disorder)
+0e00f540-b3e8-75f1-3b59-9f729acea3cb,2014-08-23,2014-10-10,0e00f540-b3e8-75f1-d51c-2dc1380789d1,0e00f540-b3e8-75f1-1684-e23264f071d8,47387005,Head injury rehabilitation (regime/therapy),62106007,Concussion with no loss of consciousness (disorder)
+0e00f540-b3e8-75f1-c9c9-fa5d55b2e89d,2017-05-08,,0e00f540-b3e8-75f1-d51c-2dc1380789d1,0e00f540-b3e8-75f1-f9cb-3943157a9e0b,736252007,Cancer care plan (record artifact),109838007,Overlapping malignant neoplasm of colon (disorder)
+0e00f540-b3e8-75f1-7a6a-a0b314ab36da,2017-05-17,2017-06-08,0e00f540-b3e8-75f1-d51c-2dc1380789d1,0e00f540-b3e8-75f1-74c4-47cb1c72717d,737567002,Major surgery care management (procedure),109838007,Overlapping malignant neoplasm of colon (disorder)
+5b7c1ad0-3ae8-2808-2b92-8593cb3c365d,2022-12-20,,5b7c1ad0-3ae8-2808-1def-7dc451c35498,5b7c1ad0-3ae8-2808-e85b-0523accdb3b7,408869004,Musculoskeletal care (regime/therapy),239872002,Osteoarthritis of hip (disorder)
+0e00f540-b3e8-75f1-b384-be4dc154f51e,2017-10-19,,0e00f540-b3e8-75f1-d51c-2dc1380789d1,0e00f540-b3e8-75f1-252e-f74a426fb2aa,735984001,Heart failure self management plan (record artifact),88805009,Chronic congestive heart failure (disorder)
+0e00f540-b3e8-75f1-f42a-a9d5e145aa41,2018-04-17,2018-04-21,0e00f540-b3e8-75f1-d51c-2dc1380789d1,0e00f540-b3e8-75f1-a952-3f232a1cc8f7,736353004,Inpatient care plan (record artifact),88805009,Chronic congestive heart failure (disorder)
+38c8043e-d788-8b6a-e7c6-e781f72078b4,1991-01-15,1991-02-01,38c8043e-d788-8b6a-0143-0da4c0d35039,38c8043e-d788-8b6a-cdd7-fc5bd47fcb13,225358003,Wound care (regime/therapy),284549007,Laceration of hand (disorder)
+38c8043e-d788-8b6a-15c6-8437a8095094,1998-10-16,1998-11-24,38c8043e-d788-8b6a-0143-0da4c0d35039,38c8043e-d788-8b6a-9245-6560891c1e93,773513001,Physiotherapy care plan (record artifact),44465007,Sprain of ankle (disorder)
+38c8043e-d788-8b6a-c30d-d5bde13a3bb5,2021-08-30,2021-08-30,38c8043e-d788-8b6a-0143-0da4c0d35039,38c8043e-d788-8b6a-b82b-3018b3ce2941,736376001,Infectious disease care plan (record artifact),,
+38c8043e-d788-8b6a-718e-93ad6aedc804,2021-08-30,2021-09-15,38c8043e-d788-8b6a-0143-0da4c0d35039,38c8043e-d788-8b6a-b82b-3018b3ce2941,736376001,Infectious disease care plan (record artifact),,
+e2a5afbd-9cb3-4d72-6ad2-0b5b32f91cb0,1973-07-31,1974-07-03,e2a5afbd-9cb3-4d72-d725-9457ed423003,e2a5afbd-9cb3-4d72-81bd-3615a9db3654,53950000,Respiratory therapy (procedure),,
+e2a5afbd-9cb3-4d72-f297-b5388bbd585b,1983-03-09,1983-08-24,e2a5afbd-9cb3-4d72-d725-9457ed423003,e2a5afbd-9cb3-4d72-4e63-b6d3015bcd02,53950000,Respiratory therapy (procedure),,
+e2a5afbd-9cb3-4d72-08ae-cb29c0905623,1983-04-16,1983-05-28,e2a5afbd-9cb3-4d72-d725-9457ed423003,e2a5afbd-9cb3-4d72-343c-b89318ccb3fd,385691007,Fracture care (regime/therapy),58150001,Fracture of clavicle (disorder)
+e2a5afbd-9cb3-4d72-df8d-6b5a5266f8c7,1988-05-11,1988-12-14,e2a5afbd-9cb3-4d72-d725-9457ed423003,e2a5afbd-9cb3-4d72-cec7-d7ad0bd97828,134435003,Routine antenatal care (regime/therapy),,
+e2a5afbd-9cb3-4d72-5de4-d1d6d9299ad2,1989-10-25,1990-05-30,e2a5afbd-9cb3-4d72-d725-9457ed423003,e2a5afbd-9cb3-4d72-236a-929fd7eb3b0a,134435003,Routine antenatal care (regime/therapy),,
+e2a5afbd-9cb3-4d72-ebd1-21f78a313296,1990-01-31,1990-02-14,e2a5afbd-9cb3-4d72-d725-9457ed423003,e2a5afbd-9cb3-4d72-fc9a-46ee6322cf1c,225358003,Wound care (regime/therapy),283371005,Laceration of forearm (disorder)
+e2a5afbd-9cb3-4d72-8577-f75c64ea0f94,1991-09-11,,e2a5afbd-9cb3-4d72-d725-9457ed423003,e2a5afbd-9cb3-4d72-1f21-ac8e32b9599c,735985000,Diabetes self management plan (record artifact),714628002,Prediabetes (finding)
+e2a5afbd-9cb3-4d72-c153-be49671bfa78,1993-06-23,1994-01-05,e2a5afbd-9cb3-4d72-d725-9457ed423003,e2a5afbd-9cb3-4d72-69f6-74b673cf6d31,134435003,Routine antenatal care (regime/therapy),,
+e2a5afbd-9cb3-4d72-4b1f-f14c34385da2,1994-03-24,1994-04-11,e2a5afbd-9cb3-4d72-d725-9457ed423003,e2a5afbd-9cb3-4d72-c874-9e2e698948d9,773513001,Physiotherapy care plan (record artifact),44465007,Sprain of ankle (disorder)
+e2a5afbd-9cb3-4d72-0553-cc5e3635f76a,1996-12-25,1997-08-06,e2a5afbd-9cb3-4d72-d725-9457ed423003,e2a5afbd-9cb3-4d72-a189-4b57406cbbe6,134435003,Routine antenatal care (regime/therapy),,
+e2a5afbd-9cb3-4d72-89cc-91b8c830d8f7,1999-11-24,2000-06-07,e2a5afbd-9cb3-4d72-d725-9457ed423003,e2a5afbd-9cb3-4d72-8740-d39d65dd6747,134435003,Routine antenatal care (regime/therapy),,
+e2a5afbd-9cb3-4d72-c13c-f48d015efb42,2004-11-06,2005-03-03,e2a5afbd-9cb3-4d72-d725-9457ed423003,e2a5afbd-9cb3-4d72-2f92-12e38772f63e,385691007,Fracture care (regime/therapy),65966004,Fracture of forearm (disorder)
+e2a5afbd-9cb3-4d72-b6ff-7cf40aee5063,2008-09-13,2008-09-22,e2a5afbd-9cb3-4d72-d725-9457ed423003,e2a5afbd-9cb3-4d72-5a4e-070741c66bf4,53950000,Respiratory therapy (procedure),,
+eec218e8-c5ac-3c41-ee20-a16ba4f8b920,1985-04-30,1985-08-20,eec218e8-c5ac-3c41-7d4a-4dd7a50fcc30,eec218e8-c5ac-3c41-20ac-115a8fea8c81,53950000,Respiratory therapy (procedure),,
+eec218e8-c5ac-3c41-8c49-66b05efa28d2,1999-05-25,2000-01-04,eec218e8-c5ac-3c41-7d4a-4dd7a50fcc30,eec218e8-c5ac-3c41-a35b-6fcd2122864b,134435003,Routine antenatal care (regime/therapy),,
+eec218e8-c5ac-3c41-1870-92564310b197,2001-08-07,2002-03-26,eec218e8-c5ac-3c41-7d4a-4dd7a50fcc30,eec218e8-c5ac-3c41-f64d-4481b4a70fc6,134435003,Routine antenatal care (regime/therapy),,
+17893f46-f69e-aa61-e7eb-a01c15807916,1983-02-02,1983-02-10,17893f46-f69e-aa61-1fdb-e655de7a682d,17893f46-f69e-aa61-c605-f876e04986d9,53950000,Respiratory therapy (procedure),,
+17893f46-f69e-aa61-efa5-61e00d0d1491,1985-10-24,1985-12-08,17893f46-f69e-aa61-1fdb-e655de7a682d,17893f46-f69e-aa61-0112-1139214b032d,47387005,Head injury rehabilitation (regime/therapy),62106007,Concussion with no loss of consciousness (disorder)
+eec218e8-c5ac-3c41-bec9-52308a9a298e,2003-09-11,2003-10-17,eec218e8-c5ac-3c41-7d4a-4dd7a50fcc30,eec218e8-c5ac-3c41-1266-a3a109eea923,47387005,Head injury rehabilitation (regime/therapy),62106007,Concussion with no loss of consciousness (disorder)
+17893f46-f69e-aa61-7a0e-2df90e89f52b,1992-01-03,1992-01-24,17893f46-f69e-aa61-1fdb-e655de7a682d,17893f46-f69e-aa61-324e-2d3b0929970d,225358003,Wound care (regime/therapy),284551006,Laceration of foot (disorder)
+17893f46-f69e-aa61-1e38-946f9bf3bb5c,1992-09-04,,17893f46-f69e-aa61-1fdb-e655de7a682d,17893f46-f69e-aa61-3832-cb1e62b00af3,718361005,Weight management program (regime/therapy),,
+17893f46-f69e-aa61-9c02-48c7612d1ba2,1999-12-14,2002-10-18,17893f46-f69e-aa61-1fdb-e655de7a682d,17893f46-f69e-aa61-4aac-9d22c4a73604,53950000,Respiratory therapy (procedure),,
+eec218e8-c5ac-3c41-72ba-3d9b808968f6,2006-11-28,2007-07-03,eec218e8-c5ac-3c41-7d4a-4dd7a50fcc30,eec218e8-c5ac-3c41-3622-a57352129999,134435003,Routine antenatal care (regime/therapy),,
+17893f46-f69e-aa61-9cd3-9c365449d7e8,2002-09-13,2003-05-02,17893f46-f69e-aa61-1fdb-e655de7a682d,17893f46-f69e-aa61-f03e-660ab48b8e4e,134435003,Routine antenatal care (regime/therapy),,
+eec218e8-c5ac-3c41-8a6f-73f9c7af840d,2008-06-03,2009-01-06,eec218e8-c5ac-3c41-7d4a-4dd7a50fcc30,eec218e8-c5ac-3c41-f0e4-33b8d5fadc5b,134435003,Routine antenatal care (regime/therapy),,
+17893f46-f69e-aa61-3dab-49da770ffdd2,2005-10-21,,17893f46-f69e-aa61-1fdb-e655de7a682d,17893f46-f69e-aa61-573f-0245f528c12e,735985000,Diabetes self management plan (record artifact),714628002,Prediabetes (finding)
+17893f46-f69e-aa61-bf61-1414481a6e5f,2006-12-15,2007-07-20,17893f46-f69e-aa61-1fdb-e655de7a682d,17893f46-f69e-aa61-e19f-81bee556fd13,134435003,Routine antenatal care (regime/therapy),,
+eec218e8-c5ac-3c41-a1dd-0d53782fb845,2011-02-01,2011-09-06,eec218e8-c5ac-3c41-7d4a-4dd7a50fcc30,eec218e8-c5ac-3c41-8039-90fa44ba96d3,134435003,Routine antenatal care (regime/therapy),,
+17893f46-f69e-aa61-bae5-287904ae4907,2009-08-16,2009-11-05,17893f46-f69e-aa61-1fdb-e655de7a682d,17893f46-f69e-aa61-7e35-22431327944a,133901003,Burn care (regime/therapy),403190006,Epidermal burn of skin (disorder)
+eec218e8-c5ac-3c41-8b9d-d363f06796d0,2014-07-15,2015-02-17,eec218e8-c5ac-3c41-7d4a-4dd7a50fcc30,eec218e8-c5ac-3c41-59c6-7d527444cd06,134435003,Routine antenatal care (regime/therapy),,
+eec218e8-c5ac-3c41-54a2-7638a5fef202,2016-03-01,2016-10-11,eec218e8-c5ac-3c41-7d4a-4dd7a50fcc30,eec218e8-c5ac-3c41-e696-28cd7e51df66,134435003,Routine antenatal care (regime/therapy),,
+eec218e8-c5ac-3c41-086e-e1911223db52,2016-05-24,2017-11-28,eec218e8-c5ac-3c41-7d4a-4dd7a50fcc30,eec218e8-c5ac-3c41-45e7-c82c1a6fad67,53950000,Respiratory therapy (procedure),,
+17893f46-f69e-aa61-a3d0-03745dd77ff1,2009-12-25,2011-10-28,17893f46-f69e-aa61-1fdb-e655de7a682d,17893f46-f69e-aa61-2428-f460a9053190,53950000,Respiratory therapy (procedure),,
+eec218e8-c5ac-3c41-c5fe-d5a0e1a6e1ef,2019-09-03,2020-04-07,eec218e8-c5ac-3c41-7d4a-4dd7a50fcc30,eec218e8-c5ac-3c41-bec4-450d1ab3f263,134435003,Routine antenatal care (regime/therapy),,
+17893f46-f69e-aa61-f04c-187fc8110196,2014-02-02,2014-03-17,17893f46-f69e-aa61-1fdb-e655de7a682d,17893f46-f69e-aa61-cf1a-19da10e12d41,276239002,Therapy (regime/therapy),,
+eec218e8-c5ac-3c41-bb98-de6f46420820,2022-07-19,2022-09-20,eec218e8-c5ac-3c41-7d4a-4dd7a50fcc30,eec218e8-c5ac-3c41-c0b8-cda24226e5d2,53950000,Respiratory therapy (procedure),,
+17893f46-f69e-aa61-bdce-c728777cdd9f,2015-02-27,2015-10-09,17893f46-f69e-aa61-1fdb-e655de7a682d,17893f46-f69e-aa61-65a6-41098cec09e4,134435003,Routine antenatal care (regime/therapy),,
+eec218e8-c5ac-3c41-ac1e-5d4dbf23b8fb,2024-09-24,,eec218e8-c5ac-3c41-7d4a-4dd7a50fcc30,eec218e8-c5ac-3c41-a61a-e277c81de4b6,736283006,Chronic obstructive pulmonary disease clinical management plan (record artifact),87433001,Pulmonary emphysema (disorder)
+17893f46-f69e-aa61-69a2-522f58c2a53b,2017-05-05,2017-12-08,17893f46-f69e-aa61-1fdb-e655de7a682d,17893f46-f69e-aa61-6468-3205c8e33837,134435003,Routine antenatal care (regime/therapy),,
+17893f46-f69e-aa61-2183-01e25b33bd94,2018-09-19,2018-10-13,17893f46-f69e-aa61-1fdb-e655de7a682d,17893f46-f69e-aa61-a4bb-295795255201,225358003,Wound care (regime/therapy),284551006,Laceration of foot (disorder)
+17893f46-f69e-aa61-e2c1-2bdefc31cb4d,2018-11-16,,17893f46-f69e-aa61-1fdb-e655de7a682d,17893f46-f69e-aa61-3977-3fedc7b25c81,408869004,Musculoskeletal care (regime/therapy),239873007,Osteoarthritis of knee (disorder)
+72692aef-ba76-6294-109f-84efbbb60e4c,1971-01-13,1971-01-30,72692aef-ba76-6294-e43c-c110a509e5f8,72692aef-ba76-6294-ac25-d1a451e23ff5,225358003,Wound care (regime/therapy),283385000,Laceration of thigh (disorder)
+72692aef-ba76-6294-a521-e2bc88edf072,1977-10-24,1977-11-29,72692aef-ba76-6294-e43c-c110a509e5f8,72692aef-ba76-6294-a392-d9095a88dc62,773513001,Physiotherapy care plan (record artifact),70704007,Sprain of wrist (disorder)
+72692aef-ba76-6294-fb4e-22ce703a9d7e,1978-09-24,1979-05-13,72692aef-ba76-6294-e43c-c110a509e5f8,72692aef-ba76-6294-0379-dc1f87938525,134435003,Routine antenatal care (regime/therapy),,
+72692aef-ba76-6294-0e64-c3e37d1c635d,1982-07-08,1982-08-13,72692aef-ba76-6294-e43c-c110a509e5f8,72692aef-ba76-6294-ab44-d7beb39a1a8b,773513001,Physiotherapy care plan (record artifact),44465007,Sprain of ankle (disorder)
+72692aef-ba76-6294-c6ac-c65bb17adddb,1982-09-19,1983-04-17,72692aef-ba76-6294-e43c-c110a509e5f8,72692aef-ba76-6294-e182-10f22338b2cc,134435003,Routine antenatal care (regime/therapy),,
+72692aef-ba76-6294-2930-e50f9302f058,1984-12-23,1985-07-28,72692aef-ba76-6294-e43c-c110a509e5f8,72692aef-ba76-6294-5be8-615ea30e3e0d,134435003,Routine antenatal care (regime/therapy),,
+72692aef-ba76-6294-2972-36247dd3e216,1985-06-30,,72692aef-ba76-6294-e43c-c110a509e5f8,72692aef-ba76-6294-1c4f-80ecdb284655,735985000,Diabetes self management plan (record artifact),714628002,Prediabetes (finding)
+72692aef-ba76-6294-f09a-fc0f844e7c67,1985-07-07,1985-07-21,72692aef-ba76-6294-e43c-c110a509e5f8,72692aef-ba76-6294-fa5f-2ef3c8023dbb,225358003,Wound care (regime/therapy),370247008,Facial laceration (disorder)
+72692aef-ba76-6294-82d9-5a6fa64d3cbe,1986-02-16,1986-10-05,72692aef-ba76-6294-e43c-c110a509e5f8,72692aef-ba76-6294-2f41-8cb0cdac6b41,134435003,Routine antenatal care (regime/therapy),,
+72692aef-ba76-6294-57a4-6339366c4f0b,1988-09-04,1989-04-23,72692aef-ba76-6294-e43c-c110a509e5f8,72692aef-ba76-6294-c1b9-c4151717feb6,134435003,Routine antenatal care (regime/therapy),,
+72692aef-ba76-6294-c6a4-61d954c383ca,1988-10-02,1989-01-02,72692aef-ba76-6294-e43c-c110a509e5f8,72692aef-ba76-6294-3e0d-bdc3e80320d6,385691007,Fracture care (regime/therapy),65966004,Fracture of forearm (disorder)
+72692aef-ba76-6294-e708-da9736875e4a,1989-09-03,1990-04-08,72692aef-ba76-6294-e43c-c110a509e5f8,72692aef-ba76-6294-faaa-71c2fa5ce40c,134435003,Routine antenatal care (regime/therapy),,
+72692aef-ba76-6294-bf53-d4f23eb08d8c,1992-08-31,1992-09-20,72692aef-ba76-6294-e43c-c110a509e5f8,72692aef-ba76-6294-1fb7-7c2dccd2176c,737471002,Minor surgery care management (procedure),,
+72692aef-ba76-6294-1a16-013194a2dcaa,2004-12-12,2005-05-15,72692aef-ba76-6294-e43c-c110a509e5f8,72692aef-ba76-6294-4f42-65575aa5ef77,53950000,Respiratory therapy (procedure),,
+72692aef-ba76-6294-803b-ce08b3cf2ac9,2010-05-21,2010-05-31,72692aef-ba76-6294-e43c-c110a509e5f8,72692aef-ba76-6294-0b00-93649368af4f,53950000,Respiratory therapy (procedure),,
+72692aef-ba76-6294-5ec0-b09bc87fce5e,2019-10-13,2020-07-05,72692aef-ba76-6294-e43c-c110a509e5f8,72692aef-ba76-6294-188d-5dc37084234a,53950000,Respiratory therapy (procedure),,
+e7d5c95c-92dc-d60a-a978-a80828d133ea,1942-12-04,1943-02-08,e7d5c95c-92dc-d60a-5638-e169afb364f7,e7d5c95c-92dc-d60a-c773-e8e20c93e162,408869004,Musculoskeletal care (regime/therapy),,
+e7d5c95c-92dc-d60a-0ba8-d6c9327b55d9,1950-04-05,1950-06-25,e7d5c95c-92dc-d60a-5638-e169afb364f7,e7d5c95c-92dc-d60a-4c3f-f8246175384c,47387005,Head injury rehabilitation (regime/therapy),62564004,Concussion with loss of consciousness (disorder)
+e7d5c95c-92dc-d60a-f5d0-0c3958b226be,1950-04-18,1950-04-25,e7d5c95c-92dc-d60a-5638-e169afb364f7,e7d5c95c-92dc-d60a-a295-f8fc2747b780,53950000,Respiratory therapy (procedure),,
+e7d5c95c-92dc-d60a-44c8-f7c3cc38a96f,1961-10-24,1966-08-23,e7d5c95c-92dc-d60a-5638-e169afb364f7,e7d5c95c-92dc-d60a-6096-64b74493a404,134435003,Routine antenatal care (regime/therapy),,
+e7d5c95c-92dc-d60a-7267-54b0df90b09f,1967-06-16,1967-08-06,e7d5c95c-92dc-d60a-5638-e169afb364f7,e7d5c95c-92dc-d60a-5432-d7c1877a4f25,408869004,Musculoskeletal care (regime/therapy),,
+e7d5c95c-92dc-d60a-dcb5-617804252660,1969-09-13,1970-04-14,e7d5c95c-92dc-d60a-5638-e169afb364f7,e7d5c95c-92dc-d60a-572b-a6779869f9eb,53950000,Respiratory therapy (procedure),,
+e7d5c95c-92dc-d60a-1519-b3ac3e32b995,1971-11-23,1972-06-20,e7d5c95c-92dc-d60a-5638-e169afb364f7,e7d5c95c-92dc-d60a-4587-34ce612ad66f,134435003,Routine antenatal care (regime/therapy),,
+e7d5c95c-92dc-d60a-320b-28f1ae3d6a4f,1973-04-17,,e7d5c95c-92dc-d60a-5638-e169afb364f7,e7d5c95c-92dc-d60a-ac9d-79161d04961e,735985000,Diabetes self management plan (record artifact),714628002,Prediabetes (finding)
+e7d5c95c-92dc-d60a-7fbb-a3630131ec6b,1980-10-21,1981-05-26,e7d5c95c-92dc-d60a-5638-e169afb364f7,e7d5c95c-92dc-d60a-3639-bf020eb29ae4,134435003,Routine antenatal care (regime/therapy),,
+e7d5c95c-92dc-d60a-a0f8-c843019a500c,1990-02-20,,e7d5c95c-92dc-d60a-5638-e169afb364f7,e7d5c95c-92dc-d60a-c573-d9983a736424,443402002,Lifestyle education regarding hypertension (procedure),59621000,Essential hypertension (disorder)
+e7d5c95c-92dc-d60a-099a-f2c8a5cbe041,1990-11-24,1990-12-12,e7d5c95c-92dc-d60a-5638-e169afb364f7,e7d5c95c-92dc-d60a-b653-8a3d2bd12638,773513001,Physiotherapy care plan (record artifact),44465007,Sprain of ankle (disorder)
+e7d5c95c-92dc-d60a-65c8-6e0cca250af1,2006-12-03,2007-01-09,e7d5c95c-92dc-d60a-5638-e169afb364f7,e7d5c95c-92dc-d60a-b0ef-eebbecb3dc1e,773513001,Physiotherapy care plan (record artifact),44465007,Sprain of ankle (disorder)
+e7d5c95c-92dc-d60a-f16f-cccd9df55559,2012-07-03,2012-08-11,e7d5c95c-92dc-d60a-5638-e169afb364f7,e7d5c95c-92dc-d60a-cd6f-26216f2940e2,773513001,Physiotherapy care plan (record artifact),44465007,Sprain of ankle (disorder)
+e7d5c95c-92dc-d60a-2f9d-4cddf8154a4e,2017-09-17,2017-12-23,e7d5c95c-92dc-d60a-5638-e169afb364f7,e7d5c95c-92dc-d60a-745b-c9392c5bb285,385691007,Fracture care (regime/therapy),263102004,Fracture subluxation of wrist (disorder)
+e7d5c95c-92dc-d60a-e1ba-13db48f0fe90,2020-01-10,,e7d5c95c-92dc-d60a-5638-e169afb364f7,e7d5c95c-92dc-d60a-5c0e-29fa389b781a,736372004,Discharge care plan (record artifact),,
+e7d5c95c-92dc-d60a-a5fa-e65f5e662c93,2021-10-26,2022-02-19,e7d5c95c-92dc-d60a-5638-e169afb364f7,e7d5c95c-92dc-d60a-8a7a-e06e1eb780b4,385691007,Fracture care (regime/therapy),263102004,Fracture subluxation of wrist (disorder)
