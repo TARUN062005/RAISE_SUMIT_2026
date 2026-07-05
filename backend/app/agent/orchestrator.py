@@ -134,6 +134,15 @@ def clean_tool_res_for_llm(tool_name: str, tool_res: dict) -> dict:
         
     return cleaned
 
+def truncate_data_for_llm(val: Any) -> Any:
+    if isinstance(val, dict):
+        return {k: truncate_data_for_llm(v) for k, v in val.items()}
+    if isinstance(val, list):
+        if len(val) > 10:
+            return [truncate_data_for_llm(item) for item in val[:10]] + [f"... (truncated, showing 10 of {len(val)} items. If you need specific results, search or filter them directly using codes or parameters.)"]
+        return [truncate_data_for_llm(item) for item in val]
+    return val
+
 def extract_first_json_object(text: str) -> dict:
     if not isinstance(text, str):
         raise ValueError("Received invalid non-string response from LLM")
@@ -317,7 +326,8 @@ async def run_agent(run_id: str, patient_id: str, trial_id: str):
                 for obs_step, obs_content, tool_res in results:
                     await db["agent_runs"].update_one({"id": run_id}, {"$push": {"steps": obs_step}})
                     cleaned_tool_res = clean_tool_res_for_llm(obs_step.get("tool_called"), tool_res)
-                    obs_msgs.append({"observation": obs_content, "data": cleaned_tool_res})
+                    truncated_tool_res = truncate_data_for_llm(cleaned_tool_res)
+                    obs_msgs.append({"observation": obs_content, "data": truncated_tool_res})
                     
                 messages.append({"role": "user", "content": json.dumps(obs_msgs)})
                         
@@ -523,7 +533,8 @@ async def run_assistant(run_id: str, query: str):
                 obs_msgs = []
                 for obs_step, obs_content, tool_res in results:
                     await db["agent_runs"].update_one({"id": run_id}, {"$push": {"steps": obs_step}})
-                    obs_msgs.append({"observation": obs_content, "data": tool_res})
+                    truncated_tool_res = truncate_data_for_llm(tool_res)
+                    obs_msgs.append({"observation": obs_content, "data": truncated_tool_res})
                 messages.append({"role": "user", "content": json.dumps(obs_msgs)})
 
             elif final_answer:
