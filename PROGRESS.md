@@ -239,3 +239,20 @@ Endpoints implemented (if applicable): none
 Tools implemented (if applicable): none
 Deviations from prompt and why: none
 Remaining for this phase: none
+
+## Phase 13 — Antigravity Console and UI Refresh — 2026-07-05T00:00:00Z
+Files created/modified:
+- [EvaluatePage.tsx](file:///D:/Raise/frontend/src/pages/EvaluatePage.tsx) (lightweight Agent Console, frontend-only patient/trial matching, preview-confirmation flow, ambiguity fallback into selectors, reused POST /api/agent/run)
+- [PROGRESS.md](file:///D:/Raise/PROGRESS.md) (explicit Antigravity checklist and validation record)
+Collections seeded (if applicable): none
+Endpoints implemented (if applicable): none
+Tools implemented (if applicable): none
+Deviations from prompt and why: none
+Remaining for this phase: dashboard, patients, trials, reports, and run report visual refresh
+Antigravity checklist:
+- Exactly one evaluation run path remains in use.
+- No new backend endpoint was introduced.
+- No new LLM or orchestration call was added.
+- The existing dropdown flow and report renderer remain in place.
+- Ambiguous console matches narrow the selectors instead of guessing.
+- Frontend build validation passed after the console rewrite.

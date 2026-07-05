@@ -199,7 +199,7 @@ export default function RunPage() {
   return (
     <div className="space-y-6 max-w-7xl mx-auto w-full">
       {/* Top Breadcrumb and Meta */}
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-slate-200 pb-4">
+      <div className="rounded-[1.75rem] border border-border-subtle bg-bg-surface px-5 py-4 shadow-2xs flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <Link 
           to="/workspace/evaluate" 
           className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-slate-500 hover:text-teal-650 transition"
@@ -229,7 +229,7 @@ export default function RunPage() {
         <div className="lg:col-span-2 space-y-6">
           
           {/* Active Status header */}
-          <div className="bg-white border border-slate-200 rounded-xl p-5 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 shadow-2xs">
+          <div className="bg-bg-surface border border-border-subtle rounded-[1.75rem] p-5 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 shadow-2xs">
             <div className="space-y-0.5">
               <div className="text-[9px] text-slate-400 font-bold uppercase tracking-wider">Evaluation Process</div>
               <h3 className="text-base font-extrabold text-slate-900">ReAct Reasoning Execution</h3>
@@ -250,19 +250,19 @@ export default function RunPage() {
               animate={{ opacity: 1, y: 0 }}
               className="grid grid-cols-2 sm:grid-cols-4 gap-4"
             >
-              <div className="bg-white border border-slate-200 rounded-xl p-4 text-center shadow-2xs">
+              <div className="bg-bg-surface border border-border-subtle rounded-2xl p-4 text-center shadow-2xs">
                 <div className="text-2xl font-extrabold text-slate-900">{report.evidence.verified_records}</div>
                 <div className="text-[9px] text-slate-455 uppercase font-bold tracking-wider mt-1">EHR Records Audited</div>
               </div>
-              <div className="bg-white border border-slate-200 rounded-xl p-4 text-center shadow-2xs">
+              <div className="bg-bg-surface border border-border-subtle rounded-2xl p-4 text-center shadow-2xs">
                 <div className="text-2xl font-extrabold text-slate-900">{report.evidence.total_criteria}</div>
                 <div className="text-[9px] text-slate-455 uppercase font-bold tracking-wider mt-1">Criteria Scanned</div>
               </div>
-              <div className="bg-white border border-slate-200 rounded-xl p-4 text-center shadow-2xs">
+              <div className="bg-bg-surface border border-border-subtle rounded-2xl p-4 text-center shadow-2xs">
                 <div className="text-2xl font-extrabold text-slate-900">{report.evidence.satisfied_count}</div>
                 <div className="text-[9px] text-slate-455 uppercase font-bold tracking-wider mt-1">Satisfied criteria</div>
               </div>
-              <div className="bg-white border border-slate-200 rounded-xl p-4 text-center shadow-2xs">
+              <div className="bg-bg-surface border border-border-subtle rounded-2xl p-4 text-center shadow-2xs">
                 <div className="text-2xl font-extrabold text-teal-600">{report.evidence.coverage_pct}%</div>
                 <div className="text-[9px] text-teal-650 uppercase font-bold tracking-wider mt-1">Evidence Coverage</div>
               </div>
@@ -288,7 +288,7 @@ export default function RunPage() {
               >
                 {/* Decision Summary Block */}
                 {report.decision_summary && (
-                  <div className="bg-white border border-slate-200 rounded-xl p-5 shadow-2xs space-y-4">
+                  <div className="bg-bg-surface border border-border-subtle rounded-[1.75rem] p-5 shadow-2xs space-y-4">
                     <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 pb-4">
                       <div>
                         <h4 className="text-xs font-bold text-slate-950 uppercase tracking-wider">Evaluation Readiness Profile</h4>
@@ -342,7 +342,7 @@ export default function RunPage() {
                 {(() => {
                   const styles = getDecisionStyles(report.eligibility_decision);
                   return (
-                    <div className={`border rounded-xl p-5 shadow-2xs ${styles.bg} flex flex-col md:flex-row items-start gap-4`}>
+                    <div className={`border rounded-[1.75rem] p-5 shadow-2xs ${styles.bg} flex flex-col md:flex-row items-start gap-4`}>
                       <div className="p-2 bg-white border border-slate-200 rounded-lg shrink-0">
                         {styles.icon}
                       </div>
@@ -365,7 +365,7 @@ export default function RunPage() {
                 {/* Checklist criteria grids */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   {/* Satisfied Criteria Checklist */}
-                  <div className="bg-white border border-slate-200 rounded-xl p-5 space-y-4 shadow-2xs">
+                  <div className="bg-bg-surface border border-border-subtle rounded-[1.75rem] p-5 space-y-4 shadow-2xs">
                     <h4 className="text-xs font-bold text-slate-800 uppercase tracking-wider flex items-center gap-2 border-b border-slate-100 pb-3">
                       <CheckCircle className="w-4 h-4 text-emerald-600" /> Satisfied Inclusion/Exclusion
                     </h4>
@@ -385,7 +385,7 @@ export default function RunPage() {
                   </div>
 
                   {/* Unsatisfied Exclusions Checklist */}
-                  <div className="bg-white border border-slate-200 rounded-xl p-5 space-y-4 shadow-2xs">
+                  <div className="bg-bg-surface border border-border-subtle rounded-[1.75rem] p-5 space-y-4 shadow-2xs">
                     <h4 className="text-xs font-bold text-slate-800 uppercase tracking-wider flex items-center gap-2 border-b border-slate-100 pb-3">
                       <XCircle className="w-4 h-4 text-rose-600" /> Unsatisfied & Exclusions
                     </h4>
@@ -406,7 +406,7 @@ export default function RunPage() {
                 {/* Outstanding Tasks & Policy checks */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   {/* Outstanding Tasks */}
-                  <div className="bg-white border border-slate-200 rounded-xl p-5 space-y-4 shadow-2xs">
+                  <div className="bg-bg-surface border border-border-subtle rounded-[1.75rem] p-5 space-y-4 shadow-2xs">
                     <h4 className="text-xs font-bold text-slate-800 uppercase tracking-wider flex items-center gap-2 border-b border-slate-100 pb-3">
                       <AlertTriangle className="w-4 h-4 text-amber-600" /> Outstanding Clinical Requirements
                     </h4>
@@ -429,7 +429,7 @@ export default function RunPage() {
                   </div>
 
                   {/* Policy & Freshness Audit */}
-                  <div className="bg-white border border-slate-200 rounded-xl p-5 space-y-4 shadow-2xs">
+                  <div className="bg-bg-surface border border-border-subtle rounded-[1.75rem] p-5 space-y-4 shadow-2xs">
                     <h4 className="text-xs font-bold text-slate-800 uppercase tracking-wider flex items-center gap-2 border-b border-slate-100 pb-3">
                       <Clock className="w-4 h-4 text-slate-655" /> Freshness & Policy Audits
                     </h4>
@@ -490,8 +490,8 @@ export default function RunPage() {
         </div>
 
         {/* RIGHT COLUMN (1/3 SPAN): LIVE STREAMING EXECUTION LOG */}
-        <div className="bg-slate-900 border border-slate-950 rounded-xl overflow-hidden shadow-2xs min-h-[450px] h-[calc(100vh-280px)] lg:h-[calc(100vh-240px)] flex flex-col">
-          <div className="bg-slate-950 px-5 py-4 border-b border-slate-800 flex items-center justify-between shrink-0">
+        <div className="bg-slate-950 border border-slate-900 rounded-[1.75rem] overflow-hidden shadow-2xs min-h-[450px] h-[calc(100vh-280px)] lg:h-[calc(100vh-240px)] flex flex-col">
+          <div className="bg-slate-900 px-5 py-4 border-b border-slate-800 flex items-center justify-between shrink-0">
             <h3 className="text-xs font-bold text-slate-200 uppercase tracking-wider flex items-center gap-2">
               <Layers className="w-4 h-4 text-teal-400 animate-pulse" /> Agent Reasoning Stream
             </h3>

@@ -123,13 +123,19 @@ export default function PatientsPage() {
 
   return (
     <div className="space-y-6 max-w-7xl mx-auto w-full">
-      <div className="flex items-center justify-between border-b border-slate-200 pb-4">
-        <div>
-          <h2 className="text-xl font-extrabold text-slate-900 tracking-tight">EHR Patient Directory</h2>
-          <p className="text-xs text-slate-500">Secure clinical profile identities and active matching statuses</p>
-        </div>
-        <div className="bg-teal-50 border border-teal-200 px-3 py-1.5 rounded-lg text-[10px] font-bold uppercase tracking-wider text-teal-700 flex items-center gap-1.5">
-          <Users className="w-3.5 h-3.5" /> {patients.length} Registered
+      <div className="rounded-[2rem] border border-border-subtle bg-gradient-to-br from-slate-950 via-slate-900 to-teal-900 text-white p-6 md:p-7 shadow-[0_24px_80px_rgba(15,23,42,0.28)]">
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
+          <div className="space-y-2 max-w-2xl">
+            <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.24em] text-slate-100">
+              <Users className="w-3.5 h-3.5" /> Patient Intelligence
+            </div>
+            <h2 className="text-2xl md:text-3xl font-black tracking-tight">EHR Patient Directory</h2>
+            <p className="text-sm text-slate-200/90 max-w-2xl">Secure clinical profile identities, eligibility context, and evaluation shortcuts in one place.</p>
+          </div>
+          <div className="rounded-2xl bg-white/10 border border-white/15 px-4 py-3 text-center backdrop-blur">
+            <div className="text-2xl font-black">{patients.length}</div>
+            <div className="text-[10px] uppercase tracking-[0.22em] text-slate-200/80">Registered</div>
+          </div>
         </div>
       </div>
 
@@ -151,11 +157,11 @@ export default function PatientsPage() {
           No patient records found in the database.
         </div>
       ) : (
-        <div className="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-2xs">
+        <div className="bg-bg-surface border border-border-subtle rounded-[1.75rem] overflow-hidden shadow-2xs">
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse">
               <thead>
-                <tr className="border-b border-slate-200 text-[10px] font-extrabold uppercase tracking-wider text-slate-500 bg-slate-50">
+                <tr className="border-b border-border-subtle text-[10px] font-extrabold uppercase tracking-wider text-text-secondary bg-bg-base/80">
                   <th className="py-3.5 px-5">Patient Name</th>
                   <th className="py-3.5 px-5 w-20">Age</th>
                   <th className="py-3.5 px-5">Primary Diagnosis</th>
@@ -177,11 +183,11 @@ export default function PatientsPage() {
                         }`}
                         onClick={() => toggleExpand(patient.id)}
                       >
-                        <td className="py-4 px-5 font-bold text-slate-900 flex items-center gap-2">
+                        <td className="py-4 px-5 font-bold text-text-primary flex items-center gap-2">
                           <FileUser className="w-4 h-4 text-slate-400 group-hover:text-teal-650 shrink-0" />
                           <div className="space-y-0.5">
                             <p className="font-bold">{patient.name}</p>
-                            <code className="bg-slate-100 px-1 py-0.2 rounded font-mono text-[9px] border border-slate-200 text-slate-550">
+                            <code className="bg-bg-base px-1 py-0.5 rounded font-mono text-[9px] border border-border-subtle text-text-secondary">
                               {patient.id}
                             </code>
                           </div>

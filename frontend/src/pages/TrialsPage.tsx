@@ -107,13 +107,19 @@ export default function TrialsPage() {
 
   return (
     <div className="space-y-6 max-w-7xl mx-auto w-full">
-      <div className="flex items-center justify-between border-b border-slate-200 pb-4">
-        <div>
-          <h2 className="text-xl font-extrabold text-slate-900 tracking-tight">Clinical Trial Protocols</h2>
-          <p className="text-xs text-slate-500">FDA registered protocols, stage eligibility criteria, and enrollment status</p>
-        </div>
-        <div className="bg-teal-50 border border-teal-200 px-3 py-1.5 rounded-lg text-[10px] font-bold uppercase tracking-wider text-teal-700 flex items-center gap-1.5">
-          <ClipboardList className="w-3.5 h-3.5" /> {trials.length} Protocols
+      <div className="rounded-[2rem] border border-border-subtle bg-gradient-to-br from-teal-700 via-cyan-700 to-slate-900 text-white p-6 md:p-7 shadow-[0_24px_80px_rgba(15,118,110,0.22)]">
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
+          <div className="space-y-2 max-w-2xl">
+            <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.24em] text-teal-50">
+              <ClipboardList className="w-3.5 h-3.5" /> Trial Registry
+            </div>
+            <h2 className="text-2xl md:text-3xl font-black tracking-tight">Clinical Trial Protocols</h2>
+            <p className="text-sm text-teal-50/90 max-w-2xl">FDA registered protocols, phase filters, and recruitment status in a cleaner review surface.</p>
+          </div>
+          <div className="rounded-2xl bg-white/10 border border-white/15 px-4 py-3 text-center backdrop-blur">
+            <div className="text-2xl font-black">{trials.length}</div>
+            <div className="text-[10px] uppercase tracking-[0.22em] text-teal-50/80">Protocols</div>
+          </div>
         </div>
       </div>
 
@@ -133,7 +139,7 @@ export default function TrialsPage() {
       ) : (
         <div className="space-y-4">
           {/* Controls: Search, Filters */}
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4 bg-white border border-slate-200 p-4 rounded-xl shadow-2xs">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4 bg-bg-surface border border-border-subtle p-4 rounded-[1.5rem] shadow-2xs">
             <div className="relative w-full md:max-w-xs">
               <span className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-405">
                 <Search className="w-4 h-4" />
@@ -143,7 +149,7 @@ export default function TrialsPage() {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search Trial ID, title, or condition..."
-                className="w-full pl-9 pr-4 py-2 border border-slate-300 rounded-lg text-xs focus:ring-2 focus:ring-teal-550 focus:border-teal-550 bg-slate-50/50"
+                className="w-full pl-9 pr-4 py-2 border border-border-subtle rounded-xl text-xs focus:ring-2 focus:ring-teal-550 focus:border-teal-550 bg-bg-base/80"
               />
             </div>
             
@@ -153,7 +159,7 @@ export default function TrialsPage() {
                 <select
                   value={phaseFilter}
                   onChange={(e) => setPhaseFilter(e.target.value)}
-                  className="bg-white border border-slate-350 rounded-lg text-xs py-1.5 px-3 focus:ring-teal-550 text-slate-700"
+                  className="bg-bg-base border border-border-subtle rounded-lg text-xs py-1.5 px-3 focus:ring-teal-550 text-text-primary"
                 >
                   <option value="all">All Phases</option>
                   <option value="Phase I">Phase I</option>
@@ -168,7 +174,7 @@ export default function TrialsPage() {
                 <select
                   value={statusFilter}
                   onChange={(e) => setStatusFilter(e.target.value)}
-                  className="bg-white border border-slate-350 rounded-lg text-xs py-1.5 px-3 focus:ring-teal-550 text-slate-700"
+                  className="bg-bg-base border border-border-subtle rounded-lg text-xs py-1.5 px-3 focus:ring-teal-550 text-text-primary"
                 >
                   <option value="all">All Statuses</option>
                   <option value="Recruiting">Recruiting</option>
@@ -185,11 +191,11 @@ export default function TrialsPage() {
               No matching trials found in the directory.
             </div>
           ) : (
-            <div className="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-2xs">
+            <div className="bg-bg-surface border border-border-subtle rounded-[1.75rem] overflow-hidden shadow-2xs">
               <div className="overflow-x-auto">
                 <table className="w-full text-left border-collapse">
                   <thead>
-                    <tr className="border-b border-slate-200 text-[10px] font-extrabold uppercase tracking-wider text-slate-500 bg-slate-50">
+                    <tr className="border-b border-border-subtle text-[10px] font-extrabold uppercase tracking-wider text-text-secondary bg-bg-base/80">
                       <th className="py-3.5 px-5 w-32 cursor-pointer hover:bg-slate-100" onClick={() => handleSort("id")}>
                         <div className="flex items-center gap-1">Trial ID <ArrowUpDown className="w-3 h-3 text-slate-450" /></div>
                       </th>

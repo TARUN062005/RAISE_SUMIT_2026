@@ -58,9 +58,32 @@ export default function DashboardPage() {
 
   return (
     <div className="space-y-6 max-w-7xl mx-auto w-full">
-      <div>
-        <h2 className="text-xl font-extrabold text-text-primary tracking-tight">Clinical Coordinator Dashboard</h2>
-        <p className="text-xs text-text-secondary">Real-time telemetry and overview of clinical eligibility matching pipelines</p>
+      <div className="rounded-[2rem] border border-border-subtle bg-gradient-to-br from-teal-700 via-teal-600 to-cyan-700 text-white p-6 md:p-7 shadow-[0_24px_80px_rgba(15,118,110,0.22)]">
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
+          <div className="space-y-2 max-w-2xl">
+            <div className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.24em] text-teal-50">
+              <Activity className="w-3.5 h-3.5" /> Operations Control Center
+            </div>
+            <h2 className="text-2xl md:text-3xl font-black tracking-tight">Clinical Coordinator Dashboard</h2>
+            <p className="text-sm text-teal-50/90 max-w-2xl">
+              Real-time telemetry, active evaluation throughput, and the shortest path into patient and trial review.
+            </p>
+          </div>
+          <div className="grid grid-cols-3 gap-3 w-full md:w-auto">
+            <div className="rounded-2xl bg-white/10 border border-white/15 px-4 py-3 text-center backdrop-blur">
+              <div className="text-2xl font-black">{stats.patientsCount}</div>
+              <div className="text-[10px] uppercase tracking-[0.22em] text-teal-50/80">Patients</div>
+            </div>
+            <div className="rounded-2xl bg-white/10 border border-white/15 px-4 py-3 text-center backdrop-blur">
+              <div className="text-2xl font-black">{stats.trialsCount}</div>
+              <div className="text-[10px] uppercase tracking-[0.22em] text-teal-50/80">Trials</div>
+            </div>
+            <div className="rounded-2xl bg-white/10 border border-white/15 px-4 py-3 text-center backdrop-blur">
+              <div className="text-2xl font-black">{stats.runsCount}</div>
+              <div className="text-[10px] uppercase tracking-[0.22em] text-teal-50/80">Runs</div>
+            </div>
+          </div>
+        </div>
       </div>
 
       {loading ? (

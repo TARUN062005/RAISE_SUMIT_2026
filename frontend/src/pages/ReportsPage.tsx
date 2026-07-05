@@ -125,12 +125,16 @@ export default function ReportsPage() {
         </div>
       )}
 
-      <div className="flex items-center justify-between border-b border-slate-200 pb-4">
-        <div>
-          <h2 className="text-xl font-extrabold text-slate-900 tracking-tight">Agent Evaluation Reports</h2>
-          <p className="text-xs text-slate-500">Audit logs, live telemetry streams, and clinical evidence matching runs</p>
-        </div>
-        <div className="flex items-center gap-3">
+      <div className="rounded-[2rem] border border-border-subtle bg-gradient-to-br from-slate-950 via-slate-900 to-teal-900 text-white p-6 md:p-7 shadow-[0_24px_80px_rgba(15,23,42,0.28)]">
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
+          <div className="space-y-2 max-w-2xl">
+            <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.24em] text-slate-100">
+              <FolderHeart className="w-3.5 h-3.5" /> Report Archive
+            </div>
+            <h2 className="text-2xl md:text-3xl font-black tracking-tight">Agent Evaluation Reports</h2>
+            <p className="text-sm text-slate-200/90 max-w-2xl">Audit logs, telemetry streams, and clinical evidence records with a cleaner archival surface.</p>
+          </div>
+          <div className="flex items-center gap-3">
           <button
             onClick={() => setShowArchived(!showArchived)}
             className={`px-3 py-1.5 text-xs font-bold rounded-lg border transition ${
@@ -142,9 +146,10 @@ export default function ReportsPage() {
             {showArchived ? "Viewing Archived" : "Show Archived"}
           </button>
           
-          <div className="bg-teal-50 border border-teal-200 px-3 py-1.5 rounded-lg text-[10px] font-bold uppercase tracking-wider text-teal-700 flex items-center gap-1.5 shadow-2xs">
+          <div className="bg-white/10 border border-white/15 px-3 py-1.5 rounded-lg text-[10px] font-bold uppercase tracking-wider text-white flex items-center gap-1.5 backdrop-blur">
             <FolderHeart className="w-3.5 h-3.5" /> {visibleRuns.length} Reports
           </div>
+        </div>
         </div>
       </div>
 
@@ -162,17 +167,17 @@ export default function ReportsPage() {
           </div>
         </div>
       ) : visibleRuns.length === 0 ? (
-        <div className="text-center py-20 bg-white border border-slate-200 rounded-xl text-slate-400 italic text-xs shadow-2xs">
+        <div className="text-center py-20 bg-bg-surface border border-border-subtle rounded-[1.75rem] text-text-secondary italic text-xs shadow-2xs">
           {showArchived 
             ? "No archived evaluation reports found." 
             : "No active evaluation reports found. Initiate an evaluation in the Eligibility Agent!"}
         </div>
       ) : (
-        <div className="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-2xs">
+        <div className="bg-bg-surface border border-border-subtle rounded-[1.75rem] overflow-hidden shadow-2xs">
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse">
               <thead>
-                <tr className="border-b border-slate-200 text-[10px] font-extrabold uppercase tracking-wider text-slate-500 bg-slate-50">
+                <tr className="border-b border-border-subtle text-[10px] font-extrabold uppercase tracking-wider text-text-secondary bg-bg-base/80">
                   <th className="py-3.5 px-5">Evaluation Run ID</th>
                   <th className="py-3.5 px-5">Patient ID</th>
                   <th className="py-3.5 px-5">Trial ID</th>
