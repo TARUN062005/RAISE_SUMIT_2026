@@ -160,24 +160,33 @@ def extract_first_json_object(text: str) -> dict:
     try:
         parsed = json.loads(text)
     except Exception:
-        start_obj = text.find('{')
-        start_arr = text.find('[')
+        # Strip formatting tags that can interfere with finding the true JSON boundary
+        cleaned_text = text
+        for tag in ["[TOOL_CALL]", "[/TOOL_CALL]", "```json", "```"]:
+            cleaned_text = cleaned_text.replace(tag, "")
+        cleaned_text = cleaned_text.strip()
         
-        start_idx = -1
-        if start_obj != -1 and start_arr != -1:
-            start_idx = min(start_obj, start_arr)
-        elif start_obj != -1:
-            start_idx = start_obj
-        elif start_arr != -1:
-            start_idx = start_arr
+        try:
+            parsed = json.loads(cleaned_text)
+        except Exception:
+            start_obj = cleaned_text.find('{')
+            start_arr = cleaned_text.find('[')
             
-        if start_idx != -1:
-            try:
-                parsed, _ = json.JSONDecoder().raw_decode(text[start_idx:])
-            except Exception as e:
-                raise ValueError(f"Tolerant JSON extraction failed: {e}")
-        else:
-            raise ValueError("No JSON object or array structure found in response")
+            start_idx = -1
+            if start_obj != -1 and start_arr != -1:
+                start_idx = min(start_obj, start_arr)
+            elif start_obj != -1:
+                start_idx = start_obj
+            elif start_arr != -1:
+                start_idx = start_arr
+                
+            if start_idx != -1:
+                try:
+                    parsed, _ = json.JSONDecoder().raw_decode(cleaned_text[start_idx:])
+                except Exception as e:
+                    raise ValueError(f"Tolerant JSON extraction failed: {e}")
+            else:
+                raise ValueError("No JSON object or array structure found in response")
             
     if isinstance(parsed, list):
         if len(parsed) > 0 and isinstance(parsed[0], dict):
