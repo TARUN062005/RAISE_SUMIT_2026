@@ -4,7 +4,7 @@ import time
 import asyncio
 import uuid
 from datetime import datetime
-from typing import Dict, Any, List, Tuple
+from typing import Dict, Any, List, Tuple, Optional
 from app.db.session import get_db
 from app.agent.vultr_client import VultrClient
 from app.agent.memory import AgentMemory
