@@ -29,41 +29,13 @@ The track calls for a web-based enterprise agent that grounds its decisions in d
 
 AURA implements that workflow directly and completely:
 
-|
- Requirement 
-|
- How AURA satisfies it 
-|
-|
----
-|
----
-|
-|
- Plans a workflow, doesn't single-shot an answer 
-|
- A manual ReAct loop plans each next step based on what it has learned so far, up to 10 steps per evaluation 
-|
-|
- Retrieves more than once, adaptively 
-|
- Retrieves patient demographics, conditions, medications, observations, and allergies; retrieves trial details and eligibility criteria; retrieves drug interaction rules; retrieves hospital policy thresholds — as separate, reasoned steps, not one query 
-|
-|
- Calls tools, makes decisions 
-|
- Five specialist tools (below) are invoked based on the model's own reasoning, not a hardcoded sequence 
-|
-|
- Produces an actionable enterprise outcome 
-|
- A structured report stating eligibility status, satisfied/unsatisfied criteria, missing or expired documents, drug conflicts, and required next actions for the coordinator 
-|
-|
- Grounds every decision in documents 
-|
- Every citation in the final report references a specific MongoDB record (collection, ID, field, value) — never a paraphrase, never a model-invented fact 
-|
+| Requirement | How AURA satisfies it |
+| :--- | :--- |
+| Plans a workflow, doesn't single-shot an answer | A manual ReAct loop plans each next step based on what it has learned so far, up to 10 steps per evaluation |
+| Retrieves more than once, adaptively | Retrieves patient demographics, conditions, medications, observations, and allergies; retrieves trial details and eligibility criteria; retrieves drug interaction rules; retrieves hospital policy thresholds — as separate, reasoned steps, not one query |
+| Calls tools, makes decisions | Five specialist tools (below) are invoked based on the model's own reasoning, not a hardcoded sequence |
+| Produces an actionable enterprise outcome | A structured report stating eligibility status, satisfied/unsatisfied criteria, missing or expired documents, drug conflicts, and required next actions for the coordinator |
+| Grounds every decision in documents | Every citation in the final report references a specific MongoDB record (collection, ID, field, value) — never a paraphrase, never a model-invented fact |
 
 ## What This Is Not
 
@@ -110,81 +82,21 @@ The orchestrator is a **plain Python ReAct loop with no agent framework** (no La
 
 ## Database Schema
 
-|
- Collection 
-|
- Purpose 
-|
-|
----
-|
----
-|
-|
-`patients`
-|
- Demographics, birthdate, identifiers 
-|
-|
-`conditions`
-|
- Diagnostic codes and descriptions per patient (SNOMED-CT) 
-|
-|
-`medications`
-|
- Prescription history, dosage, active/inactive status 
-|
-|
-`observations`
-|
- Labs, vitals, and measurements (LOINC-coded) 
-|
-|
-`encounters`
-|
- Clinic visit history 
-|
-|
-`procedures`
-|
- Logged procedures and diagnostic exams 
-|
-|
-`careplans`
-|
- Patient care guidelines 
-|
-|
-`allergies`
-|
- Drug/food/environmental allergy records 
-|
-|
-`trials`
-|
- Registered clinical trial protocols 
-|
-|
-`trial_eligibility`
-|
- Structured inclusion/exclusion criteria per trial 
-|
-|
-`drug_rules`
-|
- Drug-drug interaction and exclusion rules 
-|
-|
-`hospital_policies`
-|
- Document validity windows (e.g. "CBC valid for 90 days") 
-|
-|
-`agent_runs`
-|
- Full audit trail of every evaluation: every step, tool call, timing, and the final report 
-|
+| Collection | Purpose |
+| :--- | :--- |
+| `patients` | Demographics, birthdate, identifiers |
+| `conditions` | Diagnostic codes and descriptions per patient (SNOMED-CT) |
+| `medications` | Prescription history, dosage, active/inactive status |
+| `observations` | Labs, vitals, and measurements (LOINC-coded) |
+| `encounters` | Clinic visit history |
+| `procedures` | Logged procedures and diagnostic exams |
+| `careplans` | Patient care guidelines |
+| `allergies` | Drug/food/environmental allergy records |
+| `trials` | Registered clinical trial protocols |
+| `trial_eligibility` | Structured inclusion/exclusion criteria per trial |
+| `drug_rules` | Drug-drug interaction and exclusion rules |
+| `hospital_policies` | Document validity windows (e.g. "CBC valid for 90 days") |
+| `agent_runs` | Full audit trail of every evaluation: every step, tool call, timing, and the final report |
 
 Patient, clinical, and encounter data is derived from [Synthea](https://github.com/synthetichealth/synthea) synthetic patient generation. Trial data is sourced from real, public trial listings. No real patient data is used anywhere in this system.
 
