@@ -5,8 +5,8 @@ import {
   Bot, Send, Brain, User, Pill, Activity, BarChart3, ShieldAlert,
   FlaskConical, ClipboardList, AlertTriangle, Clock, Database,
   FileText, Filter, Search, Building2, UserCheck, Stethoscope,
-  Globe, TrendingUp, CheckCircle, XCircle, Loader2, ChevronDown,
-  ChevronUp, Table2, BarChart2, BookOpen, ArrowRight
+  Globe, TrendingUp, XCircle, Loader2, ChevronDown,
+  ChevronUp, BarChart2, ArrowRight
 } from "lucide-react";
 import { apiFetch, apiPath } from "../lib/api";
 
@@ -162,6 +162,16 @@ function KpiCards({ data }: { data: Record<string, any> }) {
   );
 }
 
+const getRowValue = (row: any, colName: string) => {
+  if (!row) return undefined;
+  if (row[colName] !== undefined) return row[colName];
+  const key = Object.keys(row).find(k => k.toLowerCase() === colName.toLowerCase());
+  if (key && row[key] !== undefined) return row[key];
+  const keyUnderscore = Object.keys(row).find(k => k.toLowerCase() === colName.toLowerCase().replace(/\s+/g, "_"));
+  if (keyUnderscore && row[keyUnderscore] !== undefined) return row[keyUnderscore];
+  return undefined;
+};
+
 function DataTable({ data, columns }: { data: any[]; columns?: string[] }) {
   const [search, setSearch] = useState("");
   const [sortKey, setSortKey] = useState<string | null>(null);
@@ -169,16 +179,19 @@ function DataTable({ data, columns }: { data: any[]; columns?: string[] }) {
 
   if (!data || data.length === 0) return <p className="text-xs text-text-secondary">No results found.</p>;
 
-  const cols = columns ?? Object.keys(data[0]).filter(k => k !== "_id").slice(0, 8);
+  let cols = columns ?? [];
+  if (cols.length === 0 || !data.some(row => cols.some(col => getRowValue(row, col) !== undefined))) {
+    cols = Object.keys(data[0]).filter(k => k !== "_id").slice(0, 8);
+  }
 
   const filtered = data.filter(row =>
-    cols.some(col => String(row[col] ?? "").toLowerCase().includes(search.toLowerCase()))
+    cols.some(col => String(getRowValue(row, col) ?? "").toLowerCase().includes(search.toLowerCase()))
   );
 
   const sorted = sortKey
     ? [...filtered].sort((a, b) => {
-        const av = a[sortKey] ?? "";
-        const bv = b[sortKey] ?? "";
+        const av = getRowValue(a, sortKey) ?? "";
+        const bv = getRowValue(b, sortKey) ?? "";
         const cmp = String(av).localeCompare(String(bv), undefined, { numeric: true });
         return sortDir === "asc" ? cmp : -cmp;
       })
@@ -201,7 +214,7 @@ function DataTable({ data, columns }: { data: any[]; columns?: string[] }) {
         />
       </div>
       <div className="overflow-x-auto rounded-lg border border-border-subtle">
-        <table className="w-full text-xs">
+        <table className="w-full text-xs text-text-primary">
           <thead className="bg-bg-elevated border-b border-border-subtle">
             <tr>
               {cols.map(col => (
@@ -218,11 +231,11 @@ function DataTable({ data, columns }: { data: any[]; columns?: string[] }) {
               ))}
             </tr>
           </thead>
-          <tbody className="divide-y divide-border-subtle">
+          <tbody className="divide-y divide-border-subtle bg-bg-surface">
             {sorted.slice(0, 200).map((row, i) => (
               <tr key={i} className="hover:bg-bg-elevated transition-colors">
                 {cols.map(col => {
-                  const val = row[col];
+                  const val = getRowValue(row, col);
                   const display = Array.isArray(val) ? val.join(", ") : String(val ?? "—");
                   return (
                     <td key={col} className="px-4 py-2 text-text-primary max-w-[200px] truncate" title={display}>
@@ -464,203 +477,206 @@ export default function AssistantPage() {
   };
 
   return (
-    <div className="max-w-6xl mx-auto w-full space-y-6">
-      <div className="flex items-start justify-between">
+    <div className="flex flex-col h-[calc(100vh-140px)] gap-4 max-w-7xl mx-auto w-full">
+      {/* Title & header */}
+      <div className="flex items-center justify-between shrink-0">
         <div>
-          <div className="flex items-center gap-2.5 mb-1">
-            <div className="w-8 h-8 rounded-xl bg-teal-600 flex items-center justify-center shadow">
+          <div className="flex items-center gap-2 mb-0.5">
+            <div className="w-7 h-7 rounded-lg bg-teal-600 flex items-center justify-center shadow">
               <Bot className="w-4.5 h-4.5 text-white" />
             </div>
-            <h1 className="text-xl font-extrabold text-text-primary tracking-tight">Clinical Assistant</h1>
+            <h1 className="text-base font-extrabold text-text-primary tracking-tight">Clinical Assistant</h1>
           </div>
-          <p className="text-xs text-text-secondary max-w-xl">
-            Domain-specific enterprise AI agent. Query any clinical data, filter records, retrieve evidence, and run evaluations — all grounded in real data.
+          <p className="text-[10px] text-text-secondary">
+            Domain-specific enterprise AI agent. Query clinical records, filter cohorts, retrieve evidence, and run evaluations dynamically.
           </p>
         </div>
         {status !== "idle" && (
           <button
             onClick={reset}
-            className="text-xs font-bold text-text-secondary hover:text-text-primary border border-border-subtle px-3 py-1.5 rounded-lg bg-bg-surface hover:bg-bg-elevated transition"
+            className="text-[10px] font-bold text-text-secondary hover:text-text-primary border border-border-subtle px-2.5 py-1 rounded-lg bg-bg-surface hover:bg-bg-elevated transition cursor-pointer"
           >
-            New Query
+            New Workspace
           </button>
         )}
       </div>
 
-      {status === "idle" && (
-        <div className="grid md:grid-cols-3 gap-4">
-          {EXAMPLE_QUERIES.map(group => (
-            <div key={group.category} className={`border rounded-xl p-4 space-y-2.5 bg-bg-surface ${group.color.split(" ").find(c => c.startsWith("border")) ?? "border-border-subtle"}`}>
-              <div className={`inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded-full border ${group.color}`}>
-                {group.icon}
-                {group.category}
-              </div>
-              <ul className="space-y-1.5">
-                {group.queries.slice(0, 5).map(q => (
-                  <li key={q}>
-                    <button
-                      onClick={() => setQuery(q)}
-                      className="flex items-center gap-1.5 text-left w-full text-xs text-text-secondary hover:text-text-primary group"
-                    >
-                      <ArrowRight className="w-3 h-3 shrink-0 opacity-0 group-hover:opacity-100 transition text-teal-500" />
-                      {q}
-                    </button>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </div>
-      )}
-
-      <div className="bg-bg-surface border border-border-subtle rounded-xl p-4 shadow-2xs">
-        <div className="flex gap-3 items-end">
-          <div className="flex-grow relative">
-            <textarea
-              ref={inputRef}
-              value={query}
-              onChange={e => setQuery(e.target.value)}
-              onKeyDown={handleKeyDown}
-              rows={3}
-              placeholder="Ask anything about your clinical data… e.g. 'Show patients with NSCLC older than 55' or 'Summarize John Williams'"
-              disabled={status === "running"}
-              className="w-full resize-none text-sm border border-border-subtle rounded-xl px-4 py-3 bg-bg-elevated text-text-primary placeholder-text-secondary focus:outline-none focus:ring-2 focus:ring-teal-500/30 disabled:opacity-60 transition"
-              autoFocus
-            />
-            <span className="absolute bottom-3 right-4 text-[10px] text-text-secondary select-none">
-              {status !== "running" ? "Enter ↵ to submit" : "Running…"}
-            </span>
-          </div>
-          <button
-            id="assistant-submit"
-            onClick={handleSubmit}
-            disabled={!query.trim() || status === "running"}
-            className="h-12 w-12 bg-teal-600 hover:bg-teal-700 disabled:bg-teal-400 text-white rounded-xl flex items-center justify-center transition shadow-sm shrink-0"
-          >
-            {status === "running" ? (
-              <Loader2 className="w-5 h-5 animate-spin" />
-            ) : (
-              <Send className="w-5 h-5" />
-            )}
-          </button>
-        </div>
-      </div>
-
-      <AnimatePresence>
-        {steps.length > 0 && (
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0 }}
-            className="bg-slate-950 border border-slate-800 rounded-xl overflow-hidden"
-          >
-            <div className="flex items-center justify-between px-4 py-2.5 border-b border-slate-800">
-              <div className="flex items-center gap-2">
-                <div className={`w-2 h-2 rounded-full ${status === "running" ? "bg-teal-400 animate-pulse" : status === "completed" ? "bg-emerald-400" : "bg-rose-400"}`} />
-                <span className="text-[10px] font-bold uppercase tracking-widest text-slate-400">
-                  {status === "running" ? "Executing…" : status === "completed" ? "Completed" : "Failed"}
+      {/* Main split box container */}
+      <div className="flex-grow flex flex-col md:flex-row gap-4 min-h-0">
+        {/* Left Column: Command input and execution stream */}
+        <div className="w-full md:w-5/12 flex flex-col gap-4 min-h-0">
+          {/* Query Input Box */}
+          <div className="bg-bg-surface border border-border-subtle rounded-xl p-3 shadow-2xs shrink-0">
+            <div className="flex gap-2 items-end">
+              <div className="flex-grow relative">
+                <textarea
+                  ref={inputRef}
+                  value={query}
+                  onChange={e => setQuery(e.target.value)}
+                  onKeyDown={handleKeyDown}
+                  rows={3}
+                  placeholder="Ask anything about clinical data… e.g. 'Patients taking Warfarin' or 'Show average patient age'"
+                  disabled={status === "running"}
+                  className="w-full resize-none text-xs border border-border-subtle rounded-lg px-3 py-2 bg-bg-elevated text-text-primary placeholder-text-secondary focus:outline-none focus:ring-2 focus:ring-teal-500/30 disabled:opacity-60 transition"
+                  autoFocus
+                />
+                <span className="absolute bottom-2 right-3 text-[9px] text-text-secondary select-none">
+                  {status !== "running" ? "Enter ↵ to submit" : "Running…"}
                 </span>
               </div>
-              <span className="text-[10px] text-slate-500">{steps.length} step{steps.length !== 1 ? "s" : ""}</span>
-            </div>
-            <div ref={timelineRef} className="p-4 space-y-2 max-h-80 overflow-y-auto font-mono text-[11px]">
-              <AnimatePresence initial={false}>
-                {steps.map((step, idx) => {
-                  const isObs = step.type === "observation";
-                  const toolName = step.tool_called;
-                  const icon = getToolIcon(toolName);
-                  const isExpanded = !!expandedSteps[idx];
-
-                  return (
-                    <motion.div
-                      key={`${step.timestamp}-${idx}`}
-                      initial={{ opacity: 0, x: -8 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      className={`rounded-lg border px-3 py-2 ${isObs ? "bg-slate-900 border-slate-800" : "bg-slate-900/50 border-slate-800/50"}`}
-                    >
-                      <div
-                        className="flex items-center gap-2 cursor-pointer select-none"
-                        onClick={() => setExpandedSteps(p => ({ ...p, [idx]: !p[idx] }))}
-                      >
-                        <span className={`flex items-center justify-center w-5 h-5 rounded ${isObs ? "text-teal-400" : "text-slate-400"}`}>
-                          {isObs ? icon : <Brain className="w-3.5 h-3.5" />}
-                        </span>
-                        <span className="text-slate-300 flex-grow truncate">
-                          {isObs && toolName ? (
-                            <><span className="text-teal-400">{toolName}</span> — {step.content}</>
-                          ) : step.content}
-                        </span>
-                        {step.duration_ms !== undefined && (
-                          <span className="text-slate-600 shrink-0">{step.duration_ms}ms</span>
-                        )}
-                        {(step.tool_output || (step.type === "thought" && step.content.length > 80)) && (
-                          isExpanded ? <ChevronUp className="w-3 h-3 text-slate-600 shrink-0" /> : <ChevronDown className="w-3 h-3 text-slate-600 shrink-0" />
-                        )}
-                      </div>
-                      {isExpanded && step.tool_output && (
-                        <div className="mt-2 pl-7 text-slate-400 bg-slate-950/60 rounded p-2 overflow-x-auto max-h-48">
-                          <pre className="whitespace-pre-wrap break-all text-[10px]">
-                            {JSON.stringify(step.tool_output, null, 2).slice(0, 2000)}
-                            {JSON.stringify(step.tool_output).length > 2000 ? "\n… (truncated)" : ""}
-                          </pre>
-                        </div>
-                      )}
-                    </motion.div>
-                  );
-                })}
-              </AnimatePresence>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      <AnimatePresence>
-        {result && (
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="bg-bg-surface border border-border-subtle rounded-xl shadow-sm overflow-hidden"
-          >
-            <div className="flex items-center justify-between px-5 py-3.5 border-b border-border-subtle bg-bg-elevated">
-              <div className="flex items-center gap-2.5">
-                {result.response_type === "refusal" ? (
-                  <XCircle className="w-4.5 h-4.5 text-amber-500" />
+              <button
+                id="assistant-submit"
+                onClick={handleSubmit}
+                disabled={!query.trim() || status === "running"}
+                className="h-10 w-10 bg-teal-600 hover:bg-teal-700 disabled:bg-teal-400 text-white rounded-lg flex items-center justify-center transition shadow-sm shrink-0 cursor-pointer"
+              >
+                {status === "running" ? (
+                  <Loader2 className="w-4 h-4 animate-spin" />
                 ) : (
-                  <CheckCircle className="w-4.5 h-4.5 text-emerald-500" />
+                  <Send className="w-4 h-4" />
                 )}
-                <div>
-                  <p className="text-sm font-bold text-text-primary">{result.title}</p>
-                  <p className="text-[10px] uppercase tracking-wider font-bold text-text-secondary">
-                    {result.response_type === "stats" && <><BarChart2 className="w-3 h-3 inline mr-1" />Statistics</>}
-                    {result.response_type === "list" && <><Table2 className="w-3 h-3 inline mr-1" />List</>}
-                    {result.response_type === "summary" && <><BookOpen className="w-3 h-3 inline mr-1" />Summary</>}
-                    {result.response_type === "explanation" && <><FileText className="w-3 h-3 inline mr-1" />Explanation</>}
-                    {result.response_type === "refusal" && <><AlertTriangle className="w-3 h-3 inline mr-1" />Out of Scope</>}
-                  </p>
-                </div>
+              </button>
+            </div>
+          </div>
+
+          {/* Live Step Stream Timeline (fills remaining height of Left Column) */}
+          <div className="flex-grow flex flex-col bg-slate-950 border border-slate-900 rounded-xl overflow-hidden shadow-2xs min-h-0">
+            <div className="bg-slate-900 px-4 py-2 border-b border-slate-850 flex items-center justify-between shrink-0">
+              <div className="flex items-center gap-2">
+                <div className={`w-1.5 h-1.5 rounded-full ${status === "running" ? "bg-teal-400 animate-pulse" : status === "completed" ? "bg-emerald-400" : status === "failed" ? "bg-rose-400" : "bg-slate-500"}`} />
+                <span className="text-[9px] font-bold uppercase tracking-widest text-slate-400">
+                  {status === "running" ? "Agent Execution Stream" : status === "completed" ? "Run Completed" : status === "failed" ? "Execution Failed" : "Timeline Standby"}
+                </span>
               </div>
-              {result.response_type !== "refusal" && runId && (
-                <button
-                  onClick={() => navigate(`/workspace/run/${runId}`)}
-                  className="text-[10px] font-bold text-teal-600 hover:text-teal-700 flex items-center gap-1 border border-teal-200 hover:border-teal-300 px-2.5 py-1.5 rounded-lg transition bg-teal-50"
-                >
-                  Full Timeline <ArrowRight className="w-3 h-3" />
-                </button>
+              <span className="text-[9px] text-slate-500 font-mono">{steps.length} step{steps.length !== 1 ? "s" : ""}</span>
+            </div>
+            
+            <div 
+              ref={timelineRef} 
+              className="flex-grow p-4 overflow-y-auto space-y-2 font-mono text-[10px] bg-slate-950"
+            >
+              {steps.length > 0 ? (
+                <AnimatePresence initial={false}>
+                  {steps.map((step, idx) => {
+                    const isObs = step.type === "observation";
+                    const toolName = step.tool_called;
+                    const icon = getToolIcon(toolName);
+                    const isExpanded = !!expandedSteps[idx];
+
+                    return (
+                      <motion.div
+                        key={`${step.timestamp}-${idx}`}
+                        initial={{ opacity: 0, x: -6 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        className={`rounded-md border p-2 ${isObs ? "bg-slate-900 border-slate-800" : "bg-slate-900/50 border-slate-800/40"}`}
+                      >
+                        <div
+                          className="flex items-center gap-2 cursor-pointer select-none"
+                          onClick={() => setExpandedSteps(p => ({ ...p, [idx]: !p[idx] }))}
+                        >
+                          <span className={`flex items-center justify-center w-4 h-4 rounded ${isObs ? "text-teal-400" : "text-slate-400"}`}>
+                            {isObs ? icon : <Brain className="w-3.5 h-3.5" />}
+                          </span>
+                          <span className="text-slate-300 flex-grow truncate text-[10px]">
+                            {isObs && toolName ? (
+                              <><span className="text-teal-400 font-semibold">{toolName.split(".")[0]}</span>: {step.content}</>
+                            ) : step.content}
+                          </span>
+                          {step.duration_ms !== undefined && (
+                            <span className="text-slate-600 shrink-0 font-mono">{step.duration_ms}ms</span>
+                          )}
+                          {(step.tool_output || (step.type === "thought" && step.content.length > 80)) && (
+                            isExpanded ? <ChevronUp className="w-3 h-3 text-slate-650 shrink-0" /> : <ChevronDown className="w-3 h-3 text-slate-650 shrink-0" />
+                          )}
+                        </div>
+                        {isExpanded && step.tool_output && (
+                          <div className="mt-2 pl-6 text-slate-400 bg-slate-950/60 rounded p-1.5 overflow-x-auto max-h-36">
+                            <pre className="whitespace-pre-wrap break-all text-[9px] leading-tight font-mono">
+                              {JSON.stringify(step.tool_output, null, 2).slice(0, 1500)}
+                              {JSON.stringify(step.tool_output).length > 1500 ? "\n… (truncated)" : ""}
+                            </pre>
+                          </div>
+                        )}
+                      </motion.div>
+                    );
+                  })}
+                </AnimatePresence>
+              ) : (
+                <div className="h-full flex flex-col items-center justify-center text-slate-500 gap-2">
+                  <Brain className="w-8 h-8 opacity-40 animate-pulse text-teal-400" />
+                  <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400">Telemetry Standby</p>
+                  <p className="text-[9px] text-center max-w-[200px] text-slate-600">Enter a query to view real-time planning, tool execution, and database scans.</p>
+                </div>
               )}
             </div>
-            <div className="p-5">
-              <ResultRenderer result={result} />
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      {error && (
-        <div className="flex items-center gap-2.5 p-4 bg-rose-50 border border-rose-200 rounded-xl text-rose-700 text-xs">
-          <XCircle className="w-4 h-4 shrink-0" />
-          {error}
+          </div>
         </div>
-      )}
+
+        {/* Right Column: Example Queries or Final Structured Results */}
+        <div className="w-full md:w-7/12 bg-bg-surface border border-border-subtle rounded-xl shadow-2xs overflow-hidden flex flex-col min-h-0">
+          {/* Header area of Right Column */}
+          <div className="bg-bg-elevated px-4 py-2.5 border-b border-border-subtle flex items-center justify-between shrink-0">
+            <span className="text-[10px] font-bold uppercase tracking-wider text-text-secondary">
+              {result ? "Workspace Results Profile" : "Assistant Capability Browser"}
+            </span>
+            {result && result.response_type !== "refusal" && runId && (
+              <button
+                onClick={() => navigate(`/workspace/run/${runId}`)}
+                className="text-[9px] font-bold text-teal-650 hover:text-teal-700 flex items-center gap-1 border border-teal-200 hover:border-teal-300 px-2 py-0.5 rounded transition bg-teal-50 cursor-pointer"
+              >
+                Full Audit Trail <ArrowRight className="w-3 h-3" />
+              </button>
+            )}
+          </div>
+
+          {/* Scrollable body of Right Column */}
+          <div className="flex-grow p-4 overflow-y-auto min-h-0 bg-bg-base/30">
+            {error && (
+              <div className="flex items-center gap-2.5 p-3.5 bg-rose-50 border border-rose-200 rounded-xl text-rose-800 text-xs mb-4">
+                <XCircle className="w-4 h-4 shrink-0" />
+                {error}
+              </div>
+            )}
+
+            {result ? (
+              <ResultRenderer result={result} />
+            ) : status === "running" ? (
+              <div className="h-full flex flex-col items-center justify-center text-text-secondary gap-3">
+                <Loader2 className="w-7 h-7 text-teal-600 animate-spin" />
+                <p className="text-[10px] font-bold uppercase tracking-wider">Evaluating Clinical workspace variables…</p>
+                <p className="text-xs text-center text-text-secondary max-w-[280px]">Please wait while the ReAct agent completes the execution flow.</p>
+              </div>
+            ) : (
+              <div className="space-y-4">
+                <p className="text-xs text-text-secondary font-medium">Click any clinical query below to run it immediately:</p>
+                <div className="grid sm:grid-cols-2 gap-3">
+                  {EXAMPLE_QUERIES.map(group => (
+                    <div key={group.category} className="border border-border-subtle rounded-lg p-3 space-y-2 bg-bg-surface">
+                      <div className={`inline-flex items-center gap-1.5 text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full border ${group.color}`}>
+                        {group.icon}
+                        {group.category}
+                      </div>
+                      <ul className="space-y-1">
+                        {group.queries.slice(0, 4).map(q => (
+                          <li key={q}>
+                            <button
+                              onClick={() => { setQuery(q); inputRef.current?.focus(); }}
+                              className="text-left w-full text-[11px] text-text-secondary hover:text-teal-650 transition truncate block py-0.5 cursor-pointer"
+                              title={q}
+                            >
+                              • {q}
+                            </button>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

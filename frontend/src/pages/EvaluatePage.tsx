@@ -11,7 +11,6 @@ import {
   FlaskConical,
   Play,
   RefreshCw,
-  Search,
   User,
 } from "lucide-react";
 import { apiFetch } from "../lib/api";
@@ -30,92 +29,6 @@ interface Trial {
   status: string;
 }
 
-type MatchResult<T> = {
-  matches: T[];
-  ambiguous: boolean;
-};
-
-const consoleExamples = [
-  "Evaluate John Williams for NSCLC eligibility",
-  "Check if John Williams qualifies for Trial A",
-  "Review Warfarin exclusion for John Williams",
-  "Run John Williams against lung cancer protocol",
-];
-
-function normalizeText(value: string) {
-  return value.toLowerCase().replace(/[^a-z0-9\s]/g, " ").replace(/\s+/g, " ").trim();
-}
-
-function tokenize(value: string) {
-  return normalizeText(value).split(" ").filter(Boolean);
-}
-
-function levenshteinDistance(left: string, right: string) {
-  const a = normalizeText(left);
-  const b = normalizeText(right);
-  const matrix: number[][] = Array.from({ length: a.length + 1 }, () => Array.from({ length: b.length + 1 }, () => 0));
-
-  for (let row = 0; row <= a.length; row += 1) matrix[row][0] = row;
-  for (let col = 0; col <= b.length; col += 1) matrix[0][col] = col;
-
-  for (let row = 1; row <= a.length; row += 1) {
-    for (let col = 1; col <= b.length; col += 1) {
-      const cost = a[row - 1] === b[col - 1] ? 0 : 1;
-      matrix[row][col] = Math.min(
-        matrix[row - 1][col] + 1,
-        matrix[row][col - 1] + 1,
-        matrix[row - 1][col - 1] + cost
-      );
-    }
-  }
-
-  return matrix[a.length][b.length];
-}
-
-function similarityScore(left: string, right: string) {
-  const normalizedLeft = normalizeText(left);
-  const normalizedRight = normalizeText(right);
-  const maxLength = Math.max(normalizedLeft.length, normalizedRight.length, 1);
-  return 1 - levenshteinDistance(normalizedLeft, normalizedRight) / maxLength;
-}
-
-function resolveCandidates<T extends { id: string }>(records: T[], query: string, getText: (record: T) => string): MatchResult<T> {
-  const normalizedQuery = normalizeText(query);
-  const queryTokens = tokenize(query);
-
-  const substringMatches = records.filter((record) => {
-    const candidateText = normalizeText(getText(record));
-    if (!normalizedQuery) return false;
-    if (candidateText.includes(normalizedQuery)) return true;
-    return queryTokens.some((token) => token.length > 2 && candidateText.includes(token));
-  });
-
-  if (substringMatches.length === 1) {
-    return { matches: substringMatches, ambiguous: false };
-  }
-
-  if (substringMatches.length > 1) {
-    return { matches: substringMatches, ambiguous: true };
-  }
-
-  const ranked = records
-    .map((record) => ({ record, score: similarityScore(getText(record), query) }))
-    .sort((left, right) => right.score - left.score);
-
-  const best = ranked[0];
-  const second = ranked[1];
-
-  if (!best || best.score < 0.45) {
-    return { matches: [], ambiguous: true };
-  }
-
-  if (second && Math.abs(best.score - second.score) < 0.08) {
-    return { matches: ranked.filter((item) => item.score >= best.score - 0.08).map((item) => item.record), ambiguous: true };
-  }
-
-  return { matches: [best.record], ambiguous: false };
-}
-
 export default function EvaluatePage() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
@@ -123,14 +36,8 @@ export default function EvaluatePage() {
   const [selectedTrial, setSelectedTrial] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState("");
-  const [consoleText, setConsoleText] = useState("");
-  const [consolePreview, setConsolePreview] = useState<{ patient: Patient; trial: Trial } | null>(null);
-  const [consoleMessage, setConsoleMessage] = useState("");
-  const [consoleFocused, setConsoleFocused] = useState(false);
-  const [exampleIndex, setExampleIndex] = useState(0);
   const [patientOptions, setPatientOptions] = useState<Patient[]>([]);
   const [trialOptions, setTrialOptions] = useState<Trial[]>([]);
-  const [consolePhase, setConsolePhase] = useState<"idle" | "preview">("idle");
 
   const {
     data: patients = [],
@@ -172,16 +79,6 @@ export default function EvaluatePage() {
     setTrialOptions(trials);
   }, [patients, trials]);
 
-  useEffect(() => {
-    if (consoleFocused || consoleText.trim()) return;
-
-    const timer = window.setInterval(() => {
-      setExampleIndex((index) => (index + 1) % consoleExamples.length);
-    }, 3800);
-
-    return () => window.clearInterval(timer);
-  }, [consoleFocused, consoleText]);
-
   const currentPatient = useMemo(
     () => patients.find((patient) => patient.id === selectedPatient),
     [patients, selectedPatient]
@@ -192,11 +89,9 @@ export default function EvaluatePage() {
     [trials, selectedTrial]
   );
 
-  const clearConsole = () => {
-    setConsoleText("");
-    setConsolePreview(null);
-    setConsoleMessage("");
-    setConsolePhase("idle");
+  const clearOptions = () => {
+    setSelectedPatient("");
+    setSelectedTrial("");
     setPatientOptions(patients);
     setTrialOptions(trials);
   };
@@ -225,65 +120,6 @@ export default function EvaluatePage() {
       setSubmitError(error.message || "An unexpected error occurred");
       setSubmitting(false);
     }
-  };
-
-  const resolveConsoleTask = () => {
-    const text = consoleText.trim();
-    if (!text) return;
-
-    const patientMatches = resolveCandidates(patients, text, (patient) => `${patient.name} ${patient.id}`);
-    const trialMatches = resolveCandidates(trials, text, (trial) => `${trial.title} ${trial.condition} ${trial.id}`);
-
-    if (patientMatches.matches.length === 1 && trialMatches.matches.length === 1 && !patientMatches.ambiguous && !trialMatches.ambiguous) {
-      setSelectedPatient(patientMatches.matches[0].id);
-      setSelectedTrial(trialMatches.matches[0].id);
-      setConsolePreview({ patient: patientMatches.matches[0], trial: trialMatches.matches[0] });
-      setConsoleMessage("Task understood. Press Enter again to launch.");
-      setConsolePhase("preview");
-      return;
-    }
-
-    const narrowedPatients = patientMatches.matches.length > 0
-      ? patients.filter((patient) => patientMatches.matches.some((match) => match.id === patient.id))
-      : patients;
-    const narrowedTrials = trialMatches.matches.length > 0
-      ? trials.filter((trial) => trialMatches.matches.some((match) => match.id === trial.id))
-      : trials;
-
-    setConsolePreview(null);
-    setConsolePhase("idle");
-    setPatientOptions(narrowedPatients);
-    setTrialOptions(narrowedTrials);
-
-    if (patientMatches.matches.length === 0 || trialMatches.matches.length === 0) {
-      setConsoleMessage(`No exact match found for ${patientMatches.matches.length === 0 ? "patient" : "trial"}. Use the selectors below.`);
-      return;
-    }
-
-    if (patientMatches.matches.length > 1 && trialMatches.matches.length > 1) {
-      setConsoleMessage("Multiple patients and trials matched. Narrow the selectors below.");
-      return;
-    }
-
-    if (patientMatches.matches.length > 1) {
-      setConsoleMessage(`Multiple patients matched \"${text}\". Please select below.`);
-      return;
-    }
-
-    if (trialMatches.matches.length > 1) {
-      setConsoleMessage(`Multiple trials matched \"${text}\". Please select below.`);
-    }
-  };
-
-  const handleConsoleSubmit = (event: React.FormEvent) => {
-    event.preventDefault();
-
-    if (consolePhase === "preview" && consolePreview) {
-      runEvaluation(consolePreview.patient.id, consolePreview.trial.id);
-      return;
-    }
-
-    resolveConsoleTask();
   };
 
   const handleEvaluate = async (event: React.FormEvent) => {
@@ -343,112 +179,9 @@ export default function EvaluatePage() {
         </div>
         <h2 className="text-2xl md:text-3xl font-black tracking-tight text-text-primary">Clinical Match Workspace</h2>
         <p className="text-sm text-text-secondary max-w-3xl">
-          Describe the evaluation task in one line or pick patient and trial directly. The same run path powers both entry modes.
+          Select a patient target and a study protocol to run the autonomous matching agent.
         </p>
       </div>
-
-      <form onSubmit={handleConsoleSubmit} className="rounded-[2rem] border border-border-subtle bg-bg-surface p-4 md:p-5 shadow-2xs space-y-4">
-        <div className="flex items-center justify-between gap-3 flex-wrap">
-          <div>
-            <div className="text-[10px] font-bold uppercase tracking-[0.24em] text-text-secondary">Clinical Assistant</div>
-            <h3 className="text-sm md:text-base font-extrabold text-text-primary">Describe the evaluation task</h3>
-          </div>
-          <div className="text-[10px] font-bold uppercase tracking-[0.18em] text-text-secondary">
-            {consolePhase === "preview" ? "Press Enter to run or Esc to cancel" : "Enter resolves selection"}
-          </div>
-        </div>
-
-        <div className="grid gap-3 lg:grid-cols-[1.15fr_0.85fr] items-start">
-          <div className="space-y-3">
-            <div className="relative">
-              <Search className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-text-secondary" />
-              <input
-                value={consoleText}
-                onChange={(event) => {
-                  setConsoleText(event.target.value);
-                  setConsoleMessage("");
-                  if (consolePhase === "preview") {
-                    setConsolePhase("idle");
-                    setConsolePreview(null);
-                  }
-                }}
-                onFocus={() => setConsoleFocused(true)}
-                onBlur={() => setConsoleFocused(false)}
-                onKeyDown={(event) => {
-                  if (event.key === "Escape") {
-                    clearConsole();
-                  }
-                }}
-                placeholder={consoleFocused || consoleText ? consoleText : consoleExamples[exampleIndex]}
-                aria-label="Agent Console input"
-                className="w-full rounded-2xl border border-border-subtle bg-bg-base px-11 py-4 text-sm md:text-base text-text-primary placeholder:text-text-secondary shadow-inner focus:border-teal-300 focus:ring-2 focus:ring-teal-100 outline-none transition"
-              />
-            </div>
-
-            <div className="flex flex-wrap gap-2">
-              <button
-                type="submit"
-                className="inline-flex items-center gap-2 rounded-xl bg-accent px-4 py-2.5 text-sm font-bold text-white shadow-xs hover:bg-accent-contrast transition"
-              >
-                {consolePhase === "preview" ? "Run Evaluation" : "Resolve Task"}
-              </button>
-              <button
-                type="button"
-                onClick={clearConsole}
-                className="inline-flex items-center gap-2 rounded-xl border border-border-subtle bg-bg-surface px-4 py-2.5 text-sm font-bold text-text-primary shadow-2xs hover:bg-bg-elevated transition"
-              >
-                Clear
-              </button>
-            </div>
-
-            {consoleMessage && (
-              <div className={`rounded-2xl border px-4 py-3 text-sm ${consolePhase === "preview" ? "border-teal-200 bg-teal-50 text-teal-800" : "border-amber-200 bg-amber-50 text-amber-800"}`}>
-                {consolePhase === "preview" && consolePreview ? (
-                  <div className="space-y-1 font-semibold">
-                    <div>Task understood</div>
-                    <div>Patient: {consolePreview.patient.name} ✓</div>
-                    <div>Trial: {consolePreview.trial.title} ✓</div>
-                    <div>Press Enter to run, or Esc to cancel</div>
-                  </div>
-                ) : (
-                  <div>{consoleMessage}</div>
-                )}
-              </div>
-            )}
-
-            {submitError && (
-              <div className="rounded-2xl border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-800 flex items-start gap-2">
-                <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
-                <span>{submitError}</span>
-              </div>
-            )}
-          </div>
-
-          <div className="grid gap-3 md:grid-cols-2 lg:grid-cols-1">
-            <div className="rounded-2xl border border-border-subtle bg-bg-base p-4 shadow-2xs">
-              <div className="text-[10px] font-bold uppercase tracking-[0.24em] text-text-secondary mb-3">Current Selection</div>
-              <div className="space-y-2 text-sm">
-                <div className="flex items-center justify-between gap-3 rounded-xl border border-border-subtle bg-bg-surface px-3 py-2">
-                  <span className="text-text-secondary">Patient</span>
-                  <span className="font-bold text-text-primary">{currentPatient?.name || "None"}</span>
-                </div>
-                <div className="flex items-center justify-between gap-3 rounded-xl border border-border-subtle bg-bg-surface px-3 py-2">
-                  <span className="text-text-secondary">Trial</span>
-                  <span className="font-bold text-text-primary">{currentTrial?.title || "None"}</span>
-                </div>
-              </div>
-            </div>
-            <div className="rounded-2xl border border-border-subtle bg-bg-base p-4 shadow-2xs">
-              <div className="text-[10px] font-bold uppercase tracking-[0.24em] text-text-secondary mb-3">Console Status</div>
-              <div className="text-sm text-text-secondary leading-relaxed">
-                {consolePhase === "preview"
-                  ? "Preview ready. Press Enter again to launch the existing evaluation pipeline."
-                  : "Type a task or use the selectors below. Ambiguous matches narrow the dropdowns instead of guessing."}
-              </div>
-            </div>
-          </div>
-        </div>
-      </form>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className="lg:col-span-2 space-y-6">
@@ -497,6 +230,13 @@ export default function EvaluatePage() {
               </div>
             </div>
 
+            {submitError && (
+              <div className="rounded-xl border border-rose-200 bg-rose-50 px-4 py-3 text-xs text-rose-800 flex items-start gap-2">
+                <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
+                <span>{submitError}</span>
+              </div>
+            )}
+
             <div className="flex flex-wrap items-center gap-3">
               <button
                 type="submit"
@@ -508,10 +248,10 @@ export default function EvaluatePage() {
               </button>
               <button
                 type="button"
-                onClick={clearConsole}
+                onClick={clearOptions}
                 className="inline-flex items-center justify-center gap-2 rounded-xl border border-border-subtle bg-bg-surface px-5 py-3 text-sm font-bold text-text-primary shadow-2xs hover:bg-bg-elevated transition"
               >
-                Reset Console
+                Reset Selection
               </button>
             </div>
           </form>
