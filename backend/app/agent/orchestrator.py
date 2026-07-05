@@ -134,14 +134,22 @@ def clean_tool_res_for_llm(tool_name: str, tool_res: dict) -> dict:
         
     return cleaned
 
-def truncate_data_for_llm(val: Any) -> Any:
-    if isinstance(val, dict):
-        return {k: truncate_data_for_llm(v) for k, v in val.items()}
-    if isinstance(val, list):
-        if len(val) > 10:
-            return [truncate_data_for_llm(item) for item in val[:10]] + [f"... (truncated, showing 10 of {len(val)} items. If you need specific results, search or filter them directly using codes or parameters.)"]
-        return [truncate_data_for_llm(item) for item in val]
-    return val
+def truncate_data_for_llm(tool_name: Optional[str], val: Any) -> Any:
+    # Only truncate heavily for massive clinical event lists (observations, procedures, encounters)
+    name_str = str(tool_name or "").lower()
+    is_massive = any(x in name_str for x in ["observation", "procedure", "encounter"])
+    limit = 8 if is_massive else 100
+    
+    def recurse(v):
+        if isinstance(v, dict):
+            return {k: recurse(v2) for k, v2 in v.items()}
+        if isinstance(v, list):
+            if len(v) > limit:
+                return [recurse(item) for item in v[:limit]] + [f"... (truncated, showing {limit} of {len(v)} items. If you need specific results, search or filter them directly using codes or parameters.)"]
+            return [recurse(item) for item in v]
+        return v
+        
+    return recurse(val)
 
 def extract_first_json_object(text: str) -> dict:
     if not isinstance(text, str):
@@ -326,7 +334,7 @@ async def run_agent(run_id: str, patient_id: str, trial_id: str):
                 for obs_step, obs_content, tool_res in results:
                     await db["agent_runs"].update_one({"id": run_id}, {"$push": {"steps": obs_step}})
                     cleaned_tool_res = clean_tool_res_for_llm(obs_step.get("tool_called"), tool_res)
-                    truncated_tool_res = truncate_data_for_llm(cleaned_tool_res)
+                    truncated_tool_res = truncate_data_for_llm(obs_step.get("tool_called"), cleaned_tool_res)
                     obs_msgs.append({"observation": obs_content, "data": truncated_tool_res})
                     
                 messages.append({"role": "user", "content": json.dumps(obs_msgs)})
@@ -533,7 +541,7 @@ async def run_assistant(run_id: str, query: str):
                 obs_msgs = []
                 for obs_step, obs_content, tool_res in results:
                     await db["agent_runs"].update_one({"id": run_id}, {"$push": {"steps": obs_step}})
-                    truncated_tool_res = truncate_data_for_llm(tool_res)
+                    truncated_tool_res = truncate_data_for_llm(obs_step.get("tool_called"), tool_res)
                     obs_msgs.append({"observation": obs_content, "data": truncated_tool_res})
                 messages.append({"role": "user", "content": json.dumps(obs_msgs)})
 
