@@ -164,10 +164,20 @@ function KpiCards({ data }: { data: Record<string, any> }) {
 const getRowValue = (row: any, colName: string) => {
   if (!row) return undefined;
   if (row[colName] !== undefined) return row[colName];
-  const key = Object.keys(row).find(k => k.toLowerCase() === colName.toLowerCase());
+  
+  const normCol = colName.toLowerCase().replace(/[^a-z0-9]/g, "");
+  
+  // 1. Case-insensitive exact alphanumeric match
+  let key = Object.keys(row).find(k => k.toLowerCase().replace(/[^a-z0-9]/g, "") === normCol);
   if (key && row[key] !== undefined) return row[key];
-  const keyUnderscore = Object.keys(row).find(k => k.toLowerCase() === colName.toLowerCase().replace(/\s+/g, "_"));
-  if (keyUnderscore && row[keyUnderscore] !== undefined) return row[keyUnderscore];
+  
+  // 2. Substring matching (e.g. policy_name/policyName matches name, validity_days/validityDays matches validity)
+  key = Object.keys(row).find(k => {
+    const normK = k.toLowerCase().replace(/[^a-z0-9]/g, "");
+    return normK.includes(normCol) || normCol.includes(normK);
+  });
+  if (key && row[key] !== undefined) return row[key];
+  
   return undefined;
 };
 
