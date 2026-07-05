@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Routes, Route, Navigate, Link, useLocation, Outlet } from "react-router-dom";
 import { 
   ShieldCheck, LayoutDashboard, Users, 
-  ClipboardList, FolderHeart, Info, FlaskConical, ArrowLeft, Sun, Moon
+  ClipboardList, FolderHeart, Info, FlaskConical, ArrowLeft, Sun, Moon, Bot
 } from "lucide-react";
 import LandingPage from "./pages/LandingPage";
 import DashboardPage from "./pages/DashboardPage";
@@ -11,6 +11,7 @@ import PatientsPage from "./pages/PatientsPage";
 import TrialsPage from "./pages/TrialsPage";
 import ReportsPage from "./pages/ReportsPage";
 import RunPage from "./pages/RunPage";
+import AssistantPage from "./pages/AssistantPage";
 import { apiFetch } from "./lib/api";
 
 function WorkspaceLayout({ userProfile, theme, setTheme }: { userProfile: any; theme: string; setTheme: (theme: string) => void }) {
@@ -78,6 +79,10 @@ function WorkspaceLayout({ userProfile, theme, setTheme }: { userProfile: any; t
           <div className="space-y-5">
             <div className="text-[9px] text-slate-500 font-bold uppercase tracking-widest pl-2">Navigation</div>
             <nav className="space-y-1.5">
+              <Link to="/workspace/assistant" className={getLinkClass("/workspace/assistant")}>
+                <Bot className="w-4 h-4" />
+                <span>Clinical Assistant</span>
+              </Link>
               <Link to="/workspace/dashboard" className={getLinkClass("/workspace/dashboard")}>
                 <LayoutDashboard className="w-4 h-4" />
                 <span>Dashboard</span>
@@ -173,6 +178,7 @@ export default function App() {
       <Route path="/workspace" element={<WorkspaceLayout userProfile={userProfile} theme={theme} setTheme={setTheme} />}>
         <Route index element={<Navigate to="/workspace/dashboard" replace />} />
         <Route path="dashboard" element={<DashboardPage />} />
+        <Route path="assistant" element={<AssistantPage />} />
         <Route path="evaluate" element={<EvaluatePage />} />
         <Route path="patients" element={<PatientsPage />} />
         <Route path="trials" element={<TrialsPage />} />

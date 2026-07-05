@@ -9,11 +9,15 @@ from app.db.session import get_db
 from app.agent.vultr_client import VultrClient
 from app.agent.memory import AgentMemory
 from app.agent.planner import AgentPlanner
+from app.agent.assistant_planner import AssistantPlanner
 from app.agent.tools.patient_tool import PatientRecordTool
 from app.agent.tools.trial_tool import TrialEligibilityTool
 from app.agent.tools.drug_tool import DrugInteractionTool
 from app.agent.tools.freshness_tool import FreshnessTool
 from app.agent.tools.report_tool import ReportTool
+from app.agent.tools.stats_tool import StatsTool
+from app.agent.tools.query_tool import QueryTool
+from app.agent.tools.endpoint_tool import EndpointFetchTool
 
 logger = logging.getLogger(__name__)
 
@@ -27,6 +31,41 @@ TOOL_MAPPING = {
     "TrialEligibilityTool.get_criteria": TrialEligibilityTool.get_criteria,
     "DrugInteractionTool.check_exclusions": DrugInteractionTool.check_exclusions,
     "FreshnessTool.check": FreshnessTool.check
+}
+
+ASSISTANT_TOOL_MAPPING = {
+    "PatientRecordTool.get_record": PatientRecordTool.get_record,
+    "PatientRecordTool.get_conditions": PatientRecordTool.get_conditions,
+    "PatientRecordTool.get_medications": PatientRecordTool.get_medications,
+    "PatientRecordTool.get_observations": PatientRecordTool.get_observations,
+    "PatientRecordTool.get_allergies": PatientRecordTool.get_allergies,
+    "TrialEligibilityTool.get_trial": TrialEligibilityTool.get_trial,
+    "TrialEligibilityTool.get_criteria": TrialEligibilityTool.get_criteria,
+    "DrugInteractionTool.check_exclusions": DrugInteractionTool.check_exclusions,
+    "FreshnessTool.check": FreshnessTool.check,
+    "StatsTool.get_patient_count": StatsTool.get_patient_count,
+    "StatsTool.get_trial_count": StatsTool.get_trial_count,
+    "StatsTool.get_report_count": StatsTool.get_report_count,
+    "StatsTool.get_average_patient_age": StatsTool.get_average_patient_age,
+    "StatsTool.get_collection_stats": StatsTool.get_collection_stats,
+    "StatsTool.get_trial_stats": StatsTool.get_trial_stats,
+    "QueryTool.list_patients": QueryTool.list_patients,
+    "QueryTool.search_patients_by_name": QueryTool.search_patients_by_name,
+    "QueryTool.filter_patients_by_age": QueryTool.filter_patients_by_age,
+    "QueryTool.filter_patients_by_medication": QueryTool.filter_patients_by_medication,
+    "QueryTool.filter_patients_by_condition": QueryTool.filter_patients_by_condition,
+    "QueryTool.list_trials": QueryTool.list_trials,
+    "QueryTool.get_trial_criteria": QueryTool.get_trial_criteria,
+    "QueryTool.list_reports": QueryTool.list_reports,
+    "QueryTool.get_report": QueryTool.get_report,
+    "QueryTool.list_hospital_policies": QueryTool.list_hospital_policies,
+    "QueryTool.list_drug_rules": QueryTool.list_drug_rules,
+    "QueryTool.list_encounters": QueryTool.list_encounters,
+    "QueryTool.list_procedures": QueryTool.list_procedures,
+    "QueryTool.list_careplans": QueryTool.list_careplans,
+    "QueryTool.list_providers": QueryTool.list_providers,
+    "QueryTool.list_organizations": QueryTool.list_organizations,
+    "EndpointFetchTool.fetch": EndpointFetchTool.fetch,
 }
 
 def validate_citations(citations: list, scratchpad: dict) -> Tuple[list, list]:
@@ -329,3 +368,182 @@ async def run_agent(run_id: str, patient_id: str, trial_id: str):
         # compile report as fallback
         await ReportTool.compile_report(run_id)
 
+
+async def run_assistant(run_id: str, query: str):
+    logger.info("Starting assistant run: %s | query: %s", run_id, query)
+    start_run_time = time.time()
+    db = await get_db()
+
+    try:
+        vultr = VultrClient()
+        memory = AgentMemory()
+
+        messages = [
+            {"role": "system", "content": AssistantPlanner.get_system_prompt()},
+            {"role": "user", "content": query}
+        ]
+
+        step_count = 0
+        max_steps = 12
+        final_ans = None
+
+        while step_count < max_steps:
+            step_count += 1
+            logger.info("Assistant ReAct step %d for run %s", step_count, run_id)
+
+            response_text = ""
+            retry_count = 0
+            parsed_json = None
+
+            while retry_count < 2:
+                try:
+                    response_text = await vultr.chat_completion(messages)
+                    parsed_json = extract_first_json_object(response_text)
+                    break
+                except Exception as e:
+                    retry_count += 1
+                    if retry_count == 2:
+                        error_step = {
+                            "type": "thought",
+                            "content": f"Aborted due to LLM JSON parsing error: {e}",
+                            "timestamp": datetime.now().isoformat()
+                        }
+                        await db["agent_runs"].update_one(
+                            {"id": run_id},
+                            {"$push": {"steps": error_step}, "$set": {"status": "failed", "completed_at": datetime.now().isoformat()}}
+                        )
+                        return
+                    messages.append({"role": "assistant", "content": str(response_text)})
+                    messages.append({"role": "user", "content": f"Error: Invalid response. {e}. Respond with a single valid JSON object."})
+
+            thought = parsed_json.get("thought", "")
+            action = parsed_json.get("action")
+            final_answer = parsed_json.get("final_answer")
+
+            thought_step = {
+                "type": "thought",
+                "content": thought,
+                "timestamp": datetime.now().isoformat()
+            }
+            await db["agent_runs"].update_one({"id": run_id}, {"$push": {"steps": thought_step}})
+            messages.append({"role": "assistant", "content": json.dumps(parsed_json)})
+
+            actions_list = []
+            if isinstance(action, list):
+                actions_list = action
+            elif isinstance(action, dict):
+                actions_list = [action]
+
+            if actions_list:
+                tasks = []
+                for act in actions_list:
+                    tool_name = act.get("tool")
+                    tool_input = act.get("input", {})
+                    logger.info("Assistant scheduling: %s with args: %s", tool_name, tool_input)
+
+                    cached_result = memory.get_cached_result(tool_name, tool_input)
+                    if cached_result:
+                        obs_step = {
+                            "type": "observation",
+                            "content": f"Cached observation of {tool_name}",
+                            "tool_called": tool_name,
+                            "tool_input": tool_input,
+                            "tool_output": cached_result,
+                            "tool_output_ref": f"cached::{tool_name}",
+                            "duration_ms": 0,
+                            "timestamp": datetime.now().isoformat()
+                        }
+                        async def dummy_cached(o_step, o_content, c_res):
+                            return o_step, o_content, c_res
+                        tasks.append(dummy_cached(obs_step, f"Cached observation of {tool_name}", cached_result))
+                    else:
+                        func = ASSISTANT_TOOL_MAPPING.get(tool_name)
+                        if not func:
+                            err_obs = {"success": False, "error": f"Tool {tool_name} is not registered."}
+                            obs_step = {
+                                "type": "observation",
+                                "content": f"Error: Tool {tool_name} not found",
+                                "tool_called": tool_name,
+                                "tool_input": tool_input,
+                                "tool_output": err_obs,
+                                "tool_output_ref": "error",
+                                "duration_ms": 0,
+                                "timestamp": datetime.now().isoformat()
+                            }
+                            async def dummy_err(o_step, o_content, e_obs):
+                                return o_step, o_content, e_obs
+                            tasks.append(dummy_err(obs_step, f"Error: Tool {tool_name} not found", err_obs))
+                        else:
+                            async def run_tool(t_name, t_input, f):
+                                t_start = time.time()
+                                try:
+                                    tool_res = await f(**t_input)
+                                except Exception as err:
+                                    tool_res = {"success": False, "error": str(err), "tool_call_id": str(uuid.uuid4())}
+                                t_duration = round((time.time() - t_start) * 1000, 2)
+                                memory.cache_result(t_name, t_input, tool_res)
+                                obs_step = {
+                                    "type": "observation",
+                                    "content": f"Completed {t_name}",
+                                    "tool_called": t_name,
+                                    "tool_input": t_input,
+                                    "tool_output": tool_res,
+                                    "tool_output_ref": tool_res.get("tool_call_id", "unknown"),
+                                    "duration_ms": int(t_duration),
+                                    "timestamp": datetime.now().isoformat()
+                                }
+                                return obs_step, f"Completed {t_name}", tool_res
+                            tasks.append(run_tool(tool_name, tool_input, func))
+
+                results = await asyncio.gather(*tasks)
+                obs_msgs = []
+                for obs_step, obs_content, tool_res in results:
+                    await db["agent_runs"].update_one({"id": run_id}, {"$push": {"steps": obs_step}})
+                    obs_msgs.append({"observation": obs_content, "data": tool_res})
+                messages.append({"role": "user", "content": json.dumps(obs_msgs)})
+
+            elif final_answer:
+                final_ans = final_answer
+                break
+            else:
+                err_step = {
+                    "type": "thought",
+                    "content": "No action or final_answer received from model.",
+                    "timestamp": datetime.now().isoformat()
+                }
+                await db["agent_runs"].update_one(
+                    {"id": run_id},
+                    {"$push": {"steps": err_step}, "$set": {"status": "failed", "completed_at": datetime.now().isoformat()}}
+                )
+                return
+
+        duration = round((time.time() - start_run_time) * 1000)
+        await db["agent_runs"].update_one(
+            {"id": run_id},
+            {"$set": {
+                "status": "completed",
+                "final_report": final_ans,
+                "completed_at": datetime.now().isoformat(),
+                "total_duration_ms": duration
+            }}
+        )
+        logger.info("Assistant run completed in %d ms: %s", duration, run_id)
+
+    except Exception as e:
+        logger.error("Error executing assistant run: %s", e, exc_info=True)
+        error_step = {
+            "type": "thought",
+            "content": f"Assistant aborted: {str(e)}",
+            "timestamp": datetime.now().isoformat()
+        }
+        await db["agent_runs"].update_one(
+            {"id": run_id},
+            {
+                "$push": {"steps": error_step},
+                "$set": {
+                    "status": "failed",
+                    "completed_at": datetime.now().isoformat(),
+                    "total_duration_ms": int((time.time() - start_run_time) * 1000)
+                }
+            }
+        )

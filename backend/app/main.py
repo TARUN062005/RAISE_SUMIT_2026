@@ -5,6 +5,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.api.routers.patients import router as patients_router
 from app.api.routers.trials import router as trials_router
 from app.api.routers.agent import router as agent_router
+from app.api.routers.assistant import router as assistant_router
 from app.db.session import client, db
 from app.core.config import settings
 
@@ -75,6 +76,7 @@ async def startup_event():
 app.include_router(patients_router, prefix="/api")
 app.include_router(trials_router, prefix="/api")
 app.include_router(agent_router, prefix="/api")
+app.include_router(assistant_router, prefix="/api")
 
 from app.api.deps import get_current_staff_user
 
