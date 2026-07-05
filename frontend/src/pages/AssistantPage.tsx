@@ -1,12 +1,11 @@
 import { useState, useEffect, useRef, type ReactElement } from "react";
-import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Bot, Send, Brain, User, Pill, Activity, BarChart3, ShieldAlert,
   FlaskConical, ClipboardList, AlertTriangle, Clock, Database,
   FileText, Filter, Search, Building2, UserCheck, Stethoscope,
   Globe, TrendingUp, XCircle, Loader2, ChevronDown,
-  ChevronUp, BarChart2, ArrowRight
+  ChevronUp, BarChart2
 } from "lucide-react";
 import { apiFetch, apiPath } from "../lib/api";
 
@@ -179,6 +178,17 @@ function DataTable({ data, columns }: { data: any[]; columns?: string[] }) {
 
   if (!data || data.length === 0) return <p className="text-xs text-text-secondary">No results found.</p>;
 
+  // Check if it's a list of primitives (strings, numbers)
+  if (data.every(item => typeof item !== "object" || item === null)) {
+    return (
+      <ul className="space-y-1.5 text-xs text-text-primary list-disc list-inside bg-bg-surface border border-border-subtle rounded-xl p-4">
+        {data.map((item, idx) => (
+          <li key={idx} className="leading-relaxed">{String(item)}</li>
+        ))}
+      </ul>
+    );
+  }
+
   let cols = columns ?? [];
   if (cols.length === 0 || !data.some(row => cols.some(col => getRowValue(row, col) !== undefined))) {
     cols = Object.keys(data[0]).filter(k => k !== "_id").slice(0, 8);
@@ -258,31 +268,78 @@ function DataTable({ data, columns }: { data: any[]; columns?: string[] }) {
   );
 }
 
+function renderObjectItem(val: any): ReactElement {
+  if (val === null || val === undefined) return <span className="text-text-secondary">—</span>;
+
+  if (typeof val !== "object") {
+    return <span className="text-text-primary font-medium">{String(val)}</span>;
+  }
+
+  if (Array.isArray(val)) {
+    if (val.length === 0) return <span className="text-text-secondary">None</span>;
+    if (typeof val[0] === "object" && val[0] !== null) {
+      return (
+        <ul className="space-y-2 list-disc list-inside text-text-primary">
+          {val.map((item, idx) => {
+            const name = item.name || item.description || item.title || item.label || item.field || "";
+            const value = item.value !== undefined ? String(item.value) : "";
+            const code = item.code ? `(Code: ${item.code})` : "";
+            const date = item.date || item.birthdate || item.created_at || "";
+            const dateFormatted = date ? `[${date.split("T")[0]}]` : "";
+
+            const details = [code, value, dateFormatted].filter(Boolean).join(" ");
+            
+            if (name || details) {
+              return (
+                <li key={idx} className="text-xs leading-relaxed">
+                  {name && <span className="font-bold text-text-primary">{name}</span>}
+                  {details && <span className="text-text-secondary ml-1.5">{details}</span>}
+                </li>
+              );
+            }
+            return <li key={idx} className="text-xs font-mono text-text-secondary">{JSON.stringify(item)}</li>;
+          })}
+        </ul>
+      );
+    }
+    return (
+      <div className="flex flex-wrap gap-1.5">
+        {val.map((item, idx) => (
+          <span key={idx} className="px-2 py-0.5 bg-bg-elevated border border-border-subtle rounded-md text-[10px] text-text-primary font-medium shadow-3xs">
+            {String(item)}
+          </span>
+        ))}
+      </div>
+    );
+  }
+
+  const entries = Object.entries(val);
+  if (entries.length === 0) return <span className="text-text-secondary">—</span>;
+  return (
+    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 w-full p-3 bg-bg-elevated/40 rounded-lg border border-border-subtle/50">
+      {entries.map(([subKey, subVal]) => (
+        <div key={subKey} className="flex gap-2 text-xs">
+          <span className="font-bold text-text-secondary min-w-[90px] shrink-0 uppercase tracking-wider text-[9px] mt-0.5">{subKey.replace(/_/g, " ")}:</span>
+          <span className="text-text-primary font-medium truncate" title={String(subVal)}>{String(subVal ?? "—")}</span>
+        </div>
+      ))}
+    </div>
+  );
+}
+
 function SummarySection({ data }: { data: Record<string, any> }) {
-  const renderValue = (v: any): string => {
-    if (v === null || v === undefined) return "—";
-    if (typeof v === "object" && !Array.isArray(v)) return JSON.stringify(v, null, 2);
-    if (Array.isArray(v)) return v.map(item => typeof item === "object" ? JSON.stringify(item) : String(item)).join(", ");
-    return String(v);
-  };
+  if (!data || typeof data !== "object") return <p className="text-xs text-text-secondary">No data available.</p>;
 
   return (
-    <div className="grid gap-2">
+    <div className="space-y-4">
       {Object.entries(data).filter(([k]) => k !== "_id").map(([key, val]) => (
-        <div key={key} className="flex gap-3 p-3 bg-bg-surface border border-border-subtle rounded-lg">
-          <span className="text-[10px] font-bold uppercase tracking-wider text-text-secondary w-32 shrink-0 pt-0.5">
+        <div key={key} className="flex flex-col gap-2 p-4 bg-bg-surface border border-border-subtle rounded-xl shadow-3xs">
+          <span className="text-[10px] font-black uppercase tracking-widest text-text-secondary border-b border-border-subtle/50 pb-1.5">
             {key.replace(/_/g, " ")}
           </span>
-          <span className="text-xs text-text-primary break-words">
-            {Array.isArray(val) ? (
-              <ul className="space-y-1">
-                {val.slice(0, 20).map((item, i) => (
-                  <li key={i} className="text-xs">{typeof item === "object" ? JSON.stringify(item) : String(item)}</li>
-                ))}
-                {val.length > 20 && <li className="text-text-secondary">+{val.length - 20} more…</li>}
-              </ul>
-            ) : renderValue(val)}
-          </span>
+          <div className="text-xs">
+            {renderObjectItem(val)}
+          </div>
         </div>
       ))}
     </div>
@@ -371,7 +428,6 @@ function ResultRenderer({ result }: { result: AssistantResult }) {
 }
 
 export default function AssistantPage() {
-  const navigate = useNavigate();
   const [query, setQuery] = useState("");
   const [runId, setRunId] = useState<string | null>(null);
   const [status, setStatus] = useState<"idle" | "running" | "completed" | "failed">("idle");
@@ -619,14 +675,6 @@ export default function AssistantPage() {
             <span className="text-[10px] font-bold uppercase tracking-wider text-text-secondary">
               {result ? "Workspace Results Profile" : "Assistant Capability Browser"}
             </span>
-            {result && result.response_type !== "refusal" && runId && (
-              <button
-                onClick={() => navigate(`/workspace/run/${runId}`)}
-                className="text-[9px] font-bold text-teal-650 hover:text-teal-700 flex items-center gap-1 border border-teal-200 hover:border-teal-300 px-2 py-0.5 rounded transition bg-teal-50 cursor-pointer"
-              >
-                Full Audit Trail <ArrowRight className="w-3 h-3" />
-              </button>
-            )}
           </div>
 
           {/* Scrollable body of Right Column */}
