@@ -138,18 +138,42 @@ def extract_first_json_object(text: str) -> dict:
     if not isinstance(text, str):
         raise ValueError("Received invalid non-string response from LLM")
     text = text.strip()
+    
+    parsed = None
     try:
-        return json.loads(text)
+        parsed = json.loads(text)
     except Exception:
-        pass
-    start_idx = text.find('{')
-    if start_idx == -1:
-        raise ValueError("No JSON object structure '{' found in response")
-    try:
-        obj, _ = json.JSONDecoder().raw_decode(text[start_idx:])
-        return obj
-    except Exception as e:
-        raise ValueError(f"Tolerant JSON extraction failed: {e}")
+        start_obj = text.find('{')
+        start_arr = text.find('[')
+        
+        start_idx = -1
+        if start_obj != -1 and start_arr != -1:
+            start_idx = min(start_obj, start_arr)
+        elif start_obj != -1:
+            start_idx = start_obj
+        elif start_arr != -1:
+            start_idx = start_arr
+            
+        if start_idx != -1:
+            try:
+                parsed, _ = json.JSONDecoder().raw_decode(text[start_idx:])
+            except Exception as e:
+                raise ValueError(f"Tolerant JSON extraction failed: {e}")
+        else:
+            raise ValueError("No JSON object or array structure found in response")
+            
+    if isinstance(parsed, list):
+        if len(parsed) > 0 and isinstance(parsed[0], dict):
+            if "thought" in parsed[0] or "action" in parsed[0] or "final_answer" in parsed[0]:
+                return parsed[0]
+            if any("tool" in act for act in parsed if isinstance(act, dict)):
+                return {"thought": "Executing action block", "action": parsed}
+        return {"thought": "Extracted list from response", "final_answer": {"response_type": "list", "title": "Query Results", "data": parsed, "summary": "Retrieved raw list data from LLM response."}}
+        
+    if isinstance(parsed, dict):
+        return parsed
+        
+    raise ValueError(f"Decoded JSON is of type {type(parsed)}, expected dict or list")
 
 async def run_agent(run_id: str, patient_id: str, trial_id: str):
     logger.info("Starting agent run: %s", run_id)
